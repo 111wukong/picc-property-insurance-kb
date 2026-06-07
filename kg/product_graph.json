@@ -1,0 +1,408 @@
+{
+  "nodes": [
+    {
+      "id": "p1",
+      "name": "财产基本险主险",
+      "fullName": "财产基本险主险",
+      "category": "财产险主险",
+      "chars": 9043,
+      "articles": 47,
+      "groupId": 1
+    },
+    {
+      "id": "p104",
+      "name": "中国人民财产保险股份有限公司商业燃气火灾爆炸泄漏财产损失保险",
+      "fullName": "中国人民财产保险股份有限公司商业燃气火灾爆炸泄漏财产损失保险（2025版）",
+      "category": "行业定制险",
+      "chars": 4893,
+      "articles": 34,
+      "groupId": 4
+    },
+    {
+      "id": "p104",
+      "name": "中国人民财产保险股份有限公司商业燃气用户财产损失保险（202",
+      "fullName": "中国人民财产保险股份有限公司商业燃气用户财产损失保险（2025版）",
+      "category": "行业定制险",
+      "chars": 5656,
+      "articles": 34,
+      "groupId": 4
+    },
+    {
+      "id": "p104",
+      "name": "中国人民财产保险股份有限公司工业燃气火灾爆炸泄漏财产损失保险",
+      "fullName": "中国人民财产保险股份有限公司工业燃气火灾爆炸泄漏财产损失保险（2025版）",
+      "category": "行业定制险",
+      "chars": 4866,
+      "articles": 34,
+      "groupId": 4
+    },
+    {
+      "id": "p104",
+      "name": "中国人民财产保险股份有限公司工业燃气火灾爆炸泄漏财产损失保险",
+      "fullName": "中国人民财产保险股份有限公司工业燃气火灾爆炸泄漏财产损失保险（2025版）",
+      "category": "行业定制险",
+      "chars": 4866,
+      "articles": 34,
+      "groupId": 4
+    },
+    {
+      "id": "p11",
+      "name": "中国人民财产保险股份有限公司高新技术企业财产一切险（2025",
+      "fullName": "中国人民财产保险股份有限公司高新技术企业财产一切险（2025版）",
+      "category": "财产险主险",
+      "chars": 8518,
+      "articles": 47,
+      "groupId": 1
+    },
+    {
+      "id": "p12",
+      "name": "中国人民财产保险股份有限公司高新技术企业财产综合险（2025",
+      "fullName": "中国人民财产保险股份有限公司高新技术企业财产综合险（2025版）",
+      "category": "财产险主险",
+      "chars": 8516,
+      "articles": 48,
+      "groupId": 1
+    },
+    {
+      "id": "p13",
+      "name": "中国人民财产保险股份有限公司高新技术企业关键研发设备损失保险",
+      "fullName": "中国人民财产保险股份有限公司高新技术企业关键研发设备损失保险（2025版）",
+      "category": "行业定制险",
+      "chars": 6612,
+      "articles": 48,
+      "groupId": 4
+    },
+    {
+      "id": "p15",
+      "name": "中国人民财产保险股份有限公司高新技术企业研发中断费用保险（2",
+      "fullName": "中国人民财产保险股份有限公司高新技术企业研发中断费用保险（2025版）",
+      "category": "行业定制险",
+      "chars": 4916,
+      "articles": 36,
+      "groupId": 4
+    },
+    {
+      "id": "p16",
+      "name": "中国人民财产保险股份有限公司计算机硬件及费用损失保险（202",
+      "fullName": "中国人民财产保险股份有限公司计算机硬件及费用损失保险（2025版）",
+      "category": "行业定制险",
+      "chars": 9391,
+      "articles": 2,
+      "groupId": 4
+    },
+    {
+      "id": "p17",
+      "name": "中国人民财产保险股份有限公司珠宝商财产损失保险（2025版）",
+      "fullName": "中国人民财产保险股份有限公司珠宝商财产损失保险（2025版）",
+      "category": "行业定制险",
+      "chars": 7771,
+      "articles": 4,
+      "groupId": 4
+    },
+    {
+      "id": "p2",
+      "name": "财产综合险主险",
+      "fullName": "财产综合险主险",
+      "category": "财产险主险",
+      "chars": 9051,
+      "articles": 47,
+      "groupId": 1
+    },
+    {
+      "id": "p22",
+      "name": "中国人民财产保险股份有限公司风电企业运营期财产损失保险（20",
+      "fullName": "中国人民财产保险股份有限公司风电企业运营期财产损失保险（2025版）条款",
+      "category": "行业定制险",
+      "chars": 9024,
+      "articles": 4,
+      "groupId": 4
+    },
+    {
+      "id": "p24",
+      "name": "中国人民财产保险股份有限公司变压器财产损失保险（2025版）",
+      "fullName": "中国人民财产保险股份有限公司变压器财产损失保险（2025版）",
+      "category": "行业定制险",
+      "chars": 7861,
+      "articles": 4,
+      "groupId": 4
+    },
+    {
+      "id": "p25",
+      "name": "上海市锅炉压力容器企业财产损失保险",
+      "fullName": "上海市锅炉压力容器企业财产损失保险",
+      "category": "其他险种",
+      "chars": 6109,
+      "articles": 43,
+      "groupId": 5
+    },
+    {
+      "id": "p26",
+      "name": "工程机械设备财产损失保险",
+      "fullName": "工程机械设备财产损失保险",
+      "category": "行业定制险",
+      "chars": 8910,
+      "articles": 50,
+      "groupId": 4
+    },
+    {
+      "id": "p27",
+      "name": "中国人民财产保险股份有限公司机场资产定制财产损失保险（202",
+      "fullName": "中国人民财产保险股份有限公司机场资产定制财产损失保险（2025版）",
+      "category": "行业定制险",
+      "chars": 17498,
+      "articles": 0,
+      "groupId": 4
+    },
+    {
+      "id": "p28",
+      "name": "中国人民财产保险股份有限公司恐怖袭击财产损失保险（适用于深圳",
+      "fullName": "中国人民财产保险股份有限公司恐怖袭击财产损失保险（适用于深圳机场）（2025版）",
+      "category": "行业定制险",
+      "chars": 7439,
+      "articles": 45,
+      "groupId": 4
+    },
+    {
+      "id": "p29",
+      "name": "文化体育产业财产损失保险",
+      "fullName": "文化体育产业财产损失保险",
+      "category": "行业定制险",
+      "chars": 1226,
+      "articles": 5,
+      "groupId": 4
+    },
+    {
+      "id": "p3",
+      "name": "财产一切险主险",
+      "fullName": "财产一切险主险",
+      "category": "财产险主险",
+      "chars": 8808,
+      "articles": 46,
+      "groupId": 1
+    },
+    {
+      "id": "p30",
+      "name": "中国人民财产保险股份有限公司仓单财产损失保险条款附加险",
+      "fullName": "中国人民财产保险股份有限公司仓单财产损失保险条款附加险",
+      "category": "行业定制险",
+      "chars": 9434,
+      "articles": 42,
+      "groupId": 4
+    },
+    {
+      "id": "p31",
+      "name": "中国人民财产保险股份有限公司观赏动物饲养馆（园）财产损失保险",
+      "fullName": "中国人民财产保险股份有限公司观赏动物饲养馆（园）财产损失保险（2025版）",
+      "category": "其他险种",
+      "chars": 7221,
+      "articles": 2,
+      "groupId": 5
+    },
+    {
+      "id": "p34",
+      "name": "中国人民财产保险股份有限公司机器人财产损失保险（2025版）",
+      "fullName": "中国人民财产保险股份有限公司机器人财产损失保险（2025版）",
+      "category": "行业定制险",
+      "chars": 7771,
+      "articles": 4,
+      "groupId": 4
+    },
+    {
+      "id": "p35",
+      "name": "中国人民财产保险股份有限公司智能网联设备财产损失保险（202",
+      "fullName": "中国人民财产保险股份有限公司智能网联设备财产损失保险（2025版）",
+      "category": "行业定制险",
+      "chars": 9167,
+      "articles": 2,
+      "groupId": 4
+    },
+    {
+      "id": "p36",
+      "name": "中国人民财产保险股份有限公司光伏电站运营期财产损失保险（20",
+      "fullName": "中国人民财产保险股份有限公司光伏电站运营期财产损失保险（2025版）",
+      "category": "行业定制险",
+      "chars": 8538,
+      "articles": 47,
+      "groupId": 4
+    },
+    {
+      "id": "p38",
+      "name": "中国人民财产保险股份有限公司住宅共用部位及共用设施设备财产损",
+      "fullName": "中国人民财产保险股份有限公司住宅共用部位及共用设施设备财产损失保险（2025版）",
+      "category": "其他险种",
+      "chars": 7317,
+      "articles": 2,
+      "groupId": 5
+    },
+    {
+      "id": "p39",
+      "name": "中国人民财产保险股份有限公司房屋整体倒塌财产损失保险（202",
+      "fullName": "中国人民财产保险股份有限公司房屋整体倒塌财产损失保险（2025版）",
+      "category": "行业定制险",
+      "chars": 4125,
+      "articles": 2,
+      "groupId": 4
+    },
+    {
+      "id": "p49",
+      "name": "中国人民财产保险股份有限公司北京市巨灾财产损失保险（2025",
+      "fullName": "中国人民财产保险股份有限公司北京市巨灾财产损失保险（2025版）",
+      "category": "行业定制险",
+      "chars": 4337,
+      "articles": 2,
+      "groupId": 4
+    },
+    {
+      "id": "p5",
+      "name": "机损险主险",
+      "fullName": "机损险主险",
+      "category": "财产险主险",
+      "chars": 9891,
+      "articles": 47,
+      "groupId": 1
+    },
+    {
+      "id": "p7",
+      "name": "营业中断保险",
+      "fullName": "营业中断保险",
+      "category": "利润损失险",
+      "chars": 6133,
+      "articles": 43,
+      "groupId": 2
+    },
+    {
+      "id": "p9",
+      "name": "现金保险",
+      "fullName": "现金保险",
+      "category": "特殊财产险",
+      "chars": 5214,
+      "articles": 4,
+      "groupId": 3
+    },
+    {
+      "id": "p97",
+      "name": "起重机械财产损失保险及附加险",
+      "fullName": "起重机械财产损失保险及附加险",
+      "category": "行业定制险",
+      "chars": 5568,
+      "articles": 38,
+      "groupId": 4
+    }
+  ],
+  "links": [
+    {
+      "source": "p12",
+      "target": "p1",
+      "type": "extends",
+      "label": "特化/扩展"
+    },
+    {
+      "source": "p16",
+      "target": "p11",
+      "type": "extends",
+      "label": "特化/扩展"
+    },
+    {
+      "source": "p17",
+      "target": "p11",
+      "type": "extends",
+      "label": "特化/扩展"
+    },
+    {
+      "source": "p2",
+      "target": "p1",
+      "type": "extends",
+      "label": "特化/扩展"
+    },
+    {
+      "source": "p22",
+      "target": "p11",
+      "type": "extends",
+      "label": "特化/扩展"
+    },
+    {
+      "source": "p27",
+      "target": "p11",
+      "type": "extends",
+      "label": "特化/扩展"
+    },
+    {
+      "source": "p28",
+      "target": "p11",
+      "type": "extends",
+      "label": "特化/扩展"
+    },
+    {
+      "source": "p29",
+      "target": "p11",
+      "type": "extends",
+      "label": "特化/扩展"
+    },
+    {
+      "source": "p3",
+      "target": "p12",
+      "type": "extends",
+      "label": "特化/扩展"
+    },
+    {
+      "source": "p30",
+      "target": "p11",
+      "type": "extends",
+      "label": "特化/扩展"
+    },
+    {
+      "source": "p36",
+      "target": "p11",
+      "type": "extends",
+      "label": "特化/扩展"
+    },
+    {
+      "source": "p39",
+      "target": "p1",
+      "type": "extends",
+      "label": "特化/扩展"
+    },
+    {
+      "source": "p49",
+      "target": "p11",
+      "type": "extends",
+      "label": "特化/扩展"
+    },
+    {
+      "source": "p5",
+      "target": "p11",
+      "type": "extends",
+      "label": "特化/扩展"
+    },
+    {
+      "source": "p97",
+      "target": "p5",
+      "type": "extends",
+      "label": "特化/扩展"
+    },
+    {
+      "source": "p2",
+      "target": "p1",
+      "type": "extends",
+      "label": "扩展覆盖"
+    },
+    {
+      "source": "p3",
+      "target": "p2",
+      "type": "extends",
+      "label": "扩展覆盖"
+    },
+    {
+      "source": "p5",
+      "target": "p1",
+      "type": "companion",
+      "label": "搭配主险"
+    },
+    {
+      "source": "p7",
+      "target": "p1",
+      "type": "depends_on",
+      "label": "依附财产险"
+    }
+  ]
+}
