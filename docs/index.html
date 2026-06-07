@@ -4,479 +4,468 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>PICC企财险知识库</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg: #FAFBFC;
-    --text: #1A1A2E;
-    --text2: #5A6178;
-    --border: #E8ECF1;
-    --card: #FFFFFF;
-    --accent: #D4380D;
-    --blue: #1D39C4;
-    --green: #237804;
-    --gold: #FAAD14;
-    --serif: 'Noto Serif SC', 'Source Han Serif SC', 'STSong', 'SimSun', 'Songti SC', serif;
-    --sans: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --ink:#1A1A1A;
+    --ink2:#5C5C5C;
+    --bg:#FBFBFB;
+    --surface:#FFFFFF;
+    --border:#E8E8E8;
+    --accent:#C0392B;
+    --accent-soft:#FFF5F5;
+    --gold:#B8860B;
+    --blue:#2563EB;
+    --green:#15803D;
+    --radius:12px;
+    --serif:'Noto Serif SC','Source Han Serif SC','STSong',Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;
   }
 
-  body {
-    font-family: var(--sans);
-    color: var(--text);
-    background: var(--bg);
-    line-height: 1.8;
-    -webkit-font-smoothing: antialiased;
+  body{
+    font-family:var(--sans);
+    color:var(--ink);
+    background:var(--bg);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;
   }
 
-  /* ===== Hero ===== */
-  .hero {
-    background: linear-gradient(160deg, #1A1A2E 0%, #2D1B2E 30%, #3D1F1F 60%, #2D1010 100%);
-    color: white;
-    padding: 72px 24px 80px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+  /* ====== Navigation ====== */
+  .nav{
+    position:sticky;top:0;z-index:100;
+    background:rgba(251,251,251,.85);backdrop-filter:blur(12px);
+    border-bottom:1px solid transparent;
+    padding:0 24px;
   }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -30%; left: -30%;
-    width: 160%; height: 160%;
-    background: radial-gradient(ellipse at 30% 50%, rgba(212,56,13,.18) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 40%, rgba(250,173,20,.08) 0%, transparent 50%);
+  .nav.scrolled{border-bottom-color:var(--border);}
+  .nav-inner{
+    max-width:1200px;margin:0 auto;
+    display:flex;justify-content:space-between;align-items:center;
+    height:56px;
   }
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 40px;
-    background: linear-gradient(to bottom, transparent, var(--bg));
+  .nav-logo{
+    font-family:var(--serif);
+    font-size:17px;font-weight:700;color:var(--accent);
+    text-decoration:none;letter-spacing:1px;
   }
-  .hero h1 {
-    font-family: var(--serif);
-    font-size: 42px;
-    font-weight: 900;
-    letter-spacing: 3px;
-    position: relative;
-    margin-bottom: 10px;
+  .nav-links{display:flex;gap:4px;}
+  .nav-links a{
+    color:var(--ink2);text-decoration:none;font-size:13px;
+    padding:6px 12px;border-radius:6px;transition:all .15s;
   }
-  .hero .subtitle {
-    font-size: 17px;
-    color: #94A3B8;
-    position: relative;
-    font-weight: 400;
-    letter-spacing: 1px;
+  .nav-links a:hover{color:var(--ink);background:#F3F3F3;}
+
+  /* ====== Hero ====== */
+  .hero{
+    padding:80px 24px 64px;
+    text-align:center;
+    max-width:680px;margin:0 auto;
   }
-  .hero .stats {
-    display: flex;
-    gap: 48px;
-    justify-content: center;
-    flex-wrap: wrap;
-    position: relative;
-    margin-top: 36px;
+  .hero-tag{
+    display:inline-block;
+    font-size:11px;font-weight:600;letter-spacing:.5px;
+    color:var(--accent);background:var(--accent-soft);
+    padding:3px 12px;border-radius:20px;
+    margin-bottom:20px;
   }
-  .hero .stat-num {
-    font-size: 38px;
-    font-weight: 700;
-    color: #FAAD14;
-    font-family: var(--serif);
+  .hero h1{
+    font-family:var(--serif);
+    font-size:40px;font-weight:900;letter-spacing:2px;
+    color:var(--ink);line-height:1.2;margin-bottom:12px;
   }
-  .hero .stat-label {
-    font-size: 12px;
-    color: #64748B;
-    margin-top: 2px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  .hero p{
+    font-size:16px;color:var(--ink2);max-width:480px;margin:0 auto 36px;
+    line-height:1.6;
   }
-    color: #94A3B8;
-    margin-top: 4px;
+  .hero-stats{
+    display:flex;justify-content:center;gap:40px;flex-wrap:wrap;
+  }
+  .hero-stat{text-align:center;}
+  .hero-stat-num{
+    font-family:var(--serif);font-size:32px;font-weight:700;
+    color:var(--ink);line-height:1.2;
+  }
+  .hero-stat-label{font-size:11px;color:var(--ink2);text-transform:uppercase;letter-spacing:.8px;margin-top:2px;}
+
+  /* ====== Container ====== */
+  .container{max-width:1000px;margin:0 auto;padding:48px 24px 72px;}
+
+  /* ====== Sections ====== */
+  .section{margin-bottom:48px;}
+  .section-title{
+    font-family:var(--serif);font-size:20px;font-weight:700;
+    color:var(--ink);margin-bottom:20px;letter-spacing:.3px;
   }
 
-  /* ===== Container ===== */
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 48px 24px 80px;
+  /* ====== Feature Cards ====== */
+  .feature-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:8px;
+  }
+  .feature-card{
+    display:block;text-decoration:none;color:var(--ink);
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:20px;
+    transition:all .2s;
+  }
+  .feature-card:hover{
+    border-color:var(--accent);
+    box-shadow:0 2px 16px rgba(192,57,43,.06);
+    transform:translateY(-1px);
+  }
+  .feature-card-icon{font-size:20px;margin-bottom:10px;}
+  .feature-card h3{font-size:14px;font-weight:600;margin-bottom:4px;}
+  .feature-card p{font-size:12px;color:var(--ink2);line-height:1.5;}
+
+  /* ====== Product List ====== */
+  .product-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+    gap:6px;
+  }
+  .product-item{
+    display:block;text-decoration:none;color:var(--ink);
+    padding:12px 16px;border-radius:8px;transition:all .15s;
+    font-size:13px;border:1px solid transparent;
+  }
+  .product-item:hover{background:var(--surface);border-color:var(--border);}
+  .product-item .pid{font-size:10px;color:var(--ink2);font-weight:500;}
+  .product-item .pname{font-weight:500;margin-top:2px;}
+  .product-item .pmeta{font-size:11px;color:#999;margin-top:2px;}
+
+  /* ====== Entity Legend ====== */
+  .legend-section{margin-top:8px;}
+  .legend-group{margin-bottom:20px;}
+  .legend-group-label{
+    font-size:11px;font-weight:600;color:var(--ink2);
+    text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;
+  }
+  .legend-pills{display:flex;flex-wrap:wrap;gap:6px;}
+  .legend-pill{
+    display:inline-flex;align-items:center;gap:4px;
+    padding:3px 10px;background:var(--surface);
+    border:1px solid var(--border);border-radius:20px;
+    font-size:11px;color:var(--ink2);
+  }
+  .legend-dot{
+    width:8px;height:8px;border-radius:50%;flex-shrink:0;
   }
 
-  /* ===== Sections ===== */
-  .section-title {
-    font-family: var(--serif);
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 20px;
-    letter-spacing: .5px;
+  /* ====== Footer ====== */
+  .footer{
+    text-align:center;padding:28px 24px;border-top:1px solid var(--border);
+    font-size:11px;color:#999;letter-spacing:.3px;
   }
+  .footer a{color:var(--blue);text-decoration:none;}
+  .footer a:hover{text-decoration:underline;}
 
-  /* ===== Product Grid ===== */
-  .product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-    gap: 10px;
-  }
-  .product-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px 20px;
-    text-decoration: none;
-    color: var(--text);
-    transition: all .25s;
-    display: block;
-  }
-  .product-card:hover {
-    border-color: var(--accent);
-    box-shadow: 0 4px 16px rgba(212,56,13,.06);
-    transform: translateY(-2px);
-  }
-  .product-card .num {
-    font-size: 11px;
-    color: var(--text2);
-    font-weight: 600;
-    letter-spacing: .5px;
-    text-transform: uppercase;
-  }
-  .product-card .name {
-    font-family: var(--serif);
-    font-size: 15px;
-    font-weight: 600;
-    margin-top: 6px;
-    line-height: 1.4;
-  }
-  .product-card .meta {
-    font-size: 12px;
-    color: #8C8C8C;
-    margin-top: 6px;
-    line-height: 1.5;
-  }
-
-  /* ===== Entity legend ===== */
-  .legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .legend-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 10px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    font-size: 12px;
-  }
-  .legend-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  /* ===== Footer ===== */
-  .footer {
-    text-align: center;
-    padding: 28px;
-    color: #8C8C8C;
-    font-size: 12px;
-    border-top: 1px solid var(--border);
-    letter-spacing: .3px;
-  }
-  .footer a { color: var(--blue); text-decoration: none; }
-  .footer a:hover { text-decoration: underline; }
-
-  @media (max-width: 768px) {
-    .hero { padding: 48px 16px 40px; }
-    .hero h1 { font-size: 28px; }
-    .hero .stats { gap: 20px; }
-    .hero .stat-num { font-size: 24px; }
-    .product-grid { grid-template-columns: 1fr; }
+  @media(max-width:768px){
+    .hero{padding:48px 20px 40px;}
+    .hero h1{font-size:28px;}
+    .hero-stats{gap:24px;}
+    .hero-stat-num{font-size:24px;}
+    .feature-grid{grid-template-columns:1fr;}
+    .product-grid{grid-template-columns:1fr;}
   }
 </style>
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 </head>
 <body>
 
-<!-- Hero -->
-<div class="hero">
-  <h1>PICC 企财险知识库</h1>
-  <p class="subtitle">让保险条款像代码一样可读、可标注、可探索</p>
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-num">32</div>
-      <div class="stat-label">险种产品</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">721</div>
-      <div class="stat-label">独立实体</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">14,028</div>
-      <div class="stat-label">实体标注</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">22</div>
-      <div class="stat-label">实体类型</div>
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">PICC 企财险知识库</a>
+    <div class="nav-links">
+      <a href="search.html">搜索</a>
+      <a href="concepts/index.html">词条</a>
+      <a href="entities/index.html">实体索引</a>
+      <a href="kg.html">图谱</a>
     </div>
   </div>
-</div>
+</nav>
 
-<!-- Main Content -->
+<header class="hero">
+  <div class="hero-tag">PROPERTY INSURANCE · KNOWLEDGE BASE</div>
+  <h1>企财险知识库</h1>
+  <p>32 个险种条款的结构化标注与可视化探索，让保险条款像代码一样可读、可查、可分析</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">32</div>
+      <div class="hero-stat-label">险种产品</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">14,028</div>
+      <div class="hero-stat-label">实体标注</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">721</div>
+      <div class="hero-stat-label">独立实体</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">22</div>
+      <div class="hero-stat-label">实体类型</div>
+    </div>
+  </div>
+</header>
+
 <div class="container">
 
-  <!-- 核心功能 -->
+  <!-- 功能入口 -->
   <div class="section">
-    <h2 class="section-title">🧭 核心功能</h2>
-    <div class="product-grid">
-      <a href="search.html" class="product-card">
-        <div class="num">🔍 全文搜索</div>
-        <div class="name">搜条款 · 搜概念 · 搜实体</div>
-        <div class="meta">65个页面全文检索，实时结果</div>
+    <h2 class="section-title">核心功能</h2>
+    <div class="feature-grid">
+      <a href="search.html" class="feature-card">
+        <div class="feature-card-icon">🔍</div>
+        <h3>全文搜索</h3>
+        <p>65 页全文索引，搜条款、概念、实体</p>
       </a>
-      <a href="concepts/index.html" class="product-card">
-        <div class="num">📚 概念词条</div>
-        <div class="name">10个核心保险概念深度解读</div>
-        <div class="meta">保险标的、免赔额、比例赔偿…</div>
+      <a href="concepts/index.html" class="feature-card">
+        <div class="feature-card-icon">📚</div>
+        <h3>概念词条</h3>
+        <p>保险标的、免赔额、比例赔偿等核心概念</p>
       </a>
-      <a href="chapters/1_财产基本险主险.html" class="product-card">
-        <div class="num">📖 标注阅读器</div>
-        <div class="name">实体标注 + 语法高亮 + Purple Numbers</div>
-        <div class="meta">22 类实体 14,000+ 次标注，段落编号可复制引用</div>
+      <a href="chapters/1_财产基本险主险.html" class="feature-card">
+        <div class="feature-card-icon">📖</div>
+        <h3>标注阅读器</h3>
+        <p>22 类实体高亮 + 段落编号 + 语法开关</p>
       </a>
-      <a href="entities/index.html" class="product-card">
-        <div class="num">📇 实体索引</div>
-        <div class="name">721 个独立实体 · 20 类分组</div>
-        <div class="meta">按类型浏览实体</div>
+      <a href="entities/index.html" class="feature-card">
+        <div class="feature-card-icon">📇</div>
+        <h3>实体索引</h3>
+        <p>721 个实体按 20 类分组浏览</p>
       </a>
-      <div class="product-card">
-        <div class="num">⚙️ 高亮开关</div>
-        <div class="name">语法高亮切换 + 偏好记忆</div>
-        <div class="meta">齿轮按钮一键开关，localStorage 持久化</div>
-      </div>
-      <a href="kg.html" class="product-card">
-        <div class="num">🕸️ 知识图谱</div>
-        <div class="name">险种关系网络 + 覆盖矩阵</div>
-        <div class="meta">D3.js 力导向图 + 热力图</div>
+      <a href="kg.html" class="feature-card">
+        <div class="feature-card-icon">🕸</div>
+        <h3>关系图谱</h3>
+        <p>32 节点力导向网络 + 交互式关系</p>
+      </a>
+      <a href="coverage.html" class="feature-card">
+        <div class="feature-card-icon">📊</div>
+        <h3>覆盖矩阵</h3>
+        <p>32×30 热力图，一览各险种承保范围</p>
       </a>
     </div>
   </div>
 
   <!-- 险种列表 -->
   <div class="section">
-    <h2 class="section-title">📋 险种目录</h2>
+    <h2 class="section-title">险种目录</h2>
     <div class="product-grid" id="product-list">
-      <a href="chapters/1_%E8%B4%A2%E4%BA%A7%E5%9F%BA%E6%9C%AC%E9%99%A9%E4%B8%BB%E9%99%A9.html" class="product-card">
-        <div class="num">#1</div>
-        <div class="name">财产基本险主险</div>
-        <div class="meta">9,043 字符 | 47 条</div>
+      <!-- Generated statically earlier, preserved below -->
+      <a href="chapters/1_%E8%B4%A2%E4%BA%A7%E5%9F%BA%E6%9C%AC%E9%99%A9%E4%B8%BB%E9%99%A9.html" class="product-item">
+        <div class="pid">#1</div>
+        <div class="pname">财产基本险主险</div>
+        <div class="pmeta">9,043 字符 | 47 条</div>
       </a>
-      <a href="chapters/104_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E5%95%86%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-card">
-        <div class="num">#104</div>
-        <div class="name">中国人民财产保险股份有限公司商业燃气火灾爆炸泄漏财产损失保险（2025版）</div>
-        <div class="meta">4,893 字符 | 34 条</div>
+      <a href="chapters/2_%E8%B4%A2%E4%BA%A7%E7%BB%BC%E5%90%88%E9%99%A9%E4%B8%BB%E9%99%A9.html" class="product-item">
+        <div class="pid">#2</div>
+        <div class="pname">财产综合险主险</div>
+        <div class="pmeta">9,051 字符 | 47 条</div>
       </a>
-      <a href="chapters/104_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E5%95%86%E4%B8%9A%E7%87%83%E6%B0%94%E7%94%A8%E6%88%B7%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-card">
-        <div class="num">#104</div>
-        <div class="name">中国人民财产保险股份有限公司商业燃气用户财产损失保险（2025版）</div>
-        <div class="meta">5,656 字符 | 34 条</div>
+      <a href="chapters/3_%E8%B4%A2%E4%BA%A7%E4%B8%80%E5%88%87%E9%99%A9%E4%B8%BB%E9%99%A9.html" class="product-item">
+        <div class="pid">#3</div>
+        <div class="pname">财产一切险主险</div>
+        <div class="pmeta">8,808 字符 | 46 条</div>
       </a>
-      <a href="chapters/104_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E5%B7%A5%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-card">
-        <div class="num">#104</div>
-        <div class="name">中国人民财产保险股份有限公司工业燃气火灾爆炸泄漏财产损失保险（2025版）</div>
-        <div class="meta">4,866 字符 | 34 条</div>
+      <a href="chapters/5_%E6%9C%BA%E6%8D%9F%E9%99%A9%E4%B8%BB%E9%99%A9.html" class="product-item">
+        <div class="pid">#5</div>
+        <div class="pname">机损险主险</div>
+        <div class="pmeta">9,891 字符 | 47 条</div>
       </a>
-      <a href="chapters/104_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E5%B7%A5%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-card">
-        <div class="num">#104</div>
-        <div class="name">中国人民财产保险股份有限公司工业燃气火灾爆炸泄漏财产损失保险（2025版）</div>
-        <div class="meta">4,866 字符 | 34 条</div>
+      <a href="chapters/7_%E8%90%A5%E4%B8%9A%E4%B8%AD%E6%96%AD%E4%BF%9D%E9%99%A9.html" class="product-item">
+        <div class="pid">#7</div>
+        <div class="pname">营业中断保险</div>
+        <div class="pmeta">6,133 字符 | 43 条</div>
       </a>
-      <a href="chapters/11_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E9%AB%98%E6%96%B0%E6%8A%80%E6%9C%AF%E4%BC%81%E4%B8%9A%E8%B4%A2%E4%BA%A7%E4%B8%80%E5%88%87%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-card">
-        <div class="num">#11</div>
-        <div class="name">中国人民财产保险股份有限公司高新技术企业财产一切险（2025版）</div>
-        <div class="meta">8,518 字符 | 47 条</div>
+      <a href="chapters/9_%E7%8E%B0%E9%87%91%E4%BF%9D%E9%99%A9.html" class="product-item">
+        <div class="pid">#9</div>
+        <div class="pname">现金保险</div>
+        <div class="pmeta">5,214 字符 | 4 条</div>
       </a>
-      <a href="chapters/12_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E9%AB%98%E6%96%B0%E6%8A%80%E6%9C%AF%E4%BC%81%E4%B8%9A%E8%B4%A2%E4%BA%A7%E7%BB%BC%E5%90%88%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-card">
-        <div class="num">#12</div>
-        <div class="name">中国人民财产保险股份有限公司高新技术企业财产综合险（2025版）</div>
-        <div class="meta">8,516 字符 | 48 条</div>
+      <a href="chapters/11_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E9%AB%98%E6%96%B0%E6%8A%80%E6%9C%AF%E4%BC%81%E4%B8%9A%E8%B4%A2%E4%BA%A7%E4%B8%80%E5%88%87%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-item">
+        <div class="pid">#11</div>
+        <div class="pname">高新技术企业财产一切险</div>
+        <div class="pmeta">8,518 字符 | 47 条</div>
       </a>
-      <a href="chapters/13_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E9%AB%98%E6%96%B0%E6%8A%80%E6%9C%AF%E4%BC%81%E4%B8%9A%E5%85%B3%E9%94%AE%E7%A0%94%E5%8F%91%E8%AE%BE%E5%A4%87%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-card">
-        <div class="num">#13</div>
-        <div class="name">中国人民财产保险股份有限公司高新技术企业关键研发设备损失保险（2025版）</div>
-        <div class="meta">6,612 字符 | 48 条</div>
+      <a href="chapters/12_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E9%AB%98%E6%96%B0%E6%8A%80%E6%9C%AF%E4%BC%81%E4%B8%9A%E8%B4%A2%E4%BA%A7%E7%BB%BC%E5%90%88%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-item">
+        <div class="pid">#12</div>
+        <div class="pname">高新技术企业财产综合险</div>
+        <div class="pmeta">8,516 字符 | 48 条</div>
       </a>
-      <a href="chapters/15_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E9%AB%98%E6%96%B0%E6%8A%80%E6%9C%AF%E4%BC%81%E4%B8%9A%E7%A0%94%E5%8F%91%E4%B8%AD%E6%96%AD%E8%B4%B9%E7%94%A8%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-card">
-        <div class="num">#15</div>
-        <div class="name">中国人民财产保险股份有限公司高新技术企业研发中断费用保险（2025版）</div>
-        <div class="meta">4,916 字符 | 36 条</div>
+      <a href="chapters/13_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E9%AB%98%E6%96%B0%E6%8A%80%E6%9C%AF%E4%BC%81%E4%B8%9A%E5%85%B3%E9%94%AE%E7%A0%94%E5%8F%91%E8%AE%BE%E5%A4%87%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-item">
+        <div class="pid">#13</div>
+        <div class="pname">关键研发设备损失保险</div>
+        <div class="pmeta">6,612 字符 | 48 条</div>
       </a>
-      <a href="chapters/16_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A1%AC%E4%BB%B6%E5%8F%8A%E8%B4%B9%E7%94%A8%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-card">
-        <div class="num">#16</div>
-        <div class="name">中国人民财产保险股份有限公司计算机硬件及费用损失保险（2025版）</div>
-        <div class="meta">9,391 字符 | 2 条</div>
+      <a href="chapters/15_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E9%AB%98%E6%96%B0%E6%8A%80%E6%9C%AF%E4%BC%81%E4%B8%9A%E7%A0%94%E5%8F%91%E4%B8%AD%E6%96%AD%E8%B4%B9%E7%94%A8%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-item">
+        <div class="pid">#15</div>
+        <div class="pname">研发中断费用保险</div>
+        <div class="pmeta">4,916 字符 | 36 条</div>
       </a>
-      <a href="chapters/17_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E7%8F%A0%E5%AE%9D%E5%95%86%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-card">
-        <div class="num">#17</div>
-        <div class="name">中国人民财产保险股份有限公司珠宝商财产损失保险（2025版）</div>
-        <div class="meta">7,771 字符 | 4 条</div>
+      <a href="chapters/16_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A1%AC%E4%BB%B6%E5%8F%8A%E8%B4%B9%E7%94%A8%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-item">
+        <div class="pid">#16</div>
+        <div class="pname">计算机硬件及费用损失保险</div>
+        <div class="pmeta">9,391 字符 | 2 条</div>
       </a>
-      <a href="chapters/2_%E8%B4%A2%E4%BA%A7%E7%BB%BC%E5%90%88%E9%99%A9%E4%B8%BB%E9%99%A9.html" class="product-card">
-        <div class="num">#2</div>
-        <div class="name">财产综合险主险</div>
-        <div class="meta">9,051 字符 | 47 条</div>
+      <a href="chapters/17_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E7%8F%A0%E5%AE%9D%E5%95%86%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-item">
+        <div class="pid">#17</div>
+        <div class="pname">珠宝商财产损失保险</div>
+        <div class="pmeta">7,771 字符 | 4 条</div>
       </a>
-      <a href="chapters/22_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E9%A3%8E%E7%94%B5%E4%BC%81%E4%B8%9A%E8%BF%90%E8%90%A5%E6%9C%9F%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89%E6%9D%A1%E6%AC%BE.html" class="product-card">
-        <div class="num">#22</div>
-        <div class="name">中国人民财产保险股份有限公司风电企业运营期财产损失保险（2025版）条款</div>
-        <div class="meta">9,024 字符 | 4 条</div>
+      <a href="chapters/22_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E9%A3%8E%E7%94%B5%E4%BC%81%E4%B8%9A%E8%BF%90%E8%90%A5%E6%9C%9F%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89%E6%9D%A1%E6%AC%BE.html" class="product-item">
+        <div class="pid">#22</div>
+        <div class="pname">风电企业财产损失保险</div>
+        <div class="pmeta">9,024 字符 | 4 条</div>
       </a>
-      <a href="chapters/24_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E5%8F%98%E5%8E%8B%E5%99%A8%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-card">
-        <div class="num">#24</div>
-        <div class="name">中国人民财产保险股份有限公司变压器财产损失保险（2025版）</div>
-        <div class="meta">7,861 字符 | 4 条</div>
+      <a href="chapters/24_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E5%8F%98%E5%8E%8B%E5%99%A8%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-item">
+        <div class="pid">#24</div>
+        <div class="pname">变压器财产损失保险</div>
+        <div class="pmeta">7,861 字符 | 4 条</div>
       </a>
-      <a href="chapters/25_%E4%B8%8A%E6%B5%B7%E5%B8%82%E9%94%85%E7%82%89%E5%8E%8B%E5%8A%9B%E5%AE%B9%E5%99%A8%E4%BC%81%E4%B8%9A%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.html" class="product-card">
-        <div class="num">#25</div>
-        <div class="name">上海市锅炉压力容器企业财产损失保险</div>
-        <div class="meta">6,109 字符 | 43 条</div>
+      <a href="chapters/25_%E4%B8%8A%E6%B5%B7%E5%B8%82%E9%94%85%E7%82%89%E5%8E%8B%E5%8A%9B%E5%AE%B9%E5%99%A8%E4%BC%81%E4%B8%9A%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.html" class="product-item">
+        <div class="pid">#25</div>
+        <div class="pname">锅炉压力容器财产损失保险</div>
+        <div class="pmeta">6,109 字符 | 43 条</div>
       </a>
-      <a href="chapters/26_%E5%B7%A5%E7%A8%8B%E6%9C%BA%E6%A2%B0%E8%AE%BE%E5%A4%87%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.html" class="product-card">
-        <div class="num">#26</div>
-        <div class="name">工程机械设备财产损失保险</div>
-        <div class="meta">8,910 字符 | 50 条</div>
+      <a href="chapters/26_%E5%B7%A5%E7%A8%8B%E6%9C%BA%E6%A2%B0%E8%AE%BE%E5%A4%87%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.html" class="product-item">
+        <div class="pid">#26</div>
+        <div class="pname">工程机械设备财产损失保险</div>
+        <div class="pmeta">8,910 字符 | 50 条</div>
       </a>
-      <a href="chapters/27_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E6%9C%BA%E5%9C%BA%E8%B5%84%E4%BA%A7%E5%AE%9A%E5%88%B6%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-card">
-        <div class="num">#27</div>
-        <div class="name">中国人民财产保险股份有限公司机场资产定制财产损失保险（2025版）</div>
-        <div class="meta">17,498 字符 | 0 条</div>
+      <a href="chapters/27_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E6%9C%BA%E5%9C%BA%E8%B5%84%E4%BA%A7%E5%AE%9A%E5%88%B6%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-item">
+        <div class="pid">#27</div>
+        <div class="pname">机场资产定制财产损失保险</div>
+        <div class="pmeta">17,498 字符 | 0 条</div>
       </a>
-      <a href="chapters/28_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E6%81%90%E6%80%96%E8%A2%AD%E5%87%BB%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%88%E9%80%82%E7%94%A8%E4%BA%8E%E6%B7%B1%E5%9C%B3%E6%9C%BA%E5%9C%BA%EF%BC%89%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-card">
-        <div class="num">#28</div>
-        <div class="name">中国人民财产保险股份有限公司恐怖袭击财产损失保险（适用于深圳机场）（2025版）</div>
-        <div class="meta">7,439 字符 | 45 条</div>
+      <a href="chapters/28_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E6%81%90%E6%80%96%E8%A2%AD%E5%87%BB%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%88%E9%80%82%E7%94%A8%E4%BA%8E%E6%B7%B1%E5%9C%B3%E6%9C%BA%E5%9C%BA%EF%BC%89%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-item">
+        <div class="pid">#28</div>
+        <div class="pname">恐怖袭击财产损失保险</div>
+        <div class="pmeta">7,439 字符 | 45 条</div>
       </a>
-      <a href="chapters/29_%E6%96%87%E5%8C%96%E4%BD%93%E8%82%B2%E4%BA%A7%E4%B8%9A%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.html" class="product-card">
-        <div class="num">#29</div>
-        <div class="name">文化体育产业财产损失保险</div>
-        <div class="meta">1,226 字符 | 5 条</div>
+      <a href="chapters/29_%E6%96%87%E5%8C%96%E4%BD%93%E8%82%B2%E4%BA%A7%E4%B8%9A%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.html" class="product-item">
+        <div class="pid">#29</div>
+        <div class="pname">文化体育产业财产损失保险</div>
+        <div class="pmeta">1,226 字符 | 5 条</div>
       </a>
-      <a href="chapters/3_%E8%B4%A2%E4%BA%A7%E4%B8%80%E5%88%87%E9%99%A9%E4%B8%BB%E9%99%A9.html" class="product-card">
-        <div class="num">#3</div>
-        <div class="name">财产一切险主险</div>
-        <div class="meta">8,808 字符 | 46 条</div>
+      <a href="chapters/30_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E4%BB%93%E5%8D%95%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%E6%9D%A1%E6%AC%BE%E9%99%84%E5%8A%A0%E9%99%A9.html" class="product-item">
+        <div class="pid">#30</div>
+        <div class="pname">仓单财产损失保险</div>
+        <div class="pmeta">9,434 字符 | 42 条</div>
       </a>
-      <a href="chapters/30_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E4%BB%93%E5%8D%95%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%E6%9D%A1%E6%AC%BE%E9%99%84%E5%8A%A0%E9%99%A9.html" class="product-card">
-        <div class="num">#30</div>
-        <div class="name">中国人民财产保险股份有限公司仓单财产损失保险条款附加险</div>
-        <div class="meta">9,434 字符 | 42 条</div>
+      <a href="chapters/31_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E8%A7%82%E8%B5%8F%E5%8A%A8%E7%89%A9%E9%A5%B2%E5%85%BB%E9%A6%86%EF%BC%88%E5%9B%AD%EF%BC%89%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-item">
+        <div class="pid">#31</div>
+        <div class="pname">观赏动物饲养馆财产损失保险</div>
+        <div class="pmeta">7,221 字符 | 2 条</div>
       </a>
-      <a href="chapters/31_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E8%A7%82%E8%B5%8F%E5%8A%A8%E7%89%A9%E9%A5%B2%E5%85%BB%E9%A6%86%EF%BC%88%E5%9B%AD%EF%BC%89%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-card">
-        <div class="num">#31</div>
-        <div class="name">中国人民财产保险股份有限公司观赏动物饲养馆（园）财产损失保险（2025版）</div>
-        <div class="meta">7,221 字符 | 2 条</div>
+      <a href="chapters/34_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-item">
+        <div class="pid">#34</div>
+        <div class="pname">机器人财产损失保险</div>
+        <div class="pmeta">7,771 字符 | 4 条</div>
       </a>
-      <a href="chapters/34_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-card">
-        <div class="num">#34</div>
-        <div class="name">中国人民财产保险股份有限公司机器人财产损失保险（2025版）</div>
-        <div class="meta">7,771 字符 | 4 条</div>
+      <a href="chapters/35_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E6%99%BA%E8%83%BD%E7%BD%91%E8%81%94%E8%AE%BE%E5%A4%87%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-item">
+        <div class="pid">#35</div>
+        <div class="pname">智能网联设备财产损失保险</div>
+        <div class="pmeta">9,167 字符 | 2 条</div>
       </a>
-      <a href="chapters/35_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E6%99%BA%E8%83%BD%E7%BD%91%E8%81%94%E8%AE%BE%E5%A4%87%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-card">
-        <div class="num">#35</div>
-        <div class="name">中国人民财产保险股份有限公司智能网联设备财产损失保险（2025版）</div>
-        <div class="meta">9,167 字符 | 2 条</div>
+      <a href="chapters/36_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E5%85%89%E4%BC%8F%E7%94%B5%E7%AB%99%E8%BF%90%E8%90%A5%E6%9C%9F%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-item">
+        <div class="pid">#36</div>
+        <div class="pname">光伏电站财产损失保险</div>
+        <div class="pmeta">8,538 字符 | 47 条</div>
       </a>
-      <a href="chapters/36_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E5%85%89%E4%BC%8F%E7%94%B5%E7%AB%99%E8%BF%90%E8%90%A5%E6%9C%9F%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-card">
-        <div class="num">#36</div>
-        <div class="name">中国人民财产保险股份有限公司光伏电站运营期财产损失保险（2025版）</div>
-        <div class="meta">8,538 字符 | 47 条</div>
+      <a href="chapters/38_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E4%BD%8F%E5%AE%85%E5%85%B1%E7%94%A8%E9%83%A8%E4%BD%8D%E5%8F%8A%E5%85%B1%E7%94%A8%E8%AE%BE%E6%96%BD%E8%AE%BE%E5%A4%87%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-item">
+        <div class="pid">#38</div>
+        <div class="pname">住宅共用部位财产损失保险</div>
+        <div class="pmeta">7,317 字符 | 2 条</div>
       </a>
-      <a href="chapters/38_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E4%BD%8F%E5%AE%85%E5%85%B1%E7%94%A8%E9%83%A8%E4%BD%8D%E5%8F%8A%E5%85%B1%E7%94%A8%E8%AE%BE%E6%96%BD%E8%AE%BE%E5%A4%87%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-card">
-        <div class="num">#38</div>
-        <div class="name">中国人民财产保险股份有限公司住宅共用部位及共用设施设备财产损失保险（2025版）</div>
-        <div class="meta">7,317 字符 | 2 条</div>
+      <a href="chapters/39_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E6%88%BF%E5%B1%8B%E6%95%B4%E4%BD%93%E5%80%92%E5%A1%8C%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-item">
+        <div class="pid">#39</div>
+        <div class="pname">房屋整体倒塌财产损失保险</div>
+        <div class="pmeta">4,125 字符 | 2 条</div>
       </a>
-      <a href="chapters/39_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E6%88%BF%E5%B1%8B%E6%95%B4%E4%BD%93%E5%80%92%E5%A1%8C%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-card">
-        <div class="num">#39</div>
-        <div class="name">中国人民财产保险股份有限公司房屋整体倒塌财产损失保险（2025版）</div>
-        <div class="meta">4,125 字符 | 2 条</div>
+      <a href="chapters/49_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E5%8C%97%E4%BA%AC%E5%B8%82%E5%B7%A8%E7%81%BE%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-item">
+        <div class="pid">#49</div>
+        <div class="pname">北京市巨灾财产损失保险</div>
+        <div class="pmeta">4,337 字符 | 2 条</div>
       </a>
-      <a href="chapters/49_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E5%8C%97%E4%BA%AC%E5%B8%82%E5%B7%A8%E7%81%BE%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-card">
-        <div class="num">#49</div>
-        <div class="name">中国人民财产保险股份有限公司北京市巨灾财产损失保险（2025版）</div>
-        <div class="meta">4,337 字符 | 2 条</div>
+      <a href="chapters/97_%E8%B5%B7%E9%87%8D%E6%9C%BA%E6%A2%B0%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%E5%8F%8A%E9%99%84%E5%8A%A0%E9%99%A9.html" class="product-item">
+        <div class="pid">#97</div>
+        <div class="pname">起重机械财产损失保险</div>
+        <div class="pmeta">5,568 字符 | 38 条</div>
       </a>
-      <a href="chapters/5_%E6%9C%BA%E6%8D%9F%E9%99%A9%E4%B8%BB%E9%99%A9.html" class="product-card">
-        <div class="num">#5</div>
-        <div class="name">机损险主险</div>
-        <div class="meta">9,891 字符 | 47 条</div>
+      <a href="chapters/104_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E5%95%86%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-item">
+        <div class="pid">#104</div>
+        <div class="pname">商业燃气火灾爆炸泄漏保险</div>
+        <div class="pmeta">4,893 字符 | 34 条</div>
       </a>
-      <a href="chapters/7_%E8%90%A5%E4%B8%9A%E4%B8%AD%E6%96%AD%E4%BF%9D%E9%99%A9.html" class="product-card">
-        <div class="num">#7</div>
-        <div class="name">营业中断保险</div>
-        <div class="meta">6,133 字符 | 43 条</div>
+      <a href="chapters/104_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E5%95%86%E4%B8%9A%E7%87%83%E6%B0%94%E7%94%A8%E6%88%B7%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-item">
+        <div class="pid">#104</div>
+        <div class="pname">商业燃气用户财产损失保险</div>
+        <div class="pmeta">5,656 字符 | 34 条</div>
       </a>
-      <a href="chapters/9_%E7%8E%B0%E9%87%91%E4%BF%9D%E9%99%A9.html" class="product-card">
-        <div class="num">#9</div>
-        <div class="name">现金保险</div>
-        <div class="meta">5,214 字符 | 4 条</div>
-      </a>
-      <a href="chapters/97_%E8%B5%B7%E9%87%8D%E6%9C%BA%E6%A2%B0%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%E5%8F%8A%E9%99%84%E5%8A%A0%E9%99%A9.html" class="product-card">
-        <div class="num">#97</div>
-        <div class="name">起重机械财产损失保险及附加险</div>
-        <div class="meta">5,568 字符 | 38 条</div>
+      <a href="chapters/104_%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%E5%B7%A5%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.html" class="product-item">
+        <div class="pid">#104</div>
+        <div class="pname">工业燃气火灾爆炸泄漏保险</div>
+        <div class="pmeta">4,866 字符 | 34 条</div>
       </a>
     </div>
   </div>
 
-  <!-- 标注体系 -->
-  <div class="section">
-    <h2 class="section-title">🏷️ 22类实体标注体系</h2>
-    <p style="color:var(--text2);margin-bottom:16px;">所有条款正文按保险专业维度进行实体标注，支持语法高亮阅读和知识图谱探索。</p>
-
-    <h3 style="font-size:16px;color:var(--blue);margin:16px 0 8px;">条款结构（8类）</h3>
-    <div class="legend">
-      <span class="legend-item"><span class="legend-dot" style="background:#D4380D"></span> @险种名</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#1D39C4"></span> §章节</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#531DAB"></span> ¶条目</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#595959"></span> №备案号</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#FA8C16"></span> ＋附加险</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#EB2F96"></span> ≡特别约定</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#08979C"></span> ↗版本引用</span>
+  <!-- 实体标注体系 -->
+  <div class="section legend-section">
+    <h2 class="section-title">22 类实体标注体系</h2>
+    <div class="legend-group">
+      <div class="legend-group-label">条款结构</div>
+      <div class="legend-pills">
+        <span class="legend-pill"><span class="legend-dot" style="background:#D4380D"></span> @险种名</span>
+        <span class="legend-pill"><span class="legend-dot" style="background:#1D39C4"></span> §章节</span>
+        <span class="legend-pill"><span class="legend-dot" style="background:#531DAB"></span> ¶条目</span>
+        <span class="legend-pill"><span class="legend-dot" style="background:#595959"></span> №备案号</span>
+        <span class="legend-pill"><span class="legend-dot" style="background:#FA8C16"></span> ＋附加险</span>
+        <span class="legend-pill"><span class="legend-dot" style="background:#EB2F96"></span> ≡特别约定</span>
+        <span class="legend-pill"><span class="legend-dot" style="background:#08979C"></span> ↗版本引用</span>
+      </div>
     </div>
-
-    <h3 style="font-size:16px;color:var(--blue);margin:20px 0 8px;">保险核心概念（10类）</h3>
-    <div class="legend">
-      <span class="legend-item"><span class="legend-dot" style="background:#237804"></span> ☐保险标的</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#FAAD14"></span> ⚡保险责任</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#FF4D4F"></span> ✕责任免除</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#13C2C2"></span> $保险金额</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#F759AB"></span> %免赔额</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#2F54EB"></span> ⏱保险期间</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#722ED1"></span> ¥费率</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#FA541C"></span> ⛓赔偿处理</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#A0D911"></span> ◈义务条款</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#597EF7"></span> ⚖定义条款</span>
+    <div class="legend-group">
+      <div class="legend-group-label">保险核心概念</div>
+      <div class="legend-pills">
+        <span class="legend-pill"><span class="legend-dot" style="background:#237804"></span> ☐保险标的</span>
+        <span class="legend-pill"><span class="legend-dot" style="background:#FAAD14"></span> ⚡保险责任</span>
+        <span class="legend-pill"><span class="legend-dot" style="background:#FF4D4F"></span> ✕责任免除</span>
+        <span class="legend-pill"><span class="legend-dot" style="background:#13C2C2"></span> $保险金额</span>
+        <span class="legend-pill"><span class="legend-dot" style="background:#F759AB"></span> %免赔额</span>
+        <span class="legend-pill"><span class="legend-dot" style="background:#2F54EB"></span> ⏱保险期间</span>
+        <span class="legend-pill"><span class="legend-dot" style="background:#722ED1"></span> ¥费率</span>
+        <span class="legend-pill"><span class="legend-dot" style="background:#FA541C"></span> ⛓赔偿处理</span>
+        <span class="legend-pill"><span class="legend-dot" style="background:#A0D911"></span> ◈义务条款</span>
+        <span class="legend-pill"><span class="legend-dot" style="background:#597EF7"></span> ⚖定义条款</span>
+      </div>
     </div>
-
-    <h3 style="font-size:16px;color:var(--blue);margin:20px 0 8px;">合同主体与单据（5类）</h3>
-    <div class="legend">
-      <span class="legend-item"><span class="legend-dot" style="background:#5B8C00"></span> ▶投保人</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#096DD9"></span> ◀保险人</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#7CB305"></span> ◆被保险人</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#AD8B00"></span> 📋合同单据</span>
-      <span class="legend-item"><span class="legend-dot" style="background:#C41D7F"></span> ▣第三方</span>
+    <div class="legend-group">
+      <div class="legend-group-label">合同主体</div>
+      <div class="legend-pills">
+        <span class="legend-pill"><span class="legend-dot" style="background:#5B8C00"></span> ▶投保人</span>
+        <span class="legend-pill"><span class="legend-dot" style="background:#096DD9"></span> ◀保险人</span>
+        <span class="legend-pill"><span class="legend-dot" style="background:#7CB305"></span> ◆被保险人</span>
+        <span class="legend-pill"><span class="legend-dot" style="background:#AD8B00"></span> 📋合同单据</span>
+        <span class="legend-pill"><span class="legend-dot" style="background:#C41D7F"></span> ▣第三方</span>
+      </div>
     </div>
   </div>
 
 </div>
 
-<div class="footer">
-  <p>PICC企财险知识库 — 基于 <a href="https://github.com/111wukong/picc-property-insurance-kb">GitHub</a> 开源</p>
-  <p style="margin-top:4px;">许可证：CC BY-NC-SA 4.0</p>
-</div>
+<footer class="footer">
+  <p>PICC企财险知识库 · <a href="https://github.com/111wukong/picc-property-insurance-kb">GitHub</a> · CC BY-NC-SA 4.0</p>
+</footer>
 
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>10);
+});
+</script>
 </body>
 </html>

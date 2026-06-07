@@ -219,9 +219,9 @@ def render_markdown_to_html(md_text, title=None, chapter_index=None, prev_chapte
   * {{ box-sizing: border-box; margin: 0; padding: 0; }}
 
   :root {{
-    --bg: #FAFBFC;
-    --text: #1A1A2E;
-    --text2: #5A6178;
+    --bg: #FBFBFB;
+    --text: #1A1A1A;
+    --text2: #5C5C5C;
     --border: #E8ECF1;
     --card: #FFFFFF;
     --accent: #D4380D;
