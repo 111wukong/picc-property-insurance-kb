@@ -52,17 +52,23 @@ def main():
     with open(CORPUS_DIR / 'index.json', 'r') as f:
         index = json.load(f)
 
-    # 构建产品列表用于导航
+    # 构建产品列表用于导航（按数字ID排序）
     products = []
     for p in index['products']:
         safe_name = p['product_name'].replace('/', '_').replace('\\', '_')
         filename = f"{p['product_id']}_{safe_name}.html"
+        try:
+            num_id = int(p['product_id'])
+        except ValueError:
+            num_id = 9999
         products.append({
             'id': p['product_id'],
             'name': p['product_name'][:40],
             'filename': filename,
             'path': f"chapters/{urllib.parse.quote(filename)}",
+            'sort_key': num_id,
         })
+    products.sort(key=lambda x: x['sort_key'])
 
     built = 0
     tagged_count = 0

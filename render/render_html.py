@@ -121,7 +121,9 @@ def render_markdown_to_html(md_text, title=None, chapter_index=None, prev_chapte
         elif stripped.startswith('### '):
             h3_text = stripped[4:].strip()
             body_lines.append(f'<h3>{html_escape(h3_text)}</h3>')
-        elif stripped.startswith('- ') or stripped.startswith('* '):
+        elif stripped.startswith('<table') or stripped.startswith('<thead') or stripped.startswith('<tbody') or stripped.startswith('<tr') or stripped.startswith('<td') or stripped.startswith('<th') or stripped.startswith('</table') or stripped.startswith('</tr') or stripped.startswith('</td') or stripped.startswith('</th') or stripped.startswith('</thead') or stripped.startswith('</tbody'):
+            # HTML表格直通
+            body_lines.append(stripped)
             item_text = stripped[2:].strip()
             rendered = render_paragraph(item_text)
             body_lines.append(f'<li>{rendered}</li>')
@@ -423,6 +425,31 @@ def render_markdown_to_html(md_text, title=None, chapter_index=None, prev_chapte
     font-family: var(--sans);
   }}
   .page-footer a {{ color: var(--blue); }}
+
+  /* ===== 表格 ===== */
+  table {{
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }}
+  table th {{
+    background: #1D39C4;
+    color: white;
+    padding: 8px 14px;
+    text-align: center;
+    font-weight: 600;
+    font-family: var(--sans);
+  }}
+  table td {{
+    padding: 8px 14px;
+    text-align: center;
+    border: 1px solid var(--border);
+    font-family: var(--sans);
+  }}
+  table tr:nth-child(even) {{ background: #F8F9FC; }}
+  table tr:hover {{ background: #EBF0FA; }}
+  .rate-table {{ max-width: 400px; }}
 
   /* ===== 响应式 ===== */
   @media (max-width: 900px) {{
