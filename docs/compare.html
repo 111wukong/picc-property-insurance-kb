@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>险种对比 — PICC企财险知识库</title>
+<meta name="description" content="并排对比两个企财险产品的保险责任、责任免除和条款差异">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1A1A1A;--ink2:#5C5C5C;--bg:#FBFBFB;--surface:#FFFFFF;
+  --border:#E8E8E8;--accent:#C0392B;--blue:#2563EB;
+  --serif:'Noto Serif SC',Georgia,serif;
+  --sans:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;
+}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg);padding:24px;-webkit-font-smoothing:antialiased;}
+.container{max-width:1100px;margin:0 auto;}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;flex-wrap:wrap;gap:12px;}
+.header h1{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--ink);}
+.header nav{display:flex;gap:8px;}
+.header nav a{color:var(--ink2);text-decoration:none;font-size:12px;padding:5px 12px;border:1px solid var(--border);border-radius:6px;transition:all .15s;}
+.header nav a:hover{color:var(--accent);border-color:var(--accent);}
+.selectors{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;margin-bottom:32px;}
+select{padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;background:var(--surface);cursor:pointer;outline:none;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath d='M2 4l4 4 4-4' fill='none' stroke='%235C5C5C' stroke-width='2'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px;}
+select:focus{border-color:var(--accent);}
+.vs{text-align:center;font-family:var(--serif);font-size:16px;font-weight:700;color:var(--ink2);}
+
+.comparison-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:24px;}
+.col-header{padding:16px 20px;font-weight:700;font-size:14px;border-bottom:1px solid var(--border);}
+.col-header.left{border-right:1px solid var(--border);}
+.section-header{grid-column:1/-1;background:#F5F5F5;padding:10px 20px;font-size:11px;font-weight:600;color:var(--ink2);text-transform:uppercase;letter-spacing:.8px;border-bottom:1px solid var(--border);}
+.row{display:contents;}
+.row-label{padding:10px 20px;font-size:13px;color:var(--ink2);border-bottom:1px solid #F0F0F0;display:flex;align-items:center;}
+.row-label:nth-child(4n+1){grid-column:1/-1;background:#FAFAFA;font-weight:600;color:var(--ink);font-size:12px;padding:8px 20px;}
+.cell{padding:10px 20px;font-size:13px;border-bottom:1px solid #F0F0F0;display:flex;align-items:center;gap:6px;}
+.cell.left{border-right:1px solid var(--border);}
+.cell.covered{color:#15803D;}
+.cell.excluded{color:#C0392B;}
+.cell.partial{color:#B8860B;}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.dot.covered{background:#15803D;}
+.dot.excluded{background:#C0392B;}
+.dot.partial{background:#B8860B;}
+
+.empty{text-align:center;padding:60px 20px;color:var(--ink2);font-size:14px;}
+
+.footer{text-align:center;margin-top:32px;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:#999;}
+
+@media(max-width:768px){
+  .selectors{grid-template-columns:1fr;}
+  .vs{display:none;}
+  .comparison-grid{font-size:12px;}
+  .cell{padding:8px 12px;font-size:12px;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+  <h1>⚖️ 险种条款对比</h1>
+  <nav>
+    <a href="kg.html">关系图谱</a>
+    <a href="coverage.html">覆盖矩阵</a>
+    <a href="index.html">← 返回首页</a>
+  </nav>
+</div>
+
+<div class="selectors">
+  <select id="productA" onchange="compare()">
+    <option value="">选择险种 A...</option>
+  </select>
+  <div class="vs">VS</div>
+  <select id="productB" onchange="compare()">
+    <option value="">选择险种 B...</option>
+  </select>
+</div>
+
+<div id="results">
+  <div class="empty">👆 选择两个险种开始对比</div>
+</div>
+
+<div class="footer">
+  <p>分析框架参考 Anthropic review-contract 方法论 · PICC企财险知识库</p>
+</div>
+</div>
+
+<script>
+let index = [];
+let coverage = [];
+
+Promise.all([
+  fetch('search-index.json').then(r=>r.json()),
+  fetch('kg/coverage_matrix.json').then(r=>r.json())
+]).then(([idx, cov]) => {
+  index = idx.filter(i => i.category === '险种条款');
+  coverage = cov;
+
+  const selA = document.getElementById('productA');
+  const selB = document.getElementById('productB');
+  index.forEach((p, i) => {
+    const name = p.title.replace('条款：','');
+    selA.innerHTML += `<option value="${i}">${name}</option>`;
+    selB.innerHTML += `<option value="${i}">${name}</option>`;
+  });
+});
+
+function compare() {
+  const ai = document.getElementById('productA').value;
+  const bi = document.getElementById('productB').value;
+  if (ai === '' || bi === '') return;
+
+  const a = index[ai], b = index[bi];
+  const aName = a.title.replace('条款：','');
+  const bName = b.title.replace('条款：','');
+
+  // Get coverage perils
+  const aPerils = new Set();
+  const bPerils = new Set();
+  const aExclusions = new Set();
+  const bExclusions = new Set();
+
+  // Parse content for covered perils and exclusions
+  [a, b].forEach((doc, idx) => {
+    const set = idx === 0 ? aPerils : bPerils;
+    const exclSet = idx === 0 ? aExclusions : bExclusions;
+    const content = doc.content;
+
+    // Find 保险责任 section
+    const respMatch = content.match(/保险责任.*?(?=责任免除|$)/);
+    if (respMatch) {
+      const perils = respMatch[0].match(/⚡([^⚡]+?)(?=⚡|✕|$)/g) || [];
+      perils.forEach(p => set.add(p.replace('⚡','').trim()));
+    }
+
+    // Find 责任免除 section
+    const exclMatch = content.match(/责任免除.*?(?=保险价值|保险金额|$)/);
+    if (exclMatch) {
+      const excl = exclMatch[0].match(/✕([^✕]+?)(?=✕|☐|$)/g) || [];
+      excl.forEach(e => exclSet.add(e.replace('✕','').trim()));
+    }
+  });
+
+  // Build comparison
+  const allPerils = [...new Set([...aPerils, ...bPerils])].sort();
+  const allExcl = [...new Set([...aExclusions, ...bExclusions])].sort();
+
+  let html = '<div class="comparison-grid">';
+
+  // Headers
+  html += `<div class="col-header left">${aName}</div>`;
+  html += `<div class="col-header">${bName}</div>`;
+
+  // Coverage section
+  html += '<div class="section-header">📋 保险责任对比</div>';
+  allPerils.forEach(p => {
+    const inA = aPerils.has(p);
+    const inB = bPerils.has(p);
+    html += '<div class="row">';
+    html += `<div class="row-label">${p}</div>`;
+    html += `<div class="cell left ${inA?'covered':'excluded'}"><span class="dot ${inA?'covered':'excluded'}"></span>${inA?'承保':'不保'}</div>`;
+    html += `<div class="cell ${inB?'covered':'excluded'}"><span class="dot ${inB?'covered':'excluded'}"></span>${inB?'承保':'不保'}</div>`;
+    html += '</div>';
+  });
+
+  // Exclusion section
+  html += '<div class="section-header">🚫 责任免除对比</div>';
+  allExcl.forEach(e => {
+    const inA = aExclusions.has(e);
+    const inB = bExclusions.has(e);
+    html += '<div class="row">';
+    html += `<div class="row-label">${e}</div>`;
+    html += `<div class="cell left ${inA?'excluded':'covered'}"><span class="dot ${inA?'excluded':'covered'}"></span>${inA?'免责':'未提及'}</div>`;
+    html += `<div class="cell ${inB?'excluded':'covered'}"><span class="dot ${inB?'excluded':'covered'}"></span>${inB?'免责':'未提及'}</div>`;
+    html += '</div>';
+  });
+
+  // Summary stats
+  const aCovered = allPerils.filter(p => aPerils.has(p)).length;
+  const bCovered = allPerils.filter(p => bPerils.has(p)).length;
+  const shared = allPerils.filter(p => aPerils.has(p) && bPerils.has(p)).length;
+  const aOnly = allPerils.filter(p => aPerils.has(p) && !bPerils.has(p)).length;
+  const bOnly = allPerils.filter(p => !aPerils.has(p) && bPerils.has(p)).length;
+
+  html += '<div class="section-header">📊 对比摘要</div>';
+  html += '<div class="row">';
+  html += `<div class="row-label">共同承保</div>`;
+  html += `<div class="cell left covered" style="grid-column:span 2">${shared} 项风险双方均承保</div>`;
+  html += '</div><div class="row">';
+  html += `<div class="row-label">仅${aName}承保</div>`;
+  html += `<div class="cell left covered" style="grid-column:span 2">${aOnly} 项（${aOnly>0?'🟢 覆盖更广':'—'}）</div>`;
+  html += '</div><div class="row">';
+  html += `<div class="row-label">仅${bName}承保</div>`;
+  html += `<div class="cell left covered" style="grid-column:span 2">${bOnly} 项（${bOnly>0?'🟢 覆盖更广':'—'}）</div>`;
+  html += '</div>';
+
+  html += '</div>';
+  document.getElementById('results').innerHTML = html;
+}
+</script>
+</body>
+</html>
