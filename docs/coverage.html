@@ -8,68 +8,53 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-    background: #0F172A;
-    color: #E2E8F0;
-    padding: 80px 24px 40px;
+    background: #FAFBFC; color: #1A1A2E; padding: 72px 24px 40px;
   }
   .header {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 16px 24px;
-    background: #0F172A;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #1E293B;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 12px 24px; background: rgba(255,255,255,.92); backdrop-filter: blur(10px);
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid #E8ECF1;
   }
-  .header h1 { font-size: 20px; font-weight: 700; color: #FAAD14; }
-  .header nav { display: flex; gap: 12px; }
+  .header h1 { font-size: 18px; font-weight: 700; color: #D4380D; }
+  .header nav { display: flex; gap: 8px; }
   .header nav a {
-    color: #94A3B8; text-decoration: none; font-size: 13px;
-    padding: 6px 14px; border: 1px solid #334155;
-    border-radius: 6px; transition: all .2s;
+    color: #5A6178; text-decoration: none; font-size: 12px;
+    padding: 5px 12px; border: 1px solid #E8ECF1;
+    border-radius: 6px; transition: all .2s; font-weight: 500;
   }
-  .header nav a:hover, .header nav a.active { color: #FAAD14; border-color: #FAAD14; }
-  .header nav a.active { background: rgba(250,173,20,.1); }
+  .header nav a:hover, .header nav a.active { color: #D4380D; border-color: #D4380D; }
+  .header nav a.active { background: #FFF2F0; }
   .container { max-width: 1400px; margin: 0 auto; overflow-x: auto; }
   table { border-collapse: collapse; font-size: 11px; margin: 0 auto; }
   th { 
-    padding: 6px 4px; color: #94A3B8; font-weight: 600; font-size: 10px;
-    position: sticky; top: 60px; background: #0F172A; z-index: 10;
+    padding: 6px 4px; color: #5A6178; font-weight: 600; font-size: 10px;
+    position: sticky; top: 60px; background: #FAFBFC; z-index: 10;
     writing-mode: vertical-rl; text-orientation: mixed;
-    min-width: 20px; height: 140px; vertical-align: bottom;
-    text-align: left;
+    min-width: 20px; height: 140px; vertical-align: bottom; text-align: left;
   }
   th.corner { writing-mode: horizontal-tb; min-width: 160px; text-align: right; padding-right: 8px; }
   td {
-    padding: 0; text-align: center; border: 1px solid #1E293B;
+    padding: 0; text-align: center; border: 1px solid #E8ECF1;
     width: 20px; height: 20px; transition: all .2s;
   }
-  td.covered { background: #FAAD14; }
-  td.not-covered { background: #1E293B; }
-  td:hover { transform: scale(1.3); z-index: 5; position: relative; }
+  td.covered { background: #FAAD14; border-color: #FAAD14; }
+  td.not-covered { background: #F0F2F5; }
+  td:hover { transform: scale(1.3); z-index: 5; position: relative; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
   .row-label { 
-    text-align: right; padding-right: 8px; color: #94A3B8; font-size: 10px;
+    text-align: right; padding-right: 8px; color: #5A6178; font-size: 10px;
     white-space: nowrap; max-width: 160px; overflow: hidden; text-overflow: ellipsis;
   }
-  .stats { text-align: center; margin-bottom: 24px; color: #64748B; font-size: 13px; }
+  .stats { text-align: center; margin-bottom: 24px; color: #8C8C8C; font-size: 13px; }
   .stats span { margin: 0 12px; }
-  .legend { display: flex; gap: 20px; justify-content: center; margin-top: 24px; font-size: 12px; color: #64748B; }
+  .legend { display: flex; gap: 20px; justify-content: center; margin-top: 24px; font-size: 12px; color: #8C8C8C; }
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .legend-sq { width: 14px; height: 14px; border-radius: 2px; }
   .tooltip-matrix {
-    position: fixed;
-    background: #1E293B;
-    border: 1px solid #334155;
-    border-radius: 6px;
-    padding: 8px 12px;
-    pointer-events: none;
-    font-size: 12px;
-    z-index: 200;
-    opacity: 0;
-    transition: opacity .15s;
-    white-space: nowrap;
+    position: fixed; background: white; border: 1px solid #E8ECF1;
+    border-radius: 6px; padding: 8px 12px; pointer-events: none;
+    font-size: 12px; z-index: 200; opacity: 0; transition: opacity .15s;
+    white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,.08);
   }
 </style>
 </head>
@@ -78,85 +63,49 @@
   <h1>📊 保险责任覆盖矩阵</h1>
   <nav>
     <a href="kg.html">关系网络</a>
-    <a href="coverage.html" class="active">责任覆盖矩阵</a>
-    <a href="../index.html">← 返回首页</a>
+    <a href="coverage.html" class="active">覆盖矩阵</a>
+    <a href="index.html">← 返回首页</a>
   </nav>
 </div>
-
 <div class="container">
   <div class="stats" id="stats"></div>
-  <div style="overflow-x:auto;">
-    <table id="matrix"></table>
-  </div>
+  <div style="overflow-x:auto;"><table id="matrix"></table></div>
   <div class="legend">
-    <div class="legend-item"><div class="legend-sq" style="background:#FAAD14"></div> 承保</div>
-    <div class="legend-item"><div class="legend-sq" style="background:#1E293B;border:1px solid #334155"></div> 不保</div>
-    <div class="legend-item"><span>💡 悬停方块查看详情</span></div>
+    <div class="legend-item"><div class="legend-sq" style="background:#FAAD14;border:1px solid #FAAD14"></div> 承保</div>
+    <div class="legend-item"><div class="legend-sq" style="background:#F0F2F5;border:1px solid #E8ECF1"></div> 不保</div>
+    <div class="legend-item"><span>悬停方块查看详情</span></div>
   </div>
 </div>
 <div class="tooltip-matrix" id="tooltip"></div>
-
 <script>
-fetch('kg/coverage_matrix.json')
-  .then(r => r.json())
-  .then(data => {
-    const tooltip = document.getElementById('tooltip');
-    
-    // Stats
-    const totalCells = data.products.length * data.perils.length;
-    const covered = data.matrix.flat().reduce((a,b) => a+b, 0);
-    document.getElementById('stats').innerHTML = `
-      <span>险种: <b style="color:#FAAD14">${data.products.length}</b></span>
-      <span>关键风险: <b style="color:#FAAD14">${data.perils.length}</b></span>
-      <span>覆盖率: <b style="color:#FAAD14">${(covered/totalCells*100).toFixed(1)}%</b></span>
-    `;
-
-    // Build table
-    const table = document.getElementById('matrix');
-    let html = '<thead><tr><th class="corner">险种 \\ 风险</th>';
-    
-    data.perils.forEach(p => {
-      html += `<th title="${p}">${p}</th>`;
+fetch('kg/coverage_matrix.json').then(r=>r.json()).then(data=>{
+  const tip=document.getElementById('tooltip');
+  const total=data.products.length*data.perils.length;
+  const covered=data.matrix.flat().reduce((a,b)=>a+b,0);
+  document.getElementById('stats').innerHTML=`<span>险种: <b style="color:#D4380D">${data.products.length}</b></span><span>风险: <b style="color:#D4380D">${data.perils.length}</b></span><span>覆盖率: <b style="color:#D4380D">${(covered/total*100).toFixed(1)}%</b></span>`;
+  const t=document.getElementById('matrix');
+  let h='<thead><tr><th class="corner">险种 \\ 风险</th>';
+  data.perils.forEach(p=>{h+=`<th title="${p}">${p}</th>`});
+  h+='</tr></thead><tbody>';
+  data.products.forEach((p,i)=>{
+    h+='<tr>';
+    h+=`<td class="row-label" title="${p}">${p}</td>`;
+    data.matrix[i].forEach((c,j)=>{
+      h+=`<td class="${c?'covered':'not-covered'}" data-product="${p.replace(/"/g,'&quot;')}" data-peril="${data.perils[j]}" data-covered="${c}"></td>`;
     });
-    html += '</tr></thead><tbody>';
-
-    data.products.forEach((product, i) => {
-      html += '<tr>';
-      html += `<td class="row-label" title="${product}">${product}</td>`;
-      data.matrix[i].forEach((cell, j) => {
-        const cls = cell ? 'covered' : 'not-covered';
-        html += `<td class="${cls}" 
-          data-product="${product.replace(/"/g,'&quot;')}" 
-          data-peril="${data.perils[j]}" 
-          data-covered="${cell}"></td>`;
-      });
-      html += '</tr>';
-    });
-
-    html += '</tbody>';
-    table.innerHTML = html;
-
-    // Tooltip
-    table.querySelectorAll('td.covered, td.not-covered').forEach(td => {
-      td.addEventListener('mouseover', function() {
-        const product = this.dataset.product;
-        const peril = this.dataset.peril;
-        const covered = this.dataset.covered === '1';
-        tooltip.style.opacity = '1';
-        tooltip.innerHTML = `
-          <div style="color:#FAAD14;font-weight:600">${product}</div>
-          <div style="color:${covered?'#22C55E':'#EF4444'}">${covered?'✅ 承保':'❌ 不保'} — ${peril}</div>
-        `;
-      });
-      td.addEventListener('mousemove', function(e) {
-        tooltip.style.left = (e.pageX + 15) + 'px';
-        tooltip.style.top = (e.pageY - 15) + 'px';
-      });
-      td.addEventListener('mouseout', function() {
-        tooltip.style.opacity = '0';
-      });
-    });
+    h+='</tr>';
   });
+  h+='</tbody>'; t.innerHTML=h;
+  t.querySelectorAll('td.covered,td.not-covered').forEach(td=>{
+    td.addEventListener('mouseover',function(){
+      const p=this.dataset.product,peril=this.dataset.peril,cov=this.dataset.covered==='1';
+      tip.style.opacity='1';
+      tip.innerHTML=`<div style="color:#D4380D;font-weight:600">${p}</div><div style="color:${cov?'#237804':'#FF4D4F'}">${cov?'✅ 承保':'❌ 不保'} — ${peril}</div>`;
+    });
+    td.addEventListener('mousemove',function(e){tip.style.left=(e.pageX+15)+'px';tip.style.top=(e.pageY-15)+'px'});
+    td.addEventListener('mouseout',function(){tip.style.opacity='0'});
+  });
+});
 </script>
 </body>
 </html>

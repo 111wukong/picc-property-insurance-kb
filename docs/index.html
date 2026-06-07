@@ -31,9 +31,9 @@
 
   /* ===== Hero ===== */
   .hero {
-    background: linear-gradient(135deg, #0F172A 0%, #1E3A5F 40%, #15304D 100%);
+    background: linear-gradient(160deg, #0F172A 0%, #1E3A5F 35%, #1A3650 100%);
     color: white;
-    padding: 80px 24px 60px;
+    padding: 72px 24px 80px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -41,43 +41,54 @@
   .hero::before {
     content: '';
     position: absolute;
-    top: -50%; left: -50%;
-    width: 200%; height: 200%;
-    background: radial-gradient(circle at 30% 50%, rgba(212,56,13,0.15) 0%, transparent 60%),
-                radial-gradient(circle at 70% 50%, rgba(29,57,196,0.1) 0%, transparent 60%);
+    top: -30%; left: -30%;
+    width: 160%; height: 160%;
+    background: radial-gradient(ellipse at 25% 60%, rgba(212,56,13,0.12) 0%, transparent 55%),
+                radial-gradient(ellipse at 75% 40%, rgba(29,57,196,0.08) 0%, transparent 55%);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--bg));
   }
   .hero h1 {
     font-family: var(--serif);
     font-size: 42px;
     font-weight: 900;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     position: relative;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
   .hero .subtitle {
-    font-size: 18px;
+    font-size: 17px;
     color: #94A3B8;
     position: relative;
-    margin-bottom: 24px;
+    font-weight: 400;
+    letter-spacing: 1px;
   }
   .hero .stats {
     display: flex;
-    gap: 40px;
+    gap: 48px;
     justify-content: center;
     flex-wrap: wrap;
     position: relative;
-    margin-top: 32px;
-  }
-  .hero .stat {
-    text-align: center;
+    margin-top: 36px;
   }
   .hero .stat-num {
-    font-size: 36px;
+    font-size: 38px;
     font-weight: 700;
     color: #FAAD14;
+    font-family: var(--serif);
   }
   .hero .stat-label {
-    font-size: 13px;
+    font-size: 12px;
+    color: #64748B;
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
     color: #94A3B8;
     margin-top: 4px;
   }
@@ -90,55 +101,55 @@
   }
 
   /* ===== Sections ===== */
-  .section {
-    margin-bottom: 48px;
-  }
   .section-title {
     font-family: var(--serif);
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 700;
-    color: var(--accent);
+    color: var(--text);
     margin-bottom: 20px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid var(--border);
+    letter-spacing: .5px;
   }
 
   /* ===== Product Grid ===== */
   .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 10px;
   }
   .product-card {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px 20px;
+    border-radius: 10px;
+    padding: 18px 20px;
     text-decoration: none;
     color: var(--text);
-    transition: all 0.2s;
+    transition: all .25s;
     display: block;
   }
   .product-card:hover {
     border-color: var(--accent);
-    box-shadow: 0 2px 12px rgba(212,56,13,0.08);
-    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(212,56,13,.06);
+    transform: translateY(-2px);
   }
   .product-card .num {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--text2);
-    font-weight: 500;
+    font-weight: 600;
+    letter-spacing: .5px;
+    text-transform: uppercase;
   }
   .product-card .name {
     font-family: var(--serif);
     font-size: 15px;
     font-weight: 600;
-    margin-top: 4px;
+    margin-top: 6px;
+    line-height: 1.4;
   }
   .product-card .meta {
     font-size: 12px;
-    color: var(--text2);
+    color: #8C8C8C;
     margin-top: 6px;
+    line-height: 1.5;
   }
 
   /* ===== Entity legend ===== */
@@ -167,12 +178,14 @@
   /* ===== Footer ===== */
   .footer {
     text-align: center;
-    padding: 32px;
-    color: var(--text2);
+    padding: 28px;
+    color: #8C8C8C;
     font-size: 12px;
     border-top: 1px solid var(--border);
+    letter-spacing: .3px;
   }
-  .footer a { color: var(--blue); }
+  .footer a { color: var(--blue); text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
 
   @media (max-width: 768px) {
     .hero { padding: 48px 16px 40px; }

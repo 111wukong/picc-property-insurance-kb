@@ -9,77 +9,48 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-    background: #0F172A;
-    color: #E2E8F0;
+    background: #FAFBFC;
+    color: #1A1A2E;
     overflow: hidden;
     height: 100vh;
   }
   .header {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 16px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(180deg, #0F172A 60%, transparent);
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 12px 24px; display: flex; justify-content: space-between; align-items: center;
+    background: rgba(255,255,255,.92); backdrop-filter: blur(10px);
+    border-bottom: 1px solid #E8ECF1;
   }
-  .header h1 {
-    font-size: 20px;
-    font-weight: 700;
-    color: #FAAD14;
-    letter-spacing: 1px;
-  }
-  .header nav { display: flex; gap: 12px; }
+  .header h1 { font-size: 18px; font-weight: 700; color: #D4380D; }
+  .header nav { display: flex; gap: 8px; }
   .header nav a {
-    color: #94A3B8;
-    text-decoration: none;
-    font-size: 13px;
-    padding: 6px 14px;
-    border: 1px solid #334155;
-    border-radius: 6px;
-    transition: all .2s;
+    color: #5A6178; text-decoration: none; font-size: 12px;
+    padding: 5px 12px; border: 1px solid #E8ECF1;
+    border-radius: 6px; transition: all .2s; font-weight: 500;
   }
-  .header nav a:hover, .header nav a.active {
-    color: #FAAD14;
-    border-color: #FAAD14;
-  }
-  .header nav a.active { background: rgba(250,173,20,.1); }
-  #graph-container {
-    width: 100%; height: 100vh;
-  }
-  .node circle { stroke: #1E293B; stroke-width: 2; cursor: pointer; transition: r .3s; }
-  .node text { font-size: 11px; fill: #CBD5E1; pointer-events: none; }
-  .node:hover circle { stroke: #FAAD14; stroke-width: 3; }
-  .node:hover text { fill: #FAAD14; font-weight: 600; }
-  .link { stroke: #334155; stroke-opacity: .6; }
+  .header nav a:hover, .header nav a.active { color: #D4380D; border-color: #D4380D; }
+  .header nav a.active { background: #FFF2F0; }
+  #graph-container { width: 100%; height: 100vh; }
+  .node circle { stroke: white; stroke-width: 2; cursor: pointer; transition: r .3s; }
+  .node text { font-size: 10px; fill: #5A6178; pointer-events: none; font-weight: 500; }
+  .node:hover circle { stroke: #D4380D; stroke-width: 3; }
+  .node:hover text { fill: #D4380D; font-weight: 700; }
+  .link { stroke: #D1D9E6; stroke-opacity: .7; }
   .link.extends { stroke: #3B82F6; stroke-opacity: .5; stroke-dasharray: 5,3; }
-  .link.companion { stroke: #22C55E; stroke-opacity: .4; stroke-dasharray: 3,3; }
+  .link.companion { stroke: #22C55E; stroke-opacity: .5; stroke-dasharray: 3,3; }
   .link.depends_on { stroke: #F97316; stroke-opacity: .4; }
-  .link-label { font-size: 9px; fill: #64748B; }
   .tooltip {
-    position: fixed;
-    background: #1E293B;
-    border: 1px solid #334155;
-    border-radius: 8px;
-    padding: 12px 16px;
-    pointer-events: none;
-    font-size: 12px;
-    max-width: 280px;
-    z-index: 200;
-    opacity: 0;
-    transition: opacity .15s;
+    position: fixed; background: white; border: 1px solid #E8ECF1;
+    border-radius: 8px; padding: 12px 16px; pointer-events: none;
+    font-size: 12px; max-width: 280px; z-index: 200; opacity: 0;
+    transition: opacity .15s; box-shadow: 0 4px 16px rgba(0,0,0,.08);
   }
-  .tooltip .name { font-weight: 700; color: #FAAD14; font-size: 14px; margin-bottom: 4px; }
-  .tooltip .meta { color: #94A3B8; }
+  .tooltip .name { font-weight: 700; color: #D4380D; font-size: 14px; margin-bottom: 4px; }
+  .tooltip .meta { color: #5A6178; }
   .legend {
-    position: fixed;
-    bottom: 24px;
-    left: 24px;
-    display: flex;
-    gap: 16px;
-    font-size: 11px;
-    color: #64748B;
+    position: fixed; bottom: 24px; left: 24px;
+    display: flex; gap: 16px; font-size: 11px; color: #8C8C8C;
+    background: rgba(255,255,255,.85); padding: 8px 14px;
+    border-radius: 8px; border: 1px solid #E8ECF1; backdrop-filter: blur(4px);
   }
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .legend-line { width: 20px; height: 2px; }
@@ -87,11 +58,11 @@
 </head>
 <body>
 <div class="header">
-  <h1>🕸️ PICC 企财险关系图谱</h1>
+  <h1>🕸️ 险种关系图谱</h1>
   <nav>
     <a href="kg.html" class="active">关系网络</a>
-    <a href="coverage.html">责任覆盖矩阵</a>
-    <a href="../index.html">← 返回首页</a>
+    <a href="coverage.html">覆盖矩阵</a>
+    <a href="index.html">← 返回首页</a>
   </nav>
 </div>
 <div id="graph-container"></div>
@@ -101,105 +72,34 @@
   <div class="legend-item"><div class="legend-line" style="background:#22C55E"></div> 搭配主险</div>
   <div class="legend-item"><div class="legend-line" style="background:#F97316"></div> 依附关系</div>
 </div>
-
 <script>
-const colors = {
-  1: '#D4380D', // 财产险主险
-  2: '#1D39C4', // 利润损失险
-  3: '#531DAB', // 特殊财产险
-  4: '#237804', // 行业定制险
-  5: '#595959', // 其他
-};
+const colors = {1:'#D4380D',2:'#1D39C4',3:'#531DAB',4:'#237804',5:'#8C8C8C'};
 const catNames = {1:'财产险主险',2:'利润损失险',3:'特殊财产险',4:'行业定制险',5:'其他'};
-
-fetch('kg/product_graph.json')
-  .then(r => r.json())
-  .then(data => {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-
-    const svg = d3.select('#graph-container')
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height);
-
-    const g = svg.append('g');
-
-    // 缩放
-    const zoom = d3.zoom()
-      .scaleExtent([0.3, 3])
-      .on('zoom', (e) => g.attr('transform', e.transform));
-    svg.call(zoom);
-    svg.call(zoom.transform, d3.zoomIdentity.translate(width/2, height/2));
-
-    const tooltip = d3.select('#tooltip');
-
-    // 力导向布局
-    const simulation = d3.forceSimulation(data.nodes)
-      .force('link', d3.forceLink(data.links).id(d => d.id).distance(120))
-      .force('charge', d3.forceManyBody().strength(-300))
-      .force('center', d3.forceCenter(0, 0))
-      .force('collide', d3.forceCollide(40));
-
-    // 连线
-    const link = g.append('g')
-      .selectAll('line')
-      .data(data.links)
-      .join('line')
-      .attr('class', d => `link ${d.type}`)
-      .attr('stroke-width', d => d.type === 'extends' ? 1.5 : 1);
-
-    // 节点组
-    const node = g.append('g')
-      .selectAll('g')
-      .data(data.nodes)
-      .join('g')
-      .attr('class', 'node')
-      .call(d3.drag()
-        .on('start', (e, d) => { if (!e.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
-        .on('drag', (e, d) => { d.fx = e.x; d.fy = e.y; })
-        .on('end', (e, d) => { if (!e.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }));
-
-    // 节点圆
-    node.append('circle')
-      .attr('r', d => Math.max(8, Math.sqrt(d.chars) / 10))
-      .attr('fill', d => colors[d.groupId] || '#595959');
-
-    // 节点标签
-    node.append('text')
-      .attr('dy', d => -Math.max(8, Math.sqrt(d.chars) / 10) - 3)
-      .attr('text-anchor', 'middle')
-      .text(d => d.name);
-
-    // 交互
-    node.on('mouseover', function(e, d) {
-      const color = colors[d.groupId];
-      tooltip.style('opacity', 1)
-        .html(`<div class="name" style="color:${color}">${d.fullName}</div>
-               <div class="meta">分类: ${catNames[d.groupId]}<br>${d.chars.toLocaleString()} 字符 | ${d.articles} 条</div>`);
-    })
-    .on('mousemove', function(e) {
-      tooltip.style('left', (e.pageX + 15) + 'px')
-        .style('top', (e.pageY - 15) + 'px');
-    })
-    .on('mouseout', function() { tooltip.style('opacity', 0); })
-    .on('click', function(e, d) {
-      // 跳转到险种页面
-      const pid = d.id.replace('p', '');
-      window.open(`../chapters/${pid}_${encodeURIComponent(d.fullName.replace('/','_'))}.html`, '_blank');
-    });
-
-    // 力导向更新
-    simulation.on('tick', () => {
-      link
-        .attr('x1', d => d.source.x)
-        .attr('y1', d => d.source.y)
-        .attr('x2', d => d.target.x)
-        .attr('y2', d => d.target.y);
-
-      node.attr('transform', d => `translate(${d.x},${d.y})`);
-    });
-  });
+fetch('kg/product_graph.json').then(r=>r.json()).then(data=>{
+  const W=window.innerWidth,H=window.innerHeight;
+  const svg=d3.select('#graph-container').append('svg').attr('width',W).attr('height',H);
+  const g=svg.append('g');
+  const zoom=d3.zoom().scaleExtent([.3,3]).on('zoom',e=>g.attr('transform',e.transform));
+  svg.call(zoom).call(zoom.transform,d3.zoomIdentity.translate(W/2,H/2));
+  const tip=d3.select('#tooltip');
+  const sim=d3.forceSimulation(data.nodes)
+    .force('link',d3.forceLink(data.links).id(d=>d.id).distance(120))
+    .force('charge',d3.forceManyBody().strength(-300))
+    .force('center',d3.forceCenter(0,0))
+    .force('collide',d3.forceCollide(40));
+  const link=g.append('g').selectAll('line').data(data.links).join('line')
+    .attr('class',d=>`link ${d.type}`).attr('stroke-width',d=>d.type==='extends'?1.5:1);
+  const node=g.append('g').selectAll('g').data(data.nodes).join('g').attr('class','node')
+    .call(d3.drag().on('start',(e,d)=>{if(!e.active)sim.alphaTarget(.3).restart();d.fx=d.x;d.fy=d.y})
+      .on('drag',(e,d)=>{d.fx=e.x;d.fy=e.y}).on('end',(e,d)=>{if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null}));
+  node.append('circle').attr('r',d=>Math.max(8,Math.sqrt(d.chars)/10)).attr('fill',d=>colors[d.groupId]);
+  node.append('text').attr('dy',d=>-Math.max(8,Math.sqrt(d.chars)/10)-3).attr('text-anchor','middle').text(d=>d.name);
+  node.on('mouseover',function(e,d){tip.style('opacity',1).html(`<div class="name" style="color:${colors[d.groupId]}">${d.fullName}</div><div class="meta">${catNames[d.groupId]} · ${d.chars.toLocaleString()}字符 · ${d.articles}条</div>`)})
+    .on('mousemove',function(e){tip.style('left',(e.pageX+15)+'px').style('top',(e.pageY-15)+'px')})
+    .on('mouseout',function(){tip.style('opacity',0)})
+    .on('click',function(e,d){window.open(`chapters/${d.id.replace('p','')}_${encodeURIComponent(d.fullName.replace('/','_'))}.html`,'_blank')});
+  sim.on('tick',()=>{link.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y).attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);node.attr('transform',d=>`translate(${d.x},${d.y})`)});
+});
 </script>
 </body>
 </html>
