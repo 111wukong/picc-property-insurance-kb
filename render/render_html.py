@@ -124,6 +124,7 @@ def render_markdown_to_html(md_text, title=None, chapter_index=None, prev_chapte
         elif stripped.startswith('<table') or stripped.startswith('<thead') or stripped.startswith('<tbody') or stripped.startswith('<tr') or stripped.startswith('<td') or stripped.startswith('<th') or stripped.startswith('</table') or stripped.startswith('</tr') or stripped.startswith('</td') or stripped.startswith('</th') or stripped.startswith('</thead') or stripped.startswith('</tbody'):
             # HTML表格直通
             body_lines.append(stripped)
+        elif stripped.startswith('- ') or stripped.startswith('* '):
             item_text = stripped[2:].strip()
             rendered = render_paragraph(item_text)
             body_lines.append(f'<li>{rendered}</li>')
