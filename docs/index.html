@@ -456,45 +456,12 @@
     </div>
   </div>
 
-  <!-- 借鉴 -->
-  <div class="section">
-    <h2 class="section-title">🙏 借鉴与致谢</h2>
-    <p style="color:var(--text2);">
-      本项目实体标注语法和阅读器架构借鉴自
-      <a href="https://github.com/baojie/shiji-kb">baojie/shiji-kb（史记知识库）</a>，
-      保险概念词条结构参考
-      <a href="https://github.com/ghoulvspol/insurance-knowledge-graph">ghoulvspol/insurance-knowledge-graph</a>。
-    </p>
-  </div>
-
 </div>
 
 <div class="footer">
   <p>PICC企财险知识库 — 基于 <a href="https://github.com/111wukong/picc-property-insurance-kb">GitHub</a> 开源</p>
   <p style="margin-top:4px;">许可证：CC BY-NC-SA 4.0</p>
 </div>
-
-<!-- 动态生成险种列表 -->
-<script>
-fetch('../corpus/index.json')
-  .then(r => r.json())
-  .then(data => {
-    const list = document.getElementById('product-list');
-    data.products.forEach(p => {
-      const card = document.createElement('a');
-      card.className = 'product-card';
-      card.href = '#';
-      card.innerHTML = `
-        <div class="num">#${p.product_id}</div>
-        <div class="name">${p.title || p.product_name}</div>
-        <div class="meta">${p.char_count.toLocaleString()} 字符 | ${p.article_count} 条</div>`;
-      list.appendChild(card);
-    });
-  })
-  .catch(() => {
-    document.getElementById('product-list').innerHTML = '<p style="color:var(--text2)">险种列表加载中… 部署后自动加载 corpus/index.json。</p>';
-  });
-</script>
 
 </body>
 </html>
