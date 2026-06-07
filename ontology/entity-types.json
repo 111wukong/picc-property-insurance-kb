@@ -1,0 +1,249 @@
+{
+  "_description": "PICC企财险知识库 — 实体类型定义（23类实体标注体系）",
+  "_version": "1.0",
+  "_inspired_by": "baojie/shiji-kb 的 tagged.md 标注语法",
+
+  "structure_entities": {
+    "description": "一级：条款结构实体（8类）",
+    "types": {
+      "product": {
+        "marker": "@",
+        "name": "险种名",
+        "description": "保险产品名称",
+        "css_class": "entity-product",
+        "color": "#D4380D",
+        "examples": ["财产基本险（2025版）", "机器损坏保险", "营业中断保险"]
+      },
+      "section": {
+        "marker": "§",
+        "name": "条款章节",
+        "description": "条款的章/节标题",
+        "css_class": "entity-section",
+        "color": "#1D39C4",
+        "examples": ["总则", "保险责任", "责任免除", "赔偿处理"]
+      },
+      "article": {
+        "marker": "¶",
+        "name": "具体条目",
+        "description": "条款的具体条文编号",
+        "css_class": "entity-article",
+        "color": "#531DAB",
+        "examples": ["第三条", "第八条第（二）款"]
+      },
+      "filing_no": {
+        "marker": "№",
+        "name": "备案号",
+        "description": "监管备案编号",
+        "css_class": "entity-filing",
+        "color": "#595959",
+        "examples": ["人保(备案)[2025]Nxxx号", "人保(备案)[2009]N234号"]
+      },
+      "main_clause": {
+        "marker": "¶",
+        "name": "主险条款",
+        "description": "主险合同条款",
+        "css_class": "entity-main",
+        "color": "#D4380D",
+        "examples": ["财产一切险主险条款"]
+      },
+      "rider": {
+        "marker": "+",
+        "name": "附加险",
+        "description": "附加险条款",
+        "css_class": "entity-rider",
+        "color": "#FA8C16",
+        "examples": ["盗窃险附加条款", "地震险附加条款"]
+      },
+      "special_agreement": {
+        "marker": "≡",
+        "name": "特别约定",
+        "description": "特别约定条款",
+        "css_class": "entity-special",
+        "color": "#EB2F96",
+        "examples": ["免赔额特别约定", "保险标的清单"]
+      },
+      "version_ref": {
+        "marker": "↗",
+        "name": "版本引用",
+        "description": "条款版本之间的引用关系",
+        "css_class": "entity-version",
+        "color": "#08979C",
+        "examples": ["2009版 → 2025版"]
+      }
+    }
+  },
+
+  "core_concept_entities": {
+    "description": "二级：保险核心概念（10类）",
+    "types": {
+      "subject_matter": {
+        "marker": "☐",
+        "name": "保险标的",
+        "description": "保险合同承保的财产范围",
+        "css_class": "entity-subject",
+        "color": "#237804",
+        "examples": ["建筑物", "机器设备", "存货", "在建工程"]
+      },
+      "covered_peril": {
+        "marker": "⚡",
+        "name": "保险责任",
+        "description": "保险人承担赔偿责任的风险范围",
+        "css_class": "entity-peril",
+        "color": "#FAAD14",
+        "examples": ["火灾", "爆炸", "雷击", "飞行物体坠落"]
+      },
+      "exclusion": {
+        "marker": "✕",
+        "name": "责任免除",
+        "description": "保险人不承担赔偿责任的情形",
+        "css_class": "entity-exclusion",
+        "color": "#FF4D4F",
+        "examples": ["地震", "战争", "核辐射", "故意行为"]
+      },
+      "sum_insured": {
+        "marker": "$",
+        "name": "保险金额",
+        "description": "保险金额及保险价值确定方式",
+        "css_class": "entity-sum",
+        "color": "#13C2C2",
+        "examples": ["出险时重置价值", "账面余额", "市场价值"]
+      },
+      "deductible": {
+        "marker": "%",
+        "name": "免赔额/率",
+        "description": "免赔额或免赔率约定",
+        "css_class": "entity-deductible",
+        "color": "#F759AB",
+        "examples": ["绝对免赔额500元", "损失金额的5%"]
+      },
+      "insurance_period": {
+        "marker": "⏱",
+        "name": "保险期间",
+        "description": "保险合同的有效期限",
+        "css_class": "entity-period",
+        "color": "#2F54EB",
+        "examples": ["一年", "以保险单载明为准"]
+      },
+      "premium_rate": {
+        "marker": "¥",
+        "name": "费率",
+        "description": "保险费率相关约定",
+        "css_class": "entity-rate",
+        "color": "#722ED1",
+        "examples": ["基准费率", "费率调整系数"]
+      },
+      "claim_settlement": {
+        "marker": "⛓",
+        "name": "赔偿处理",
+        "description": "理赔计算规则和赔付方式",
+        "css_class": "entity-claim",
+        "color": "#FA541C",
+        "examples": ["比例赔偿", "第一危险赔偿方式"]
+      },
+      "obligation": {
+        "marker": "◈",
+        "name": "义务条款",
+        "description": "投保人/被保险人的合同义务",
+        "css_class": "entity-obligation",
+        "color": "#A0D911",
+        "examples": ["如实告知义务", "危险增加通知义务", "施救义务"]
+      },
+      "definition": {
+        "marker": "⚖",
+        "name": "定义条款",
+        "description": "合同术语的法定定义",
+        "css_class": "entity-definition",
+        "color": "#597EF7",
+        "examples": ["重大过失", "恐怖活动", "重置价值"]
+      }
+    }
+  },
+
+  "party_entities": {
+    "description": "三级：合同主体与单据（5类）",
+    "types": {
+      "policyholder": {
+        "marker": "▶",
+        "name": "投保人",
+        "description": "投保主体及其资格",
+        "css_class": "entity-policyholder",
+        "color": "#5B8C00",
+        "examples": ["财产所有人", "共有人", "承租人"]
+      },
+      "insurer": {
+        "marker": "◀",
+        "name": "保险人",
+        "description": "承保的保险公司",
+        "css_class": "entity-insurer",
+        "color": "#096DD9",
+        "examples": ["中国人民财产保险股份有限公司"]
+      },
+      "insured": {
+        "marker": "◆",
+        "name": "被保险人",
+        "description": "被保险主体",
+        "css_class": "entity-insured",
+        "color": "#7CB305",
+        "examples": ["与被保险人有经济利害关系者"]
+      },
+      "document": {
+        "marker": "📋",
+        "name": "合同单据",
+        "description": "保险合同及相关文件",
+        "css_class": "entity-document",
+        "color": "#AD8B00",
+        "examples": ["投保单", "保险单", "批单", "保险凭证"]
+      },
+      "third_party": {
+        "marker": "▣",
+        "name": "第三方",
+        "description": "保险合同外的相关方",
+        "css_class": "entity-thirdparty",
+        "color": "#C41D7F",
+        "examples": ["公估人", "受益人", "代理人"]
+      }
+    }
+  },
+
+  "relation_types": {
+    "description": "四级：实体间关系类型（6类）",
+    "types": {
+      "contains": {
+        "name": "包含关系",
+        "description": "主险包含附加险",
+        "inverse": "contained_by",
+        "example": "财产综合险 → contains → 盗窃险附加条款"
+      },
+      "references": {
+        "name": "引用关系",
+        "description": "条款间相互引用",
+        "inverse": "referenced_by",
+        "example": "第七条 → references → 第六条"
+      },
+      "excludes": {
+        "name": "互斥关系",
+        "description": "责任范围互斥",
+        "inverse": "excluded_by",
+        "example": "基本险不能承保暴雨 → excludes → 暴雨责任"
+      },
+      "extends": {
+        "name": "扩展关系",
+        "description": "责任范围递进扩展",
+        "inverse": "extended_by",
+        "example": "财产基本险 → extends → 财产综合险 → extends → 财产一切险"
+      },
+      "version_of": {
+        "name": "版本关系",
+        "description": "条款版本演进",
+        "inverse": "newer_version",
+        "example": "2009版条款 → version_of → 2025版条款"
+      },
+      "triggers": {
+        "name": "触发关系",
+        "description": "事件触发保险责任",
+        "inverse": "triggered_by",
+        "example": "火灾发生 → triggers → 施救费用赔偿义务"
+      }
+    }
+  }
+}

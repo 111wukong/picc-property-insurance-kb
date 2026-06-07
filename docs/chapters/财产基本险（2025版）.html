@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>〖@财产基本险（2025版）〗 — PICC企财险知识库</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #FAFBFC;
+    --text: #1A1A2E;
+    --text2: #5A6178;
+    --border: #E8ECF1;
+    --card: #FFFFFF;
+    --accent: #D4380D;
+    --serif: 'Noto Serif SC', 'Source Han Serif SC', 'STSong', 'SimSun', 'Songti SC', Georgia, 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+  }
+
+  body {
+    font-family: var(--serif);
+    color: var(--text);
+    background: var(--bg);
+    line-height: 2.0;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 60px 24px 120px;
+  }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--accent);
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 3px solid var(--accent);
+    letter-spacing: 1px;
+  }
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1D39C4;
+    margin: 40px 0 16px;
+    padding-left: 12px;
+    border-left: 4px solid #1D39C4;
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #531DAB;
+    margin: 24px 0 12px;
+  }
+
+  p {
+    margin: 8px 0;
+    text-indent: 2em;
+    text-align: justify;
+  }
+
+  li {
+    margin: 4px 0 4px 2em;
+  }
+
+  br + p { text-indent: 2em; }
+  br + br { display: none; }
+
+  /* 实体标注样式 */
+
+      .entity-product {
+        color: #D4380D;
+        text-decoration: underline;
+        text-decoration-color: #D4380D33;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-product:hover {
+        background: #D4380D18;
+        text-decoration-color: #D4380D;
+      }
+
+      .entity-section {
+        color: #1D39C4;
+        text-decoration: underline;
+        text-decoration-color: #1D39C433;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-section:hover {
+        background: #1D39C418;
+        text-decoration-color: #1D39C4;
+      }
+
+      .entity-article {
+        color: #531DAB;
+        text-decoration: underline;
+        text-decoration-color: #531DAB33;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-article:hover {
+        background: #531DAB18;
+        text-decoration-color: #531DAB;
+      }
+
+      .entity-filing {
+        color: #595959;
+        text-decoration: underline;
+        text-decoration-color: #59595933;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-filing:hover {
+        background: #59595918;
+        text-decoration-color: #595959;
+      }
+
+      .entity-rider {
+        color: #FA8C16;
+        text-decoration: underline;
+        text-decoration-color: #FA8C1633;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-rider:hover {
+        background: #FA8C1618;
+        text-decoration-color: #FA8C16;
+      }
+
+      .entity-special {
+        color: #EB2F96;
+        text-decoration: underline;
+        text-decoration-color: #EB2F9633;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-special:hover {
+        background: #EB2F9618;
+        text-decoration-color: #EB2F96;
+      }
+
+      .entity-version {
+        color: #08979C;
+        text-decoration: underline;
+        text-decoration-color: #08979C33;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-version:hover {
+        background: #08979C18;
+        text-decoration-color: #08979C;
+      }
+
+      .entity-subject {
+        color: #237804;
+        text-decoration: underline;
+        text-decoration-color: #23780433;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-subject:hover {
+        background: #23780418;
+        text-decoration-color: #237804;
+      }
+
+      .entity-peril {
+        color: #FAAD14;
+        text-decoration: underline;
+        text-decoration-color: #FAAD1433;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-peril:hover {
+        background: #FAAD1418;
+        text-decoration-color: #FAAD14;
+      }
+
+      .entity-exclusion {
+        color: #FF4D4F;
+        text-decoration: underline;
+        text-decoration-color: #FF4D4F33;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-exclusion:hover {
+        background: #FF4D4F18;
+        text-decoration-color: #FF4D4F;
+      }
+
+      .entity-sum {
+        color: #13C2C2;
+        text-decoration: underline;
+        text-decoration-color: #13C2C233;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-sum:hover {
+        background: #13C2C218;
+        text-decoration-color: #13C2C2;
+      }
+
+      .entity-deductible {
+        color: #F759AB;
+        text-decoration: underline;
+        text-decoration-color: #F759AB33;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-deductible:hover {
+        background: #F759AB18;
+        text-decoration-color: #F759AB;
+      }
+
+      .entity-period {
+        color: #2F54EB;
+        text-decoration: underline;
+        text-decoration-color: #2F54EB33;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-period:hover {
+        background: #2F54EB18;
+        text-decoration-color: #2F54EB;
+      }
+
+      .entity-rate {
+        color: #722ED1;
+        text-decoration: underline;
+        text-decoration-color: #722ED133;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-rate:hover {
+        background: #722ED118;
+        text-decoration-color: #722ED1;
+      }
+
+      .entity-claim {
+        color: #FA541C;
+        text-decoration: underline;
+        text-decoration-color: #FA541C33;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-claim:hover {
+        background: #FA541C18;
+        text-decoration-color: #FA541C;
+      }
+
+      .entity-obligation {
+        color: #A0D911;
+        text-decoration: underline;
+        text-decoration-color: #A0D91133;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-obligation:hover {
+        background: #A0D91118;
+        text-decoration-color: #A0D911;
+      }
+
+      .entity-definition {
+        color: #597EF7;
+        text-decoration: underline;
+        text-decoration-color: #597EF733;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-definition:hover {
+        background: #597EF718;
+        text-decoration-color: #597EF7;
+      }
+
+      .entity-policyholder {
+        color: #5B8C00;
+        text-decoration: underline;
+        text-decoration-color: #5B8C0033;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-policyholder:hover {
+        background: #5B8C0018;
+        text-decoration-color: #5B8C00;
+      }
+
+      .entity-insurer {
+        color: #096DD9;
+        text-decoration: underline;
+        text-decoration-color: #096DD933;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-insurer:hover {
+        background: #096DD918;
+        text-decoration-color: #096DD9;
+      }
+
+      .entity-insured {
+        color: #7CB305;
+        text-decoration: underline;
+        text-decoration-color: #7CB30533;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-insured:hover {
+        background: #7CB30518;
+        text-decoration-color: #7CB305;
+      }
+
+      .entity-document {
+        color: #AD8B00;
+        text-decoration: underline;
+        text-decoration-color: #AD8B0033;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-document:hover {
+        background: #AD8B0018;
+        text-decoration-color: #AD8B00;
+      }
+
+      .entity-thirdparty {
+        color: #C41D7F;
+        text-decoration: underline;
+        text-decoration-color: #C41D7F33;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+      .entity-thirdparty:hover {
+        background: #C41D7F18;
+        text-decoration-color: #C41D7F;
+      }
+
+  /* 响应式 */
+  @media (max-width: 768px) {
+    .container {
+      padding: 32px 16px 80px;
+    }
+    h1 { font-size: 22px; }
+    h2 { font-size: 18px; }
+    body { font-size: 15px; }
+  }
+
+  /* 打印 */
+  @media print {
+    body { background: white; }
+    .container { max-width: 100%; padding: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>〖@财产基本险（2025版）〗</h1>
+<br>
+<h2>〖§总则〗</h2>
+<br>
+<p>〖¶第一条〗 本保险合同由〖📋保险条款〗、〖📋投保单〗、〖📋保险单〗或其他〖📋保险凭证〗以及〖📋批单〗组成。凡涉及本保险合同的约定，均应采用书面形式。</p>
+<br>
+<p>〖¶第二条〗 〖☐保险标的〗的所有人、共有人、承租人、使用人及相关政府管理部门，均可以作为本保险合同的〖▶投保人〗或〖◆被保险人〗。</p>
+<br>
+<h2>〖§保险标的〗</h2>
+<br>
+<p>〖¶第三条〗 本保险合同载明地址内的下列财产可作为〖☐保险标的〗：</p>
+<br>
+<p>（一）属于〖◆被保险人〗所有或与他人共有而由〖◆被保险人〗负责的财产；</p>
+<br>
+<p>（二）由〖◆被保险人〗经营管理或替他人保管的财产；</p>
+<br>
+<p>（三）其他具有法律上承认的与〖◆被保险人〗有经济利害关系的财产。</p>
+<br>
+<p>〖¶第四条〗 本保险合同载明地址内的下列财产未经保险合同双方〖≡特别约定〗并在保险合同中载明〖$保险价值〗的，不属于本保险合同的〖☐保险标的〗：</p>
+<br>
+<p>（一）堤堰、水闸、铁路、道路、涵洞、隧道、桥梁、码头；</p>
+<br>
+<p>（二）矿井（坑）内的设备和物资；</p>
+<br>
+<p>（三）便携式通讯装置、便携式计算机设备、便携式照相摄像器材以及其他便携式装置、设备；</p>
+<br>
+<p>（四）尚未交付使用或验收的工程。</p>
+<br>
+<p>〖¶第五条〗 下列财产不属于本保险合同的〖☐保险标的〗：</p>
+<br>
+<p>（一）金银、珠宝、钻石、玉器、首饰、古币、古玩、古书、古画、邮票、字画、艺术品、稀有金属等珍贵财物；</p>
+<br>
+<p>（二）土地、矿藏、水资源及其他自然资源；</p>
+<br>
+<p>（三）矿井、矿坑；</p>
+<br>
+<p>（四）货币、票证、有价证券以及有现金价值的磁卡、集成电路（IC）卡等卡类；</p>
+<br>
+<p>（五）文件、账册、图表、技术资料、计算机软件、计算机数据资料等无法鉴定价值的财产；</p>
+<br>
+<p>（六）枪支弹药；</p>
+<br>
+<p>（七）违章建筑、危险建筑、非法占用的财产；</p>
+<br>
+<p>（八）领取公共行驶执照的机动车辆；</p>
+<br>
+<p>（九）动物、植物、农作物。</p>
+<br>
+<h2>〖§保险责任〗</h2>
+<br>
+<p>〖¶第六条〗 在〖⏱保险期间〗内，由于下列原因造成〖☐保险标的〗的损失，〖◀保险人〗按照本保险合同的约定负责赔偿：</p>
+<br>
+<p>（一）〖⚡火灾〗、〖⚡爆炸〗；</p>
+<br>
+<p>（二）〖⚡雷击〗；</p>
+<br>
+<p>（三）〖⚡飞行物体及其他空中运行物体坠落〗。</p>
+<br>
+<p>前款原因造成的保险事故发生时，为抢救〖☐保险标的〗或防止灾害蔓延，采取必要的、合理的措施而造成〖☐保险标的〗的损失，〖◀保险人〗按照本保险合同的约定也负责赔偿。</p>
+<br>
+<p>〖¶第七条〗 保险事故发生后，〖◆被保险人〗为防止或减少〖☐保险标的〗的损失所支付的必要的、合理的费用，〖◀保险人〗按照本保险合同的约定也负责赔偿。</p>
+<br>
+<h2>〖§责任免除〗</h2>
+<br>
+<p>〖¶第八条〗 下列任何原因造成的损失、费用，〖◀保险人〗不负责赔偿：</p>
+<br>
+<p>（一）〖▶投保人〗、〖◆被保险人〗及其代表的〖✕故意、重大过失或犯罪行为〗；</p>
+<br>
+<p>（二）〖✕行政行为或司法行为〗；</p>
+<br>
+<p>（三）〖✕战争、类似战争行为、敌对行动、军事行动、武装冲突、罢工、骚乱、暴动、政变、谋反、恐怖活动〗；</p>
+<br>
+<p>（四）〖✕地震、海啸及其次生灾害〗；</p>
+<br>
+<p>（五）〖✕核辐射、核爆炸、核污染及其他放射性污染〗；</p>
+<br>
+<p>（六）〖✕大气污染、土地污染、水污染及其他非放射性污染〗，但因本保险合同责任范围内的事故造成的非放射性污染不在此限；</p>
+<br>
+<p>（七）〖✕保险标的的内在或潜在缺陷、自然磨损、自然损耗〗，大气（气候或气温）变化、正常水位变化或其他渐变原因，物质本身变化、霉烂、受潮、鼠咬、虫蛀、鸟啄、氧化、锈蚀、渗漏、自燃、烘焙；</p>
+<br>
+<p>（八）〖✕暴雨、洪水、暴风、龙卷风、冰雹、台风、飓风、暴雪、冰凌、沙尘暴、突发性滑坡、崩塌、泥石流、地面突然下陷下沉〗；</p>
+<br>
+<p>（九）〖✕水箱、水管爆裂〗；</p>
+<br>
+<p>（十）〖✕盗窃、抢劫〗。</p>
+<br>
+<p>〖¶第九条〗 下列任何损失、费用，〖◀保险人〗也不负责赔偿：</p>
+<br>
+<p>（一）〖☐保险标的〗遭受保险事故引起的间接损失；</p>
+<br>
+<p>（二）广告牌、天线、霓虹灯、太阳能装置等建筑物外部附属设施，存放于露天或简易建筑物内部的〖☐保险标的〗以及简易建筑本身，由于雷击造成的损失；</p>
+<br>
+<p>（三）锅炉及压力容器爆炸造成其本身的损失；</p>
+<br>
+<p>（四）供电、供水、供气及其他能源供应中断造成的损失和费用；</p>
+<br>
+<p>（五）〖☐保险标的〗遭受保险事故后，在修复或替换过程中，〖◆被保险人〗进行的任何变更、性能增加或改进所产生的额外费用；</p>
+<br>
+<p>（六）〖✕网络安全事故造成的损失和费用〗。但是，网络安全事故导致火灾、爆炸或喷淋设备泄漏所造成〖☐保险标的〗物质灭失或损坏，在本保险合同下，将不被视为网络安全事故造成的损失。</p>
+<br>
+<p>（七）本保险合同中载明的〖%免赔额〗或按本保险合同中载明的〖%免赔率〗计算的免赔额。</p>
+<br>
+<h2>〖§保险价值、保险金额与免赔额（率）〗</h2>
+<br>
+<p>〖¶第十条〗 〖☐保险标的〗的〖$保险价值〗确定方式可以为出险时的〖$重置价值〗、出险时的〖$账面余额〗、出险时的〖$市场价值〗或其他价值，由〖▶投保人〗与〖◀保险人〗协商确定，并在本保险合同中载明。</p>
+<br>
+<p>〖¶第十一条〗 〖$保险金额〗由〖▶投保人〗参照〖$保险价值〗自行确定，并在保险合同中载明。</p>
+<br>
+<p>〖¶第十二条〗 〖%免赔额（率）〗由〖▶投保人〗与〖◀保险人〗在订立保险合同时协商确定，并在保险合同中载明。</p>
+<br>
+<h2>〖§保险期间〗</h2>
+<br>
+<p>〖¶第十三条〗 除另有约定外，〖⏱保险期间〗为一年，具体起讫时间以〖📋保险单〗载明的为准。</p>
+<br>
+<h2>〖§保险人义务〗</h2>
+<br>
+<p>〖¶第十四条〗 本保险合同成立后，〖◀保险人〗应当及时向〖▶投保人〗签发〖📋保险单〗或其他〖📋保险凭证〗。</p>
+<br>
+<p>〖¶第十五条〗 〖◀保险人〗依据〖¶第十九条〗所取得的保险合同解除权，自〖◀保险人〗知道有解除事由之日起，超过三十日不行使而消灭。自保险合同成立之日起超过二年的，〖◀保险人〗不得解除合同；发生保险事故的，〖◀保险人〗承担赔偿责任。</p>
+<br>
+<p>〖◈保险人在合同订立时已经知道投保人未如实告知的情况的，保险人不得解除合同；发生保险事故的，保险人应当承担赔偿保险金的责任〗。</p>
+<br>
+<p>〖¶第十六条〗 〖◀保险人〗按照〖¶第二十五条〗的约定，认为〖◆被保险人〗提供的有关索赔的证明和资料不完整的，应当及时一次性通知〖◆被保险人〗补充提供。</p>
+<br>
+<p>〖¶第十七条〗 〖◀保险人〗收到〖◆被保险人〗赔偿保险金的请求后，应当及时作出是否属于保险责任的核定；情形复杂的，应当在三十日内作出核定。</p>
+<br>
+<p>〖◀保险人〗应当将核定结果通知〖◆被保险人〗；对属于保险责任的，在与〖◆被保险人〗达成赔偿保险金的协议后十日内，履行赔偿保险金义务。本保险合同对赔偿保险金的期限有约定的，〖◀保险人〗应当按照约定履行赔偿保险金的义务。</p>
+<br>
+<p>〖◀保险人〗依照前款约定作出核定后，对不属于保险责任的，应当自作出核定之日起三日内向〖◆被保险人〗发出拒绝赔偿保险金通知书，并说明理由。</p>
+<br>
+<h2>〖§投保人/被保险人义务〗</h2>
+<br>
+<p>〖¶第十八条〗 订立保险合同，〖◀保险人〗就〖☐保险标的〗或者〖◆被保险人〗的有关情况提出询问的，〖▶投保人〗应当〖◈如实告知〗。</p>
+<br>
+<p>〖¶第十九条〗 〖▶投保人〗因〖⚖重大过失〗未履行〖◈如实告知义务〗，对保险事故的发生有严重影响的，〖◀保险人〗对于合同解除前发生的保险事故，不承担赔偿保险金的责任，但应当退还保险费。</p>
+<br>
+<p>〖¶第二十条〗 除另有约定外，〖▶投保人〗应在保险合同成立时交清保险费。保险费交清前发生的保险事故，〖◀保险人〗不承担赔偿责任。</p>
+<br>
+<p>〖¶第二十一条〗 在〖⏱保险期间〗内，保险标的的危险程度显著增加的，〖◆被保险人〗应当按照合同约定〖◈及时通知保险人〗。</p>
+<br>
+<p>〖¶第二十二条〗 知道保险事故发生后，〖◆被保险人〗应该〖◈及时通知保险人〗，并〖◈采取必要合理的施救措施〗。</p>
+<br>
+<h2>〖§赔偿处理〗</h2>
+<br>
+<p>〖¶第二十三条〗 〖◆被保险人〗请求赔偿时，应向〖◀保险人〗提供相应的证明和资料。</p>
+<br>
+<p>〖¶第二十四条〗 〖☐保险标的〗发生保险责任范围内的损失，〖◀保险人〗有权选择采用〖⛓货币赔偿〗、〖⛓实物赔偿〗或〖⛓实际修复〗方式赔付。</p>
+<br>
+<p>〖¶第二十五条〗 〖☐保险标的〗发生保险责任范围内的损失，〖◀保险人〗按以下方式计算赔偿：</p>
+<br>
+<p>（一）〖$保险金额〗等于或高于〖$保险价值〗出险时的实际价值时，按实际损失计算赔偿，最高不超过〖$保险价值〗出险时的实际价值；</p>
+<br>
+<p>（二）〖$保险金额〗低于〖$保险价值〗出险时的实际价值时，按〖$保险金额〗与〖$保险价值〗出险时的实际价值的〖⛓比例赔偿〗。</p>
+<br>
+<h2>〖§争议处理〗</h2>
+<br>
+<p>〖¶第二十六条〗 因履行本保险合同发生的争议，由当事人协商解决。协商不成的，提交〖📋保险单〗载明的仲裁机构仲裁；〖📋保险单〗未载明仲裁机构且争议发生后未达成仲裁协议的，依法向中华人民共和国人民法院起诉。</p>
+<br>
+<h2>〖§其他事项〗</h2>
+<br>
+<p>〖¶第二十七条〗 〖◀保险人〗和〖▶投保人〗可以协商变更合同内容。</p>
+<br>
+<p>〖¶第二十八条〗 保险责任开始前，〖▶投保人〗要求解除合同的，应当向〖◀保险人〗支付相当于保险费5%的退保手续费。</p>
+<br>
+<p>〖¶第二十九条〗 本保险合同涉及𝑤外文译本〗与中文译本不一致的，以中文译本为准。</p>
+<br>
+<p>---</p>
+<br>
+<p>> **标注说明**：本文件为 PICC企财险知识库标注样例，采用 `〖MARKER 文本〗` 语法标注保险领域实体。标注体系详见 `ontology/entity-types.json`。</p>
+<p>></p>
+<p>> 标注统计：险种名 1 | 章节 10 | 条目 19 | 保险标的 17 | 保险责任 4 | 责任免除 12 | 保险金额 8 | 免赔额 3 | 保险期间 2 | 义务条款 5 | 定义 1 | 投保人 7 | 保险人 17 | 被保险人 12 | 合同单据 7 | 特别约定 1 | 赔偿处理 3</p>
+</div>
+</body>
+</html>

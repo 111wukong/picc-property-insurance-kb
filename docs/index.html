@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PICC企财险知识库</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #FAFBFC;
+    --text: #1A1A2E;
+    --text2: #5A6178;
+    --border: #E8ECF1;
+    --card: #FFFFFF;
+    --accent: #D4380D;
+    --blue: #1D39C4;
+    --green: #237804;
+    --gold: #FAAD14;
+    --serif: 'Noto Serif SC', 'Source Han Serif SC', 'STSong', 'SimSun', 'Songti SC', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  }
+
+  body {
+    font-family: var(--sans);
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    background: linear-gradient(135deg, #0F172A 0%, #1E3A5F 40%, #15304D 100%);
+    color: white;
+    padding: 80px 24px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at 30% 50%, rgba(212,56,13,0.15) 0%, transparent 60%),
+                radial-gradient(circle at 70% 50%, rgba(29,57,196,0.1) 0%, transparent 60%);
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    position: relative;
+    margin-bottom: 12px;
+  }
+  .hero .subtitle {
+    font-size: 18px;
+    color: #94A3B8;
+    position: relative;
+    margin-bottom: 24px;
+  }
+  .hero .stats {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    margin-top: 32px;
+  }
+  .hero .stat {
+    text-align: center;
+  }
+  .hero .stat-num {
+    font-size: 36px;
+    font-weight: 700;
+    color: #FAAD14;
+  }
+  .hero .stat-label {
+    font-size: 13px;
+    color: #94A3B8;
+    margin-top: 4px;
+  }
+
+  /* ===== Container ===== */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  /* ===== Sections ===== */
+  .section {
+    margin-bottom: 48px;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  /* ===== Product Grid ===== */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+  .product-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s;
+    display: block;
+  }
+  .product-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 2px 12px rgba(212,56,13,0.08);
+    transform: translateY(-1px);
+  }
+  .product-card .num {
+    font-size: 12px;
+    color: var(--text2);
+    font-weight: 500;
+  }
+  .product-card .name {
+    font-family: var(--serif);
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+  .product-card .meta {
+    font-size: 12px;
+    color: var(--text2);
+    margin-top: 6px;
+  }
+
+  /* ===== Entity legend ===== */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 12px;
+  }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ===== Footer ===== */
+  .footer {
+    text-align: center;
+    padding: 32px;
+    color: var(--text2);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .footer a { color: var(--blue); }
+
+  @media (max-width: 768px) {
+    .hero { padding: 48px 16px 40px; }
+    .hero h1 { font-size: 28px; }
+    .hero .stats { gap: 20px; }
+    .hero .stat-num { font-size: 24px; }
+    .product-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <h1>PICC 企财险知识库</h1>
+  <p class="subtitle">让保险条款像代码一样可读、可标注、可探索</p>
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">32</div>
+      <div class="stat-label">险种产品</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">235,690</div>
+      <div class="stat-label">字符条款正文</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">23</div>
+      <div class="stat-label">实体类型</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">6</div>
+      <div class="stat-label">关系类型</div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+
+  <!-- 核心功能 -->
+  <div class="section">
+    <h2 class="section-title">🧭 核心功能</h2>
+    <div class="product-grid">
+      <a href="chapters/财产基本险（2025版）.html" class="product-card">
+        <div class="num">📖 标注阅读器</div>
+        <div class="name">实体标注 + 语法高亮</div>
+        <div class="meta">23类保险术语自动着色，一键跳转词条</div>
+      </a>
+      <div class="product-card">
+        <div class="num">🔍 知识图谱</div>
+        <div class="name">险种关系网络</div>
+        <div class="meta">主险→附加险、版本演进、责任递进</div>
+      </div>
+      <div class="product-card">
+        <div class="num">⚖️ 条款对比</div>
+        <div class="name">险种差异对比</div>
+        <div class="meta">并排对比不同险种的责任范围差异</div>
+      </div>
+      <div class="product-card">
+        <div class="num">📚 概念词条</div>
+        <div class="name">保险术语百科</div>
+        <div class="meta">保险标的、免赔额、代位求偿…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 险种列表 -->
+  <div class="section">
+    <h2 class="section-title">📋 险种目录</h2>
+    <div class="product-grid" id="product-list">
+      <!-- JS 动态生成 -->
+    </div>
+  </div>
+
+  <!-- 标注体系 -->
+  <div class="section">
+    <h2 class="section-title">🏷️ 22类实体标注体系</h2>
+    <p style="color:var(--text2);margin-bottom:16px;">所有条款正文按保险专业维度进行实体标注，支持语法高亮阅读和知识图谱探索。</p>
+
+    <h3 style="font-size:16px;color:var(--blue);margin:16px 0 8px;">条款结构（8类）</h3>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot" style="background:#D4380D"></span> @险种名</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#1D39C4"></span> §章节</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#531DAB"></span> ¶条目</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#595959"></span> №备案号</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#FA8C16"></span> ＋附加险</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#EB2F96"></span> ≡特别约定</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#08979C"></span> ↗版本引用</span>
+    </div>
+
+    <h3 style="font-size:16px;color:var(--blue);margin:20px 0 8px;">保险核心概念（10类）</h3>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot" style="background:#237804"></span> ☐保险标的</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#FAAD14"></span> ⚡保险责任</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#FF4D4F"></span> ✕责任免除</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#13C2C2"></span> $保险金额</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#F759AB"></span> %免赔额</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#2F54EB"></span> ⏱保险期间</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#722ED1"></span> ¥费率</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#FA541C"></span> ⛓赔偿处理</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#A0D911"></span> ◈义务条款</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#597EF7"></span> ⚖定义条款</span>
+    </div>
+
+    <h3 style="font-size:16px;color:var(--blue);margin:20px 0 8px;">合同主体与单据（5类）</h3>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot" style="background:#5B8C00"></span> ▶投保人</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#096DD9"></span> ◀保险人</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#7CB305"></span> ◆被保险人</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#AD8B00"></span> 📋合同单据</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#C41D7F"></span> ▣第三方</span>
+    </div>
+  </div>
+
+  <!-- 借鉴 -->
+  <div class="section">
+    <h2 class="section-title">🙏 借鉴与致谢</h2>
+    <p style="color:var(--text2);">
+      本项目实体标注语法和阅读器架构借鉴自
+      <a href="https://github.com/baojie/shiji-kb">baojie/shiji-kb（史记知识库）</a>，
+      保险概念词条结构参考
+      <a href="https://github.com/ghoulvspol/insurance-knowledge-graph">ghoulvspol/insurance-knowledge-graph</a>。
+    </p>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>PICC企财险知识库 — 基于 <a href="https://github.com/111wukong/picc-property-insurance-kb">GitHub</a> 开源</p>
+  <p style="margin-top:4px;">许可证：CC BY-NC-SA 4.0</p>
+</div>
+
+<!-- 动态生成险种列表 -->
+<script>
+fetch('../corpus/index.json')
+  .then(r => r.json())
+  .then(data => {
+    const list = document.getElementById('product-list');
+    data.products.forEach(p => {
+      const card = document.createElement('a');
+      card.className = 'product-card';
+      card.href = '#';
+      card.innerHTML = `
+        <div class="num">#${p.product_id}</div>
+        <div class="name">${p.title || p.product_name}</div>
+        <div class="meta">${p.char_count.toLocaleString()} 字符 | ${p.article_count} 条</div>`;
+      list.appendChild(card);
+    });
+  })
+  .catch(() => {
+    document.getElementById('product-list').innerHTML = '<p style="color:var(--text2)">险种列表加载中… 部署后自动加载 corpus/index.json。</p>';
+  });
+</script>
+
+</body>
+</html>
