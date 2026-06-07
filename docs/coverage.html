@@ -97,7 +97,7 @@
 <div class="tooltip-matrix" id="tooltip"></div>
 
 <script>
-fetch('../../kg/coverage_matrix.json')
+fetch('kg/coverage_matrix.json')
   .then(r => r.json())
   .then(data => {
     const tooltip = document.getElementById('tooltip');

@@ -112,7 +112,7 @@ const colors = {
 };
 const catNames = {1:'财产险主险',2:'利润损失险',3:'特殊财产险',4:'行业定制险',5:'其他'};
 
-fetch('../../kg/product_graph.json')
+fetch('kg/product_graph.json')
   .then(r => r.json())
   .then(data => {
     const width = window.innerWidth;
