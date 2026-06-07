@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>保险金额 — 实体索引 — PICC企财险知识库</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: #FAFBFC;
+    color: #1A1A2E;
+    line-height: 1.6;
+    padding: 40px 24px;
+  }
+  .container { max-width: 900px; margin: 0 auto; }
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #13C2C2;
+    margin-bottom: 8px;
+  }
+  .subtitle { color: #5A6178; font-size: 14px; margin-bottom: 24px; }
+  .back-link { display: inline-block; margin-bottom: 20px; color: #1D39C4; font-size: 13px; text-decoration: none; }
+  .back-link:hover { text-decoration: underline; }
+
+  .search-box {
+    width: 100%;
+    padding: 10px 16px;
+    border: 1px solid #E8ECF1;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-box:focus { border-color: #13C2C2; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  th {
+    background: #F0F2F5;
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    color: #5A6178;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  td {
+    padding: 10px 16px;
+    border-top: 1px solid #F0F2F5;
+    font-size: 13px;
+  }
+  .entity-name { font-weight: 600; }
+  .entity-count { color: #5A6178; text-align: center; white-space: nowrap; }
+  .entity-chapters { font-size: 12px; color: #8C8C8C; }
+  .entity-chapters a { color: #1D39C4; text-decoration: none; }
+  .entity-chapters a:hover { text-decoration: underline; }
+  tr:hover { background: #FAFBFC; }
+
+  .stats { font-size: 12px; color: #8C8C8C; margin-bottom: 16px; }
+
+  @media (max-width: 768px) {
+    body { padding: 20px 12px; }
+    td { padding: 8px 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="../index.html" class="back-link">← 返回知识库首页</a>
+  <h1>保险金额 <span style="font-size:16px;font-weight:400">($)</span></h1>
+  <p class="subtitle">共 15 个实体，729 次出现</p>
+
+  <input type="text" class="search-box" placeholder="🔍 搜索实体..." oninput="filterEntities(this.value)">
+
+  <table id="entity-table">
+    <thead>
+      <tr>
+        <th>实体名称</th>
+        <th style="text-align:center">出现次数</th>
+        <th>出现险种</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr id="entity-%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D">
+          <td class="entity-name" style="color:#13C2C2">保险金额</td>
+          <td class="entity-count">384</td>
+          <td class="entity-chapters"><a href="../chapters/104_%E5%95%86%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F.tagged.html">104_商业燃气火灾爆炸泄漏.tagged</a>, <a href="../chapters/104_%E5%95%86%E4%B8%9A%E7%87%83%E6%B0%94%E7%94%A8%E6%88%B7%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">104_商业燃气用户财产损失保险.tagged</a>, <a href="../chapters/104_%E5%B7%A5%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F.tagged.html">104_工业燃气火灾爆炸泄漏.tagged</a>, <a href="../chapters/104_%E5%B7%A5%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F%EF%BC%88%E9%87%8D%EF%BC%89.tagged.html">104_工业燃气火灾爆炸泄漏（重）.tagged</a>, <a href="../chapters/11_%E9%AB%98%E6%96%B0%E6%8A%80%E6%9C%AF%E4%BC%81%E4%B8%9A%E8%B4%A2%E4%BA%A7%E4%B8%80%E5%88%87%E9%99%A9.tagged.html">11_高新技术企业财产一切险.tagged</a> ... 等32个险种</td>
+        </tr>
+        <tr id="entity-%E4%BF%9D%E9%99%A9%E4%BB%B7%E5%80%BC">
+          <td class="entity-name" style="color:#13C2C2">保险价值</td>
+          <td class="entity-count">264</td>
+          <td class="entity-chapters"><a href="../chapters/104_%E5%95%86%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F.tagged.html">104_商业燃气火灾爆炸泄漏.tagged</a>, <a href="../chapters/104_%E5%95%86%E4%B8%9A%E7%87%83%E6%B0%94%E7%94%A8%E6%88%B7%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">104_商业燃气用户财产损失保险.tagged</a>, <a href="../chapters/104_%E5%B7%A5%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F.tagged.html">104_工业燃气火灾爆炸泄漏.tagged</a>, <a href="../chapters/104_%E5%B7%A5%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F%EF%BC%88%E9%87%8D%EF%BC%89.tagged.html">104_工业燃气火灾爆炸泄漏（重）.tagged</a>, <a href="../chapters/11_%E9%AB%98%E6%96%B0%E6%8A%80%E6%9C%AF%E4%BC%81%E4%B8%9A%E8%B4%A2%E4%BA%A7%E4%B8%80%E5%88%87%E9%99%A9.tagged.html">11_高新技术企业财产一切险.tagged</a> ... 等26个险种</td>
+        </tr>
+        <tr id="entity-%E9%87%8D%E7%BD%AE%E4%BB%B7%E5%80%BC">
+          <td class="entity-name" style="color:#13C2C2">重置价值</td>
+          <td class="entity-count">31</td>
+          <td class="entity-chapters"><a href="../chapters/104_%E5%95%86%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F.tagged.html">104_商业燃气火灾爆炸泄漏.tagged</a>, <a href="../chapters/104_%E5%B7%A5%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F.tagged.html">104_工业燃气火灾爆炸泄漏.tagged</a>, <a href="../chapters/104_%E5%B7%A5%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F%EF%BC%88%E9%87%8D%EF%BC%89.tagged.html">104_工业燃气火灾爆炸泄漏（重）.tagged</a>, <a href="../chapters/11_%E9%AB%98%E6%96%B0%E6%8A%80%E6%9C%AF%E4%BC%81%E4%B8%9A%E8%B4%A2%E4%BA%A7%E4%B8%80%E5%88%87%E9%99%A9.tagged.html">11_高新技术企业财产一切险.tagged</a>, <a href="../chapters/12_%E9%AB%98%E6%96%B0%E6%8A%80%E6%9C%AF%E4%BC%81%E4%B8%9A%E8%B4%A2%E4%BA%A7%E7%BB%BC%E5%90%88%E9%99%A9.tagged.html">12_高新技术企业财产综合险.tagged</a> ... 等23个险种</td>
+        </tr>
+        <tr id="entity-%E5%87%BA%E9%99%A9%E6%97%B6%E7%9A%84%E9%87%8D%E7%BD%AE%E4%BB%B7%E5%80%BC">
+          <td class="entity-name" style="color:#13C2C2">出险时的重置价值</td>
+          <td class="entity-count">8</td>
+          <td class="entity-chapters"><a href="../chapters/12_%E9%AB%98%E6%96%B0%E6%8A%80%E6%9C%AF%E4%BC%81%E4%B8%9A%E8%B4%A2%E4%BA%A7%E7%BB%BC%E5%90%88%E9%99%A9.tagged.html">12_高新技术企业财产综合险.tagged</a>, <a href="../chapters/1_%E8%B4%A2%E4%BA%A7%E5%9F%BA%E6%9C%AC%E9%99%A9.tagged.html">1_财产基本险.tagged</a>, <a href="../chapters/22_%E9%A3%8E%E7%94%B5%E4%BC%81%E4%B8%9A%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">22_风电企业财产损失保险.tagged</a>, <a href="../chapters/26_%E5%B7%A5%E7%A8%8B%E6%9C%BA%E6%A2%B0%E8%AE%BE%E5%A4%87%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">26_工程机械设备财产损失保险.tagged</a>, <a href="../chapters/27_%E6%9C%BA%E5%9C%BA%E8%B5%84%E4%BA%A7%E5%AE%9A%E5%88%B6%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">27_机场资产定制财产损失保险.tagged</a> ... 等8个险种</td>
+        </tr>
+        <tr id="entity-%E5%AE%9E%E9%99%85%E4%BB%B7%E5%80%BC">
+          <td class="entity-name" style="color:#13C2C2">实际价值</td>
+          <td class="entity-count">7</td>
+          <td class="entity-chapters"><a href="../chapters/12_%E9%AB%98%E6%96%B0%E6%8A%80%E6%9C%AF%E4%BC%81%E4%B8%9A%E8%B4%A2%E4%BA%A7%E7%BB%BC%E5%90%88%E9%99%A9.tagged.html">12_高新技术企业财产综合险.tagged</a>, <a href="../chapters/26_%E5%B7%A5%E7%A8%8B%E6%9C%BA%E6%A2%B0%E8%AE%BE%E5%A4%87%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">26_工程机械设备财产损失保险.tagged</a>, <a href="../chapters/5_%E6%9C%BA%E6%8D%9F%E9%99%A9.tagged.html">5_机损险.tagged</a></td>
+        </tr>
+        <tr id="entity-%E6%8A%95%E4%BF%9D%E5%8D%95%E4%BB%B7">
+          <td class="entity-name" style="color:#13C2C2">投保单价</td>
+          <td class="entity-count">6</td>
+          <td class="entity-chapters"><a href="../chapters/30_%E4%BB%93%E5%8D%95%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">30_仓单财产损失保险.tagged</a></td>
+        </tr>
+        <tr id="entity-%E5%8D%95%E4%BD%8D%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D">
+          <td class="entity-name" style="color:#13C2C2">单位保险金额</td>
+          <td class="entity-count">6</td>
+          <td class="entity-chapters"><a href="../chapters/31_%E8%A7%82%E8%B5%8F%E5%8A%A8%E7%89%A9%E9%A5%B2%E5%85%BB%E9%A6%86%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">31_观赏动物饲养馆财产损失保险.tagged</a></td>
+        </tr>
+        <tr id="entity-%E5%B8%82%E5%9C%BA%E4%BB%B7%E5%80%BC">
+          <td class="entity-name" style="color:#13C2C2">市场价值</td>
+          <td class="entity-count">5</td>
+          <td class="entity-chapters"><a href="../chapters/22_%E9%A3%8E%E7%94%B5%E4%BC%81%E4%B8%9A%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">22_风电企业财产损失保险.tagged</a>, <a href="../chapters/28_%E6%81%90%E6%80%96%E8%A2%AD%E5%87%BB%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">28_恐怖袭击财产损失保险.tagged</a>, <a href="../chapters/30_%E4%BB%93%E5%8D%95%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">30_仓单财产损失保险.tagged</a>, <a href="../chapters/5_%E6%9C%BA%E6%8D%9F%E9%99%A9.tagged.html">5_机损险.tagged</a>, <a href="../chapters/%E8%B4%A2%E4%BA%A7%E5%9F%BA%E6%9C%AC%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.tagged.html">财产基本险（2025版）.tagged</a></td>
+        </tr>
+        <tr id="entity-%E5%87%BA%E9%99%A9%E6%97%B6%E7%9A%84%E5%B8%82%E5%9C%BA%E4%BB%B7%E5%80%BC">
+          <td class="entity-name" style="color:#13C2C2">出险时的市场价值</td>
+          <td class="entity-count">4</td>
+          <td class="entity-chapters"><a href="../chapters/1_%E8%B4%A2%E4%BA%A7%E5%9F%BA%E6%9C%AC%E9%99%A9.tagged.html">1_财产基本险.tagged</a>, <a href="../chapters/22_%E9%A3%8E%E7%94%B5%E4%BC%81%E4%B8%9A%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">22_风电企业财产损失保险.tagged</a>, <a href="../chapters/2_%E8%B4%A2%E4%BA%A7%E7%BB%BC%E5%90%88%E9%99%A9.tagged.html">2_财产综合险.tagged</a>, <a href="../chapters/3_%E8%B4%A2%E4%BA%A7%E4%B8%80%E5%88%87%E9%99%A9.tagged.html">3_财产一切险.tagged</a></td>
+        </tr>
+        <tr id="entity-%E5%87%BA%E9%99%A9%E6%97%B6%E7%9A%84%E8%B4%A6%E9%9D%A2%E4%BD%99%E9%A2%9D">
+          <td class="entity-name" style="color:#13C2C2">出险时的账面余额</td>
+          <td class="entity-count">3</td>
+          <td class="entity-chapters"><a href="../chapters/1_%E8%B4%A2%E4%BA%A7%E5%9F%BA%E6%9C%AC%E9%99%A9.tagged.html">1_财产基本险.tagged</a>, <a href="../chapters/2_%E8%B4%A2%E4%BA%A7%E7%BB%BC%E5%90%88%E9%99%A9.tagged.html">2_财产综合险.tagged</a>, <a href="../chapters/3_%E8%B4%A2%E4%BA%A7%E4%B8%80%E5%88%87%E9%99%A9.tagged.html">3_财产一切险.tagged</a></td>
+        </tr>
+        <tr id="entity-%E5%8D%95%E4%BD%8D%E9%9D%A2%E7%A7%AF%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D">
+          <td class="entity-name" style="color:#13C2C2">单位面积保险金额</td>
+          <td class="entity-count">3</td>
+          <td class="entity-chapters"><a href="../chapters/39_%E6%88%BF%E5%B1%8B%E6%95%B4%E4%BD%93%E5%80%92%E5%A1%8C%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">39_房屋整体倒塌财产损失保险.tagged</a></td>
+        </tr>
+        <tr id="entity-%E8%B5%94%E5%81%BF%E9%99%90%E9%A2%9D">
+          <td class="entity-name" style="color:#13C2C2">赔偿限额</td>
+          <td class="entity-count">3</td>
+          <td class="entity-chapters"><a href="../chapters/7_%E8%90%A5%E4%B8%9A%E4%B8%AD%E6%96%AD%E4%BF%9D%E9%99%A9.tagged.html">7_营业中断保险.tagged</a></td>
+        </tr>
+        <tr id="entity-%E8%B4%A6%E9%9D%A2%E5%8E%9F%E5%80%BC">
+          <td class="entity-name" style="color:#13C2C2">账面原值</td>
+          <td class="entity-count">2</td>
+          <td class="entity-chapters"><a href="../chapters/27_%E6%9C%BA%E5%9C%BA%E8%B5%84%E4%BA%A7%E5%AE%9A%E5%88%B6%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">27_机场资产定制财产损失保险.tagged</a>, <a href="../chapters/5_%E6%9C%BA%E6%8D%9F%E9%99%A9.tagged.html">5_机损险.tagged</a></td>
+        </tr>
+        <tr id="entity-%E8%B4%A6%E9%9D%A2%E4%BD%99%E9%A2%9D">
+          <td class="entity-name" style="color:#13C2C2">账面余额</td>
+          <td class="entity-count">2</td>
+          <td class="entity-chapters"><a href="../chapters/28_%E6%81%90%E6%80%96%E8%A2%AD%E5%87%BB%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">28_恐怖袭击财产损失保险.tagged</a>, <a href="../chapters/%E8%B4%A2%E4%BA%A7%E5%9F%BA%E6%9C%AC%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89.tagged.html">财产基本险（2025版）.tagged</a></td>
+        </tr>
+        <tr id="entity-%E6%80%BB%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D">
+          <td class="entity-name" style="color:#13C2C2">总保险金额</td>
+          <td class="entity-count">1</td>
+          <td class="entity-chapters"><a href="../chapters/39_%E6%88%BF%E5%B1%8B%E6%95%B4%E4%BD%93%E5%80%92%E5%A1%8C%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">39_房屋整体倒塌财产损失保险.tagged</a></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+function filterEntities(query) {
+  const rows = document.querySelectorAll('#entity-table tbody tr');
+  const q = query.toLowerCase();
+  rows.forEach(row => {
+    const name = row.querySelector('.entity-name').textContent.toLowerCase();
+    row.style.display = name.includes(q) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>

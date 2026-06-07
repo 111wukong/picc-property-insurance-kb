@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>营业中断保险 — PICC企财险知识库</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -14,8 +17,10 @@
     --border: #E8ECF1;
     --card: #FFFFFF;
     --accent: #D4380D;
+    --blue: #1D39C4;
     --serif: 'Noto Serif SC', 'Source Han Serif SC', 'STSong', 'SimSun', 'Songti SC', Georgia, 'Times New Roman', serif;
-    --sans: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+    --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+    --sidebar-w: 240px;
   }
 
   body {
@@ -27,12 +32,123 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  .container {
+  /* ===== 顶部导航 ===== */
+  .chapter-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     max-width: 780px;
     margin: 0 auto;
-    padding: 60px 24px 120px;
+    padding: 12px 24px;
+    font-size: 13px;
+    font-family: var(--sans);
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .chapter-nav a {
+    color: var(--blue);
+    text-decoration: none;
+    padding: 4px 12px;
+    border-radius: 4px;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .chapter-nav a:hover { background: var(--border); }
+  .nav-disabled { color: #C0C4CC; padding: 4px 12px; white-space: nowrap; }
+  .nav-home { font-weight: 600; }
+
+  /* ===== 滚动进度条 ===== */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--blue));
+    z-index: 1000;
+    transition: width 0.1s linear;
   }
 
+  /* ===== 主内容区 ===== */
+  .main-wrapper {
+    display: flex;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 24px 80px;
+    gap: 32px;
+  }
+
+  .container {
+    flex: 1;
+    min-width: 0;
+    max-width: 780px;
+  }
+
+  /* ===== 侧边栏 ===== */
+  .sidebar {
+    width: var(--sidebar-w);
+    flex-shrink: 0;
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+  }
+  .sidebar::-webkit-scrollbar { width: 3px; }
+  .sidebar::-webkit-scrollbar-thumb { background: #D1D9E6; border-radius: 2px; }
+
+  .sidebar-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .sidebar-box h4 {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .toc-link {
+    display: block;
+    font-size: 13px;
+    color: var(--text2);
+    text-decoration: none;
+    padding: 3px 0;
+    transition: color 0.15s;
+    font-family: var(--sans);
+  }
+  .toc-link:hover { color: var(--accent); }
+  .toc-empty { color: #C0C4CC; font-size: 12px; }
+
+  /* 高亮开关按钮 */
+  .toggle-btn {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--text2);
+    font-family: var(--sans);
+    transition: all 0.2s;
+  }
+  .toggle-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .sidebar-stats {
+    font-size: 11px;
+    color: var(--text2);
+    font-family: var(--sans);
+    line-height: 1.6;
+  }
+
+  /* ===== 标题 ===== */
   h1 {
     font-size: 28px;
     font-weight: 900;
@@ -42,16 +158,15 @@
     border-bottom: 3px solid var(--accent);
     letter-spacing: 1px;
   }
-
   h2 {
     font-size: 22px;
     font-weight: 700;
-    color: #1D39C4;
+    color: var(--blue);
     margin: 40px 0 16px;
     padding-left: 12px;
-    border-left: 4px solid #1D39C4;
+    border-left: 4px solid var(--blue);
+    scroll-margin-top: 20px;
   }
-
   h3 {
     font-size: 18px;
     font-weight: 600;
@@ -59,29 +174,40 @@
     margin: 24px 0 12px;
   }
 
+  /* ===== 段落 ===== */
   p {
-    margin: 8px 0;
-    text-indent: 2em;
+    margin: 6px 0;
     text-align: justify;
+    position: relative;
+    scroll-margin-top: 16px;
   }
 
-  li {
-    margin: 4px 0 4px 2em;
+  /* ===== Purple Numbers ===== */
+  .pn-link {
+    display: inline-block;
+    font-family: var(--sans);
+    font-size: 11px;
+    color: #ADB5BD;
+    text-decoration: none;
+    margin-right: 6px;
+    user-select: none;
+    transition: color 0.15s;
   }
+  .pn-link:hover { color: var(--accent); }
+  p:target { background: #FFF7E6; border-radius: 4px; padding: 2px 6px; margin: 4px -6px; }
 
-  br + p { text-indent: 2em; }
-  br + br { display: none; }
+  li { margin: 4px 0 4px 2em; }
 
-  /* 实体标注样式 */
+  /* ===== 实体标注 ===== */
 
       .entity-product {
         color: #D4380D;
         text-decoration: underline;
-        text-decoration-color: #D4380D33;
+        text-decoration-color: #D4380D40;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-product:hover {
@@ -92,11 +218,11 @@
       .entity-section {
         color: #1D39C4;
         text-decoration: underline;
-        text-decoration-color: #1D39C433;
+        text-decoration-color: #1D39C440;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-section:hover {
@@ -107,11 +233,11 @@
       .entity-article {
         color: #531DAB;
         text-decoration: underline;
-        text-decoration-color: #531DAB33;
+        text-decoration-color: #531DAB40;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-article:hover {
@@ -122,11 +248,11 @@
       .entity-filing {
         color: #595959;
         text-decoration: underline;
-        text-decoration-color: #59595933;
+        text-decoration-color: #59595940;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-filing:hover {
@@ -137,11 +263,11 @@
       .entity-rider {
         color: #FA8C16;
         text-decoration: underline;
-        text-decoration-color: #FA8C1633;
+        text-decoration-color: #FA8C1640;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-rider:hover {
@@ -152,11 +278,11 @@
       .entity-special {
         color: #EB2F96;
         text-decoration: underline;
-        text-decoration-color: #EB2F9633;
+        text-decoration-color: #EB2F9640;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-special:hover {
@@ -167,11 +293,11 @@
       .entity-version {
         color: #08979C;
         text-decoration: underline;
-        text-decoration-color: #08979C33;
+        text-decoration-color: #08979C40;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-version:hover {
@@ -182,11 +308,11 @@
       .entity-subject {
         color: #237804;
         text-decoration: underline;
-        text-decoration-color: #23780433;
+        text-decoration-color: #23780440;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-subject:hover {
@@ -197,11 +323,11 @@
       .entity-peril {
         color: #FAAD14;
         text-decoration: underline;
-        text-decoration-color: #FAAD1433;
+        text-decoration-color: #FAAD1440;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-peril:hover {
@@ -212,11 +338,11 @@
       .entity-exclusion {
         color: #FF4D4F;
         text-decoration: underline;
-        text-decoration-color: #FF4D4F33;
+        text-decoration-color: #FF4D4F40;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-exclusion:hover {
@@ -227,11 +353,11 @@
       .entity-sum {
         color: #13C2C2;
         text-decoration: underline;
-        text-decoration-color: #13C2C233;
+        text-decoration-color: #13C2C240;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-sum:hover {
@@ -242,11 +368,11 @@
       .entity-deductible {
         color: #F759AB;
         text-decoration: underline;
-        text-decoration-color: #F759AB33;
+        text-decoration-color: #F759AB40;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-deductible:hover {
@@ -257,11 +383,11 @@
       .entity-period {
         color: #2F54EB;
         text-decoration: underline;
-        text-decoration-color: #2F54EB33;
+        text-decoration-color: #2F54EB40;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-period:hover {
@@ -272,11 +398,11 @@
       .entity-rate {
         color: #722ED1;
         text-decoration: underline;
-        text-decoration-color: #722ED133;
+        text-decoration-color: #722ED140;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-rate:hover {
@@ -287,11 +413,11 @@
       .entity-claim {
         color: #FA541C;
         text-decoration: underline;
-        text-decoration-color: #FA541C33;
+        text-decoration-color: #FA541C40;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-claim:hover {
@@ -302,11 +428,11 @@
       .entity-obligation {
         color: #A0D911;
         text-decoration: underline;
-        text-decoration-color: #A0D91133;
+        text-decoration-color: #A0D91140;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-obligation:hover {
@@ -317,11 +443,11 @@
       .entity-definition {
         color: #597EF7;
         text-decoration: underline;
-        text-decoration-color: #597EF733;
+        text-decoration-color: #597EF740;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-definition:hover {
@@ -332,11 +458,11 @@
       .entity-policyholder {
         color: #5B8C00;
         text-decoration: underline;
-        text-decoration-color: #5B8C0033;
+        text-decoration-color: #5B8C0040;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-policyholder:hover {
@@ -347,11 +473,11 @@
       .entity-insurer {
         color: #096DD9;
         text-decoration: underline;
-        text-decoration-color: #096DD933;
+        text-decoration-color: #096DD940;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-insurer:hover {
@@ -362,11 +488,11 @@
       .entity-insured {
         color: #7CB305;
         text-decoration: underline;
-        text-decoration-color: #7CB30533;
+        text-decoration-color: #7CB30540;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-insured:hover {
@@ -377,11 +503,11 @@
       .entity-document {
         color: #AD8B00;
         text-decoration: underline;
-        text-decoration-color: #AD8B0033;
+        text-decoration-color: #AD8B0040;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-document:hover {
@@ -392,11 +518,11 @@
       .entity-thirdparty {
         color: #C41D7F;
         text-decoration: underline;
-        text-decoration-color: #C41D7F33;
+        text-decoration-color: #C41D7F40;
         text-underline-offset: 3px;
         cursor: pointer;
         transition: all 0.2s;
-        padding: 0 2px;
+        padding: 0 1px;
         border-radius: 2px;
       }
       .entity-thirdparty:hover {
@@ -404,218 +530,336 @@
         text-decoration-color: #C41D7F;
       }
 
-  /* 响应式 */
-  @media (max-width: 768px) {
-    .container {
-      padding: 32px 16px 80px;
+  /* 高亮关闭状态 */
+  body.highlight-off .entity-tagged {
+    color: inherit !important;
+    text-decoration: none !important;
+    background: none !important;
+    cursor: default;
+  }
+
+  /* ===== 页脚 ===== */
+  .page-footer {
+    margin-top: 48px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text2);
+    font-family: var(--sans);
+  }
+  .page-footer a { color: var(--blue); }
+
+  /* ===== 响应式 ===== */
+  @media (max-width: 900px) {
+    .main-wrapper {
+      flex-direction: column;
+      padding: 12px 16px 60px;
     }
+    .sidebar {
+      width: 100%;
+      position: static;
+      max-height: none;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .sidebar-box { flex: 1; min-width: 140px; }
     h1 { font-size: 22px; }
     h2 { font-size: 18px; }
     body { font-size: 15px; }
+    .chapter-nav { padding: 8px 12px; font-size: 12px; }
   }
 
-  /* 打印 */
   @media print {
+    .sidebar, .progress-bar, .chapter-nav, .page-footer { display: none; }
     body { background: white; }
     .container { max-width: 100%; padding: 0; }
+    .main-wrapper { padding: 0; }
   }
 </style>
 </head>
 <body>
-<div class="container">
+<div class="progress-bar" id="progress-bar"></div>
+
+<nav class="chapter-nav"><a href="chapters/5_%E6%9C%BA%E6%8D%9F%E9%99%A9%E4%B8%BB%E9%99%A9.html" class="nav-prev">← 机损险主险</a><a href="../index.html" class="nav-home">🏠 目录</a><a href="chapters/9_%E7%8E%B0%E9%87%91%E4%BF%9D%E9%99%A9.html" class="nav-next">现金保险 →</a></nav>
+
+<div class="main-wrapper">
+  <aside class="sidebar">
+    <div class="sidebar-box">
+      <h4>📑 本章目录</h4>
+      <a href="#section-1" class="toc-link"></a>
+          <a href="#section-2" class="toc-link"></a>
+          <a href="#section-3" class="toc-link"></a>
+          <a href="#section-4" class="toc-link"></a>
+          <a href="#section-5" class="toc-link"></a>
+          <a href="#section-6" class="toc-link"></a>
+          <a href="#section-7" class="toc-link"></a>
+          <a href="#section-8" class="toc-link"></a>
+          <a href="#section-9" class="toc-link"></a>
+          <a href="#section-10" class="toc-link"></a>
+          <a href="#section-11" class="toc-link"></a>
+    </div>
+    <div class="sidebar-box">
+      <h4>⚙️ 设置</h4>
+      <button class="toggle-btn" id="toggle-highlight" onclick="toggleHighlight()">
+        🎨 语法高亮：开
+      </button>
+    </div>
+    <div class="sidebar-box">
+      <h4>📊 统计</h4>
+      <div class="sidebar-stats">
+        段落编号: 96<br>
+        <a href="../index.html">← 返回知识库首页</a>
+      </div>
+    </div>
+  </aside>
+
+  <main class="container">
 <h1>〖@营业中断保险（2025版）〗</h1>
 <br>
-<p>〖◀中国人民财产保险股份有限公司〗</p>
+<p id="pn-1"><a href="#pn-1" class="pn-link" title="复制此段落链接">[1]</a> <a href="../entities/insurer.html#entity-%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E8%B4%A2%E4%BA%A7%E4%BF%9D%E9%99%A9%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8" class="entity-insurer entity-tagged" title="保险人" data-entity="中国人民财产保险股份有限公司" data-type="保险人">中国人民财产保险股份有限公司</a></p>
 <br>
-<p>〖@营业中断保险（2025版）〗条款</p>
+<p id="pn-2"><a href="#pn-2" class="pn-link" title="复制此段落链接">[2]</a> <a href="../entities/product.html#entity-%E8%90%A5%E4%B8%9A%E4%B8%AD%E6%96%AD%E4%BF%9D%E9%99%A9%EF%BC%882025%E7%89%88%EF%BC%89" class="entity-product entity-tagged" title="险种名" data-entity="营业中断保险（2025版）" data-type="险种名">营业中断保险（2025版）</a>条款</p>
 <br>
-<h2>〖§总则〗</h2>
+<h2 id="section-3">〖§总则〗</h2>
 <br>
-<p>〖¶第一条〗 本〖📋保险合同〗由〖📋保险条款〗、〖📋投保单〗、〖📋保险单〗或其他〖📋保险凭证〗以及〖📋批单〗组成。凡涉及本〖📋保险合同〗的约定，均应采用书面形式。</p>
+<p id="pn-4"><a href="#pn-4" class="pn-link" title="复制此段落链接">[4]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%B8%80%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第一条" data-type="具体条目">第一条</a> 本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>由<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E6%9D%A1%E6%AC%BE" class="entity-document entity-tagged" title="合同单据" data-entity="保险条款" data-type="合同单据">保险条款</a>、<a href="../entities/document.html#entity-%E6%8A%95%E4%BF%9D%E5%8D%95" class="entity-document entity-tagged" title="合同单据" data-entity="投保单" data-type="合同单据">投保单</a>、<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%8D%95" class="entity-document entity-tagged" title="合同单据" data-entity="保险单" data-type="合同单据">保险单</a>或其他<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%87%AD%E8%AF%81" class="entity-document entity-tagged" title="合同单据" data-entity="保险凭证" data-type="合同单据">保险凭证</a>以及<a href="../entities/document.html#entity-%E6%89%B9%E5%8D%95" class="entity-document entity-tagged" title="合同单据" data-entity="批单" data-type="合同单据">批单</a>组成。凡涉及本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>的约定，均应采用书面形式。</p>
 <br>
-<p>〖¶第二条〗 〖▶投保人〗应将〖◆被保险人〗在本〖📋保险合同〗载明的营业处所从事载明的经营业务（以下简称"营业"）所使用的物质财产向〖◀保险人〗投保相关的物质财产损失保险。物质财产损失保险合同（以下简称物质损失保险合同）号应在本〖📋保险合同〗中载明。物质财产损失〖📋保险合同〗的〖▶投保人〗和〖◆被保险人〗可以分别作为本〖📋保险合同〗的〖▶投保人〗和〖◆被保险人〗。</p>
+<p id="pn-5"><a href="#pn-5" class="pn-link" title="复制此段落链接">[5]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%BA%8C%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第二条" data-type="具体条目">第二条</a> <a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>应将<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>在本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>载明的营业处所从事载明的经营业务（以下简称"营业"）所使用的物质财产向<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>投保相关的物质财产损失保险。物质财产损失保险合同（以下简称物质损失保险合同）号应在本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>中载明。物质财产损失<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>的<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>和<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>可以分别作为本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>的<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>和<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>。</p>
 <br>
-<h2>〖§保险责任〗</h2>
+<h2 id="section-6">〖§保险责任〗</h2>
 <br>
-<p>〖¶第三条〗 在〖⏱保险期间〗内，〖◆被保险人〗因物质损失〖📋保险合同〗主险条款所承保的风险造成营业所使用的物质财产遭受损失（以下简称"物质保险损失"），导致〖◆被保险人〗营业受到干扰或中断，由此产生的赔偿期间内的毛利润损失，〖◀保险人〗按照本〖📋保险合同〗的约定负责赔偿。</p>
+<p id="pn-7"><a href="#pn-7" class="pn-link" title="复制此段落链接">[7]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%B8%89%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第三条" data-type="具体条目">第三条</a> 在<a href="../entities/period.html#entity-%E4%BF%9D%E9%99%A9%E6%9C%9F%E9%97%B4" class="entity-period entity-tagged" title="保险期间" data-entity="保险期间" data-type="保险期间">保险期间</a>内，<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>因物质损失<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>主险条款所承保的风险造成营业所使用的物质财产遭受损失（以下简称"物质保险损失"），导致<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>营业受到干扰或中断，由此产生的赔偿期间内的毛利润损失，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>按照本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>的约定负责赔偿。</p>
 <br>
-<p>本〖📋保险合同〗所称赔偿期间是指自物质保险损失发生之日起，〖◆被保险人〗的营业结果因该物质保险损失而受到影响的期间，但该期间最长不得超过本〖📋保险合同〗约定的最大赔偿期。</p>
+<p id="pn-8"><a href="#pn-8" class="pn-link" title="复制此段落链接">[8]</a> 本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>所称赔偿期间是指自物质保险损失发生之日起，<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>的营业结果因该物质保险损失而受到影响的期间，但该期间最长不得超过本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>约定的最大赔偿期。</p>
 <br>
-<p>本〖📋保险合同〗所称毛利润是指按照下述公式计算的金额：</p>
+<p id="pn-9"><a href="#pn-9" class="pn-link" title="复制此段落链接">[9]</a> 本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>所称毛利润是指按照下述公式计算的金额：</p>
 <br>
-<p>毛利润=营业利润+约定的维持费用</p>
+<p id="pn-10"><a href="#pn-10" class="pn-link" title="复制此段落链接">[10]</a> 毛利润=营业利润+约定的维持费用</p>
 <br>
-<p>或</p>
+<p id="pn-11"><a href="#pn-11" class="pn-link" title="复制此段落链接">[11]</a> 或</p>
 <br>
-<p>毛利润=约定的维持费用-营业亏损×约定的维持费用/全部的维持费用</p>
+<p id="pn-12"><a href="#pn-12" class="pn-link" title="复制此段落链接">[12]</a> 毛利润=约定的维持费用-营业亏损×约定的维持费用/全部的维持费用</p>
 <br>
-<p>本〖📋保险合同〗所称维持费用是指〖◆被保险人〗为维持正常的营业活动而发生的、不随〖◆被保险人〗营业收入的减少而成正比例减少的成本或费用。约定的维持费用由〖▶投保人〗自行确定，经〖◀保险人〗确认后在〖📋保险合同〗中载明。</p>
+<p id="pn-13"><a href="#pn-13" class="pn-link" title="复制此段落链接">[13]</a> 本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>所称维持费用是指<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>为维持正常的营业活动而发生的、不随<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>营业收入的减少而成正比例减少的成本或费用。约定的维持费用由<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>自行确定，经<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>确认后在<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>中载明。</p>
 <br>
-<p>除另有约定外，上述公式所用的会计措辞的含义与〖◆被保险人〗会计账表中的含义一致。</p>
+<p id="pn-14"><a href="#pn-14" class="pn-link" title="复制此段落链接">[14]</a> 除另有约定外，上述公式所用的会计措辞的含义与<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>会计账表中的含义一致。</p>
 <br>
-<p>〖¶第四条〗 发生第三条〖⚖约定〗的〖⚡保险事故〗后，〖◆被保险人〗申请赔偿时，按照〖◀保险人〗的要求提供有关账表、账表审计结果或其他证据所付给〖◆被保险人〗聘请的〖▣注册会计师〗的合理的、必要的费用（以下简称审计费用），〖◀保险人〗在本〖📋保险合同〗约定的〖$赔偿限额〗内也负责赔偿。</p>
+<p id="pn-15"><a href="#pn-15" class="pn-link" title="复制此段落链接">[15]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E5%9B%9B%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第四条" data-type="具体条目">第四条</a> 发生第三条<a href="../entities/definition.html#entity-%E7%BA%A6%E5%AE%9A" class="entity-definition entity-tagged" title="定义条款" data-entity="约定" data-type="定义条款">约定</a>的<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%8B%E6%95%85" class="entity-peril entity-tagged" title="保险责任" data-entity="保险事故" data-type="保险责任">保险事故</a>后，<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>申请赔偿时，按照<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>的要求提供有关账表、账表审计结果或其他证据所付给<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>聘请的<a href="../entities/thirdparty.html#entity-%E6%B3%A8%E5%86%8C%E4%BC%9A%E8%AE%A1%E5%B8%88" class="entity-thirdparty entity-tagged" title="第三方" data-entity="注册会计师" data-type="第三方">注册会计师</a>的合理的、必要的费用（以下简称审计费用），<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>在本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>约定的<a href="../entities/sum.html#entity-%E8%B5%94%E5%81%BF%E9%99%90%E9%A2%9D" class="entity-sum entity-tagged" title="保险金额" data-entity="赔偿限额" data-type="保险金额">赔偿限额</a>内也负责赔偿。</p>
 <br>
-<h2>〖§责任免除〗</h2>
+<h2 id="section-16">〖§责任免除〗</h2>
 <br>
-<p>〖¶第五条〗 〖◀保险人〗不负责赔偿下列任何损失：</p>
+<p id="pn-17"><a href="#pn-17" class="pn-link" title="复制此段落链接">[17]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%BA%94%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第五条" data-type="具体条目">第五条</a> <a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>不负责赔偿下列任何损失：</p>
 <br>
-<p>（一）〖▶投保人〗、〖◆被保险人〗的〖✕故意或重大过失行为〗产生或扩大的任何损失；</p>
+<p id="pn-18"><a href="#pn-18" class="pn-link" title="复制此段落链接">[18]</a> （一）<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>、<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>的<a href="../entities/exclusion.html#entity-%E6%95%85%E6%84%8F%E6%88%96%E9%87%8D%E5%A4%A7%E8%BF%87%E5%A4%B1%E8%A1%8C%E4%B8%BA" class="entity-exclusion entity-tagged" title="责任免除" data-entity="故意或重大过失行为" data-type="责任免除">故意或重大过失行为</a>产生或扩大的任何损失；</p>
 <br>
-<p>（二）由于物质损失〖📋保险合同〗主险条款责任范围以外的原因产生或扩大的损失；</p>
+<p id="pn-19"><a href="#pn-19" class="pn-link" title="复制此段落链接">[19]</a> （二）由于物质损失<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>主险条款责任范围以外的原因产生或扩大的损失；</p>
 <br>
-<p>（三）〖✕地震〗、〖✕海啸及其次生灾害〗产生或扩大的损失；</p>
+<p id="pn-20"><a href="#pn-20" class="pn-link" title="复制此段落链接">[20]</a> （三）<a href="../entities/exclusion.html#entity-%E5%9C%B0%E9%9C%87" class="entity-exclusion entity-tagged" title="责任免除" data-entity="地震" data-type="责任免除">地震</a>、<a href="../entities/exclusion.html#entity-%E6%B5%B7%E5%95%B8%E5%8F%8A%E5%85%B6%E6%AC%A1%E7%94%9F%E7%81%BE%E5%AE%B3" class="entity-exclusion entity-tagged" title="责任免除" data-entity="海啸及其次生灾害" data-type="责任免除">海啸及其次生灾害</a>产生或扩大的损失；</p>
 <br>
-<p>（四）由于政府对受损财产的修建或修复的限制而产生或扩大的损失；</p>
+<p id="pn-21"><a href="#pn-21" class="pn-link" title="复制此段落链接">[21]</a> （四）由于政府对受损财产的修建或修复的限制而产生或扩大的损失；</p>
 <br>
-<p>（五）〖✕恐怖主义活动〗产生或扩大的损失；</p>
+<p id="pn-22"><a href="#pn-22" class="pn-link" title="复制此段落链接">[22]</a> （五）<a href="../entities/exclusion.html#entity-%E6%81%90%E6%80%96%E4%B8%BB%E4%B9%89%E6%B4%BB%E5%8A%A8" class="entity-exclusion entity-tagged" title="责任免除" data-entity="恐怖主义活动" data-type="责任免除">恐怖主义活动</a>产生或扩大的损失；</p>
 <br>
-<p>（六）本〖📋保险合同〗载明的〖%免赔额〗或本〖📋保险合同〗约定的〖%免赔期〗内的损失。</p>
+<p id="pn-23"><a href="#pn-23" class="pn-link" title="复制此段落链接">[23]</a> （六）本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>载明的<a href="../entities/deductible.html#entity-%E5%85%8D%E8%B5%94%E9%A2%9D" class="entity-deductible entity-tagged" title="免赔额/率" data-entity="免赔额" data-type="免赔额/率">免赔额</a>或本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>约定的<a href="../entities/deductible.html#entity-%E5%85%8D%E8%B5%94%E6%9C%9F" class="entity-deductible entity-tagged" title="免赔额/率" data-entity="免赔期" data-type="免赔额/率">免赔期</a>内的损失。</p>
 <br>
-<h2>〖§保险金额与赔偿限额〗</h2>
+<h2 id="section-24">〖§保险金额与赔偿限额〗</h2>
 <br>
-<p>〖¶第六条〗 毛利润损失〖$保险金额〗由〖▶投保人〗自行确定并在〖📋保险合同〗中载明。</p>
+<p id="pn-25"><a href="#pn-25" class="pn-link" title="复制此段落链接">[25]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E5%85%AD%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第六条" data-type="具体条目">第六条</a> 毛利润损失<a href="../entities/sum.html#entity-%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D" class="entity-sum entity-tagged" title="保险金额" data-entity="保险金额" data-type="保险金额">保险金额</a>由<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>自行确定并在<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>中载明。</p>
 <br>
-<p>〖¶第七条〗 审计费用〖$赔偿限额〗由〖▶投保人〗自行确定并在本〖📋保险合同〗中载明。</p>
+<p id="pn-26"><a href="#pn-26" class="pn-link" title="复制此段落链接">[26]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%B8%83%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第七条" data-type="具体条目">第七条</a> 审计费用<a href="../entities/sum.html#entity-%E8%B5%94%E5%81%BF%E9%99%90%E9%A2%9D" class="entity-sum entity-tagged" title="保险金额" data-entity="赔偿限额" data-type="保险金额">赔偿限额</a>由<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>自行确定并在本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>中载明。</p>
 <br>
-<h2>〖§保险期间与最大赔偿期〗</h2>
+<h2 id="section-27">〖§保险期间与最大赔偿期〗</h2>
 <br>
-<p>〖¶第八条〗 除另有约定外，〖⏱保险期间〗为一年，具体起讫时间以〖📋保险单〗载明的为准。</p>
+<p id="pn-28"><a href="#pn-28" class="pn-link" title="复制此段落链接">[28]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E5%85%AB%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第八条" data-type="具体条目">第八条</a> 除另有约定外，<a href="../entities/period.html#entity-%E4%BF%9D%E9%99%A9%E6%9C%9F%E9%97%B4" class="entity-period entity-tagged" title="保险期间" data-entity="保险期间" data-type="保险期间">保险期间</a>为一年，具体起讫时间以<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%8D%95" class="entity-document entity-tagged" title="合同单据" data-entity="保险单" data-type="合同单据">保险单</a>载明的为准。</p>
 <br>
-<p>〖¶第九条〗 最大赔偿期由〖▶投保人〗自行确定并在〖📋保险合同〗载明。</p>
+<p id="pn-29"><a href="#pn-29" class="pn-link" title="复制此段落链接">[29]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%B9%9D%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第九条" data-type="具体条目">第九条</a> 最大赔偿期由<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>自行确定并在<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>载明。</p>
 <br>
-<h2>〖§免赔额与免赔期〗</h2>
+<h2 id="section-30">〖§免赔额与免赔期〗</h2>
 <br>
-<p>〖¶第十条〗 〖%免赔额〗或〖%免赔期〗由〖▶投保人〗与〖◀保险人〗在订立〖📋保险合同〗时协商确定，并在〖📋保险合同〗中载明。</p>
+<p id="pn-31"><a href="#pn-31" class="pn-link" title="复制此段落链接">[31]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E5%8D%81%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第十条" data-type="具体条目">第十条</a> <a href="../entities/deductible.html#entity-%E5%85%8D%E8%B5%94%E9%A2%9D" class="entity-deductible entity-tagged" title="免赔额/率" data-entity="免赔额" data-type="免赔额/率">免赔额</a>或<a href="../entities/deductible.html#entity-%E5%85%8D%E8%B5%94%E6%9C%9F" class="entity-deductible entity-tagged" title="免赔额/率" data-entity="免赔期" data-type="免赔额/率">免赔期</a>由<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>与<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>在订立<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>时协商确定，并在<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>中载明。</p>
 <br>
-<h2>〖§保险人义务〗</h2>
+<h2 id="section-32">〖§保险人义务〗</h2>
 <br>
-<p>〖¶第十一条〗 订立〖📋保险合同〗时，采用〖◀保险人〗提供的格式条款的，〖◀保险人〗向〖▶投保人〗提供的〖📋投保单〗应当附格式条款，〖◀保险人〗应当向〖▶投保人〗说明〖📋保险合同〗的内容。对〖📋保险合同〗中免除〖◀保险人〗责任的条款，〖◀保险人〗在订立合同时应当在〖📋投保单〗、〖📋保险单〗或者其他〖📋保险凭证〗上作出足以引起〖▶投保人〗注意的提示，并对该条款的内容以书面或者口头形式向〖▶投保人〗作出明确说明；未作提示或者明确说明的，该条款不产生效力。</p>
+<p id="pn-33"><a href="#pn-33" class="pn-link" title="复制此段落链接">[33]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E5%8D%81%E4%B8%80%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第十一条" data-type="具体条目">第十一条</a> 订立<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>时，采用<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>提供的格式条款的，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>向<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>提供的<a href="../entities/document.html#entity-%E6%8A%95%E4%BF%9D%E5%8D%95" class="entity-document entity-tagged" title="合同单据" data-entity="投保单" data-type="合同单据">投保单</a>应当附格式条款，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>应当向<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>说明<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>的内容。对<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>中免除<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>责任的条款，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>在订立合同时应当在<a href="../entities/document.html#entity-%E6%8A%95%E4%BF%9D%E5%8D%95" class="entity-document entity-tagged" title="合同单据" data-entity="投保单" data-type="合同单据">投保单</a>、<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%8D%95" class="entity-document entity-tagged" title="合同单据" data-entity="保险单" data-type="合同单据">保险单</a>或者其他<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%87%AD%E8%AF%81" class="entity-document entity-tagged" title="合同单据" data-entity="保险凭证" data-type="合同单据">保险凭证</a>上作出足以引起<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>注意的提示，并对该条款的内容以书面或者口头形式向<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>作出明确说明；未作提示或者明确说明的，该条款不产生效力。</p>
 <br>
-<p>〖¶第十二条〗 本〖📋保险合同〗成立后，〖◀保险人〗应当及时向〖▶投保人〗签发〖📋保险单〗或其他〖📋保险凭证〗。</p>
+<p id="pn-34"><a href="#pn-34" class="pn-link" title="复制此段落链接">[34]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E5%8D%81%E4%BA%8C%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第十二条" data-type="具体条目">第十二条</a> 本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>成立后，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>应当及时向<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>签发<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%8D%95" class="entity-document entity-tagged" title="合同单据" data-entity="保险单" data-type="合同单据">保险单</a>或其他<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%87%AD%E8%AF%81" class="entity-document entity-tagged" title="合同单据" data-entity="保险凭证" data-type="合同单据">保险凭证</a>。</p>
 <br>
-<p>〖¶第十三条〗 〖◀保险人〗依据第十七条所取得的〖📋保险合同〗解除权，自〖◀保险人〗知道有解除事由之日起，超过三十日不行使而消灭。自〖📋保险合同〗成立之日起超过二年的，〖◀保险人〗不得解除合同；发生〖⚡保险事故〗的，〖◀保险人〗承担赔偿责任。</p>
+<p id="pn-35"><a href="#pn-35" class="pn-link" title="复制此段落链接">[35]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E5%8D%81%E4%B8%89%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第十三条" data-type="具体条目">第十三条</a> <a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>依据第十七条所取得的<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>解除权，自<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>知道有解除事由之日起，超过三十日不行使而消灭。自<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>成立之日起超过二年的，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>不得解除合同；发生<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%8B%E6%95%85" class="entity-peril entity-tagged" title="保险责任" data-entity="保险事故" data-type="保险责任">保险事故</a>的，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>承担赔偿责任。</p>
 <br>
-<p>〖◀保险人〗在合同订立时已经知道〖▶投保人〗未如实告知的情况的，〖◀保险人〗不得解除合同；发生〖⚡保险事故〗的，〖◀保险人〗应当承担赔偿责任。</p>
+<p id="pn-36"><a href="#pn-36" class="pn-link" title="复制此段落链接">[36]</a> <a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>在合同订立时已经知道<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>未如实告知的情况的，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>不得解除合同；发生<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%8B%E6%95%85" class="entity-peril entity-tagged" title="保险责任" data-entity="保险事故" data-type="保险责任">保险事故</a>的，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>应当承担赔偿责任。</p>
 <br>
-<p>〖¶第十四条〗 〖◀保险人〗按照第二十二条的约定，认为〖▶投保人〗、〖◆被保险人〗提供的有关索赔的证明和资料不完整的，应当及时一次性通知〖▶投保人〗、〖◆被保险人〗补充提供。</p>
+<p id="pn-37"><a href="#pn-37" class="pn-link" title="复制此段落链接">[37]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E5%8D%81%E5%9B%9B%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第十四条" data-type="具体条目">第十四条</a> <a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>按照第二十二条的约定，认为<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>、<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>提供的有关索赔的证明和资料不完整的，应当及时一次性通知<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>、<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>补充提供。</p>
 <br>
-<p>〖¶第十五条〗 〖◀保险人〗收到〖◆被保险人〗的赔偿保险金的请求后，应当及时作出是否属于〖⚡保险责任〗的核定；情形复杂的，应当在三十日内作出核定，但〖📋保险合同〗另有约定的除外。</p>
+<p id="pn-38"><a href="#pn-38" class="pn-link" title="复制此段落链接">[38]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E5%8D%81%E4%BA%94%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第十五条" data-type="具体条目">第十五条</a> <a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>收到<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>的赔偿保险金的请求后，应当及时作出是否属于<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%A3%E4%BB%BB" class="entity-peril entity-tagged" title="保险责任" data-entity="保险责任" data-type="保险责任">保险责任</a>的核定；情形复杂的，应当在三十日内作出核定，但<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>另有约定的除外。</p>
 <br>
-<p>〖◀保险人〗应当将核定结果通知〖◆被保险人〗；对属于〖⚡保险责任〗的，在与〖◆被保险人〗达成赔偿保险金的协议后十日内，履行赔偿保险金义务。〖📋保险合同〗对赔偿保险金的期限另有约定的，〖◀保险人〗应当按照约定履行赔偿保险金的义务。〖◀保险人〗依照前款约定作出核定后，对不属于〖⚡保险责任〗的，应当自作出核定之日起三日内向〖◆被保险人〗发出拒绝赔偿保险金通知书，并说明理由。</p>
+<p id="pn-39"><a href="#pn-39" class="pn-link" title="复制此段落链接">[39]</a> <a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>应当将核定结果通知<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>；对属于<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%A3%E4%BB%BB" class="entity-peril entity-tagged" title="保险责任" data-entity="保险责任" data-type="保险责任">保险责任</a>的，在与<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>达成赔偿保险金的协议后十日内，履行赔偿保险金义务。<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>对赔偿保险金的期限另有约定的，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>应当按照约定履行赔偿保险金的义务。<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>依照前款约定作出核定后，对不属于<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%A3%E4%BB%BB" class="entity-peril entity-tagged" title="保险责任" data-entity="保险责任" data-type="保险责任">保险责任</a>的，应当自作出核定之日起三日内向<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>发出拒绝赔偿保险金通知书，并说明理由。</p>
 <br>
-<p>〖¶第十六条〗 〖◀保险人〗自收到赔偿保险金的请求和有关证明、资料之日起六十日内，对其赔偿保险金的数额不能确定的，应当根据已有证明和资料可以确定的数额先予支付；〖◀保险人〗最终确定赔偿的数额后，应当支付相应的差额。</p>
+<p id="pn-40"><a href="#pn-40" class="pn-link" title="复制此段落链接">[40]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E5%8D%81%E5%85%AD%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第十六条" data-type="具体条目">第十六条</a> <a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>自收到赔偿保险金的请求和有关证明、资料之日起六十日内，对其赔偿保险金的数额不能确定的，应当根据已有证明和资料可以确定的数额先予支付；<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>最终确定赔偿的数额后，应当支付相应的差额。</p>
 <br>
-<h2>〖§投保人、被保险人义务〗</h2>
+<h2 id="section-41">〖§投保人、被保险人义务〗</h2>
 <br>
-<p>〖¶第十七条〗 〖▶投保人〗应履行〖◈如实告知〗义务，如实回答〖◀保险人〗就〖☐保险标的〗或〖◆被保险人〗的有关情况提出的询问，并如实填写〖📋投保单〗。</p>
+<p id="pn-42"><a href="#pn-42" class="pn-link" title="复制此段落链接">[42]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E5%8D%81%E4%B8%83%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第十七条" data-type="具体条目">第十七条</a> <a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>应履行<a href="../entities/obligation.html#entity-%E5%A6%82%E5%AE%9E%E5%91%8A%E7%9F%A5" class="entity-obligation entity-tagged" title="义务条款" data-entity="如实告知" data-type="义务条款">如实告知</a>义务，如实回答<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>就<a href="../entities/subject.html#entity-%E4%BF%9D%E9%99%A9%E6%A0%87%E7%9A%84" class="entity-subject entity-tagged" title="保险标的" data-entity="保险标的" data-type="保险标的">保险标的</a>或<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>的有关情况提出的询问，并如实填写<a href="../entities/document.html#entity-%E6%8A%95%E4%BF%9D%E5%8D%95" class="entity-document entity-tagged" title="合同单据" data-entity="投保单" data-type="合同单据">投保单</a>。</p>
 <br>
-<p>〖▶投保人〗故意或者因〖⚖重大过失〗未履行前款规定的〖◈如实告知〗义务，足以影响〖◀保险人〗决定是否同意承保或者提高〖¥保险费率〗的，〖◀保险人〗有权解除合同。</p>
+<p id="pn-43"><a href="#pn-43" class="pn-link" title="复制此段落链接">[43]</a> <a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>故意或者因<a href="../entities/definition.html#entity-%E9%87%8D%E5%A4%A7%E8%BF%87%E5%A4%B1" class="entity-definition entity-tagged" title="定义条款" data-entity="重大过失" data-type="定义条款">重大过失</a>未履行前款规定的<a href="../entities/obligation.html#entity-%E5%A6%82%E5%AE%9E%E5%91%8A%E7%9F%A5" class="entity-obligation entity-tagged" title="义务条款" data-entity="如实告知" data-type="义务条款">如实告知</a>义务，足以影响<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>决定是否同意承保或者提高<a href="../entities/rate.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%B9%E7%8E%87" class="entity-rate entity-tagged" title="费率" data-entity="保险费率" data-type="费率">保险费率</a>的，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>有权解除合同。</p>
 <br>
-<p>〖▶投保人〗故意不履行〖◈如实告知〗义务的，〖◀保险人〗对于合同解除前发生的〖⚡保险事故〗，不承担赔偿责任，并不退还〖¥保险费〗。</p>
+<p id="pn-44"><a href="#pn-44" class="pn-link" title="复制此段落链接">[44]</a> <a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>故意不履行<a href="../entities/obligation.html#entity-%E5%A6%82%E5%AE%9E%E5%91%8A%E7%9F%A5" class="entity-obligation entity-tagged" title="义务条款" data-entity="如实告知" data-type="义务条款">如实告知</a>义务的，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>对于合同解除前发生的<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%8B%E6%95%85" class="entity-peril entity-tagged" title="保险责任" data-entity="保险事故" data-type="保险责任">保险事故</a>，不承担赔偿责任，并不退还<a href="../entities/rate.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%B9" class="entity-rate entity-tagged" title="费率" data-entity="保险费" data-type="费率">保险费</a>。</p>
 <br>
-<p>〖▶投保人〗因〖⚖重大过失〗未履行〖◈如实告知〗义务，对〖⚡保险事故〗的发生有严重影响的，〖◀保险人〗对于合同解除前发生的〖⚡保险事故〗，不承担赔偿责任，但应当退还〖¥保险费〗。</p>
+<p id="pn-45"><a href="#pn-45" class="pn-link" title="复制此段落链接">[45]</a> <a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>因<a href="../entities/definition.html#entity-%E9%87%8D%E5%A4%A7%E8%BF%87%E5%A4%B1" class="entity-definition entity-tagged" title="定义条款" data-entity="重大过失" data-type="定义条款">重大过失</a>未履行<a href="../entities/obligation.html#entity-%E5%A6%82%E5%AE%9E%E5%91%8A%E7%9F%A5" class="entity-obligation entity-tagged" title="义务条款" data-entity="如实告知" data-type="义务条款">如实告知</a>义务，对<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%8B%E6%95%85" class="entity-peril entity-tagged" title="保险责任" data-entity="保险事故" data-type="保险责任">保险事故</a>的发生有严重影响的，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>对于合同解除前发生的<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%8B%E6%95%85" class="entity-peril entity-tagged" title="保险责任" data-entity="保险事故" data-type="保险责任">保险事故</a>，不承担赔偿责任，但应当退还<a href="../entities/rate.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%B9" class="entity-rate entity-tagged" title="费率" data-entity="保险费" data-type="费率">保险费</a>。</p>
 <br>
-<p>〖¶第十八条〗 除另有约定外，〖▶投保人〗应在〖📋保险合同〗成立时一次交清〖¥保险费〗。采用分期支付〖¥保险费〗的，〖▶投保人〗应按照本〖📋保险合同〗的约定，按时支付〖¥保险费〗。</p>
+<p id="pn-46"><a href="#pn-46" class="pn-link" title="复制此段落链接">[46]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E5%8D%81%E5%85%AB%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第十八条" data-type="具体条目">第十八条</a> 除另有约定外，<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>应在<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>成立时一次交清<a href="../entities/rate.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%B9" class="entity-rate entity-tagged" title="费率" data-entity="保险费" data-type="费率">保险费</a>。采用分期支付<a href="../entities/rate.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%B9" class="entity-rate entity-tagged" title="费率" data-entity="保险费" data-type="费率">保险费</a>的，<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>应按照本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>的约定，按时支付<a href="../entities/rate.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%B9" class="entity-rate entity-tagged" title="费率" data-entity="保险费" data-type="费率">保险费</a>。</p>
 <br>
-<p>〖¶第十九条〗 〖◆被保险人〗应当遵守国家有关消防、安全、生产操作、劳动保护等方面规定，加强管理，采取合理的预防措施，尽力避免或减少责任事故的发生，维护〖☐保险标的〗的安全。</p>
+<p id="pn-47"><a href="#pn-47" class="pn-link" title="复制此段落链接">[47]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E5%8D%81%E4%B9%9D%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第十九条" data-type="具体条目">第十九条</a> <a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>应当遵守国家有关消防、安全、生产操作、劳动保护等方面规定，加强管理，采取合理的预防措施，尽力避免或减少责任事故的发生，维护<a href="../entities/subject.html#entity-%E4%BF%9D%E9%99%A9%E6%A0%87%E7%9A%84" class="entity-subject entity-tagged" title="保险标的" data-entity="保险标的" data-type="保险标的">保险标的</a>的安全。</p>
 <br>
-<p>〖◀保险人〗可以对〖◆被保险人〗遵守前款约定的情况进行检查，向〖▶投保人〗、〖◆被保险人〗提出消除不安全因素和隐患的书面建议，〖▶投保人〗、〖◆被保险人〗应该认真付诸实施。</p>
+<p id="pn-48"><a href="#pn-48" class="pn-link" title="复制此段落链接">[48]</a> <a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>可以对<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>遵守前款约定的情况进行检查，向<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>、<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>提出消除不安全因素和隐患的书面建议，<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>、<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>应该认真付诸实施。</p>
 <br>
-<p>〖▶投保人〗、〖◆被保险人〗未按照约定履行其对〖☐保险标的〗的安全应尽责任的，〖◀保险人〗有权要求增加〖¥保险费〗或者解除合同。</p>
+<p id="pn-49"><a href="#pn-49" class="pn-link" title="复制此段落链接">[49]</a> <a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>、<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>未按照约定履行其对<a href="../entities/subject.html#entity-%E4%BF%9D%E9%99%A9%E6%A0%87%E7%9A%84" class="entity-subject entity-tagged" title="保险标的" data-entity="保险标的" data-type="保险标的">保险标的</a>的安全应尽责任的，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>有权要求增加<a href="../entities/rate.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%B9" class="entity-rate entity-tagged" title="费率" data-entity="保险费" data-type="费率">保险费</a>或者解除合同。</p>
 <br>
-<p>〖¶第二十条〗 在〖⏱保险期间〗内，如〖◆被保险人〗在〖📋保险合同〗载明的营业处所经营的业务发生变化、被进行清算或由清算人或财产管理人接管经营，或营业所用的物质财产的风险加大的，以及足以影响〖◀保险人〗决定是否继续承保或是否增加〖¥保险费〗的〖📋保险合同〗重要事项变更，〖◆被保险人〗应及时书面通知〖◀保险人〗，〖◀保险人〗有权要求增加〖¥保险费〗或者解除合同。</p>
+<p id="pn-50"><a href="#pn-50" class="pn-link" title="复制此段落链接">[50]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%BA%8C%E5%8D%81%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第二十条" data-type="具体条目">第二十条</a> 在<a href="../entities/period.html#entity-%E4%BF%9D%E9%99%A9%E6%9C%9F%E9%97%B4" class="entity-period entity-tagged" title="保险期间" data-entity="保险期间" data-type="保险期间">保险期间</a>内，如<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>在<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>载明的营业处所经营的业务发生变化、被进行清算或由清算人或财产管理人接管经营，或营业所用的物质财产的风险加大的，以及足以影响<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>决定是否继续承保或是否增加<a href="../entities/rate.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%B9" class="entity-rate entity-tagged" title="费率" data-entity="保险费" data-type="费率">保险费</a>的<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>重要事项变更，<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>应及时书面通知<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>有权要求增加<a href="../entities/rate.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%B9" class="entity-rate entity-tagged" title="费率" data-entity="保险费" data-type="费率">保险费</a>或者解除合同。</p>
 <br>
-<p>〖◆被保险人〗未履行前款约定的〖◈通知义务〗的，因〖☐保险标的〗的危险程度显著增加而发生的〖⚡保险事故〗，〖◀保险人〗不承担赔偿责任。</p>
+<p id="pn-51"><a href="#pn-51" class="pn-link" title="复制此段落链接">[51]</a> <a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>未履行前款约定的<a href="../entities/obligation.html#entity-%E9%80%9A%E7%9F%A5%E4%B9%89%E5%8A%A1" class="entity-obligation entity-tagged" title="义务条款" data-entity="通知义务" data-type="义务条款">通知义务</a>的，因<a href="../entities/subject.html#entity-%E4%BF%9D%E9%99%A9%E6%A0%87%E7%9A%84" class="entity-subject entity-tagged" title="保险标的" data-entity="保险标的" data-type="保险标的">保险标的</a>的危险程度显著增加而发生的<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%8B%E6%95%85" class="entity-peril entity-tagged" title="保险责任" data-entity="保险事故" data-type="保险责任">保险事故</a>，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>不承担赔偿责任。</p>
 <br>
-<p>〖¶第二十一条〗 知道〖⚡保险事故〗发生后，〖◆被保险人〗应当：</p>
+<p id="pn-52"><a href="#pn-52" class="pn-link" title="复制此段落链接">[52]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%B8%80%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第二十一条" data-type="具体条目">第二十一条</a> 知道<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%8B%E6%95%85" class="entity-peril entity-tagged" title="保险责任" data-entity="保险事故" data-type="保险责任">保险事故</a>发生后，<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>应当：</p>
 <br>
-<p>（一）尽力采取必要、合理的措施以修理、修复营业所用的受损的物质财产，尽快恢复营业以防止或减少因营业受到干扰或中断所造成的损失，否则，对因此扩大的损失，〖◀保险人〗不承担赔偿责任；</p>
+<p id="pn-53"><a href="#pn-53" class="pn-link" title="复制此段落链接">[53]</a> （一）尽力采取必要、合理的措施以修理、修复营业所用的受损的物质财产，尽快恢复营业以防止或减少因营业受到干扰或中断所造成的损失，否则，对因此扩大的损失，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>不承担赔偿责任；</p>
 <br>
-<p>（二）立即通知〖◀保险人〗，并书面说明事故发生的原因、经过和损失情况；故意或者因〖⚖重大过失〗未及时通知，致使〖⚡保险事故〗的性质、原因、损失程度等难以确定的，〖◀保险人〗对无法确定的部分，不承担赔偿责任，但〖◀保险人〗通过其他途径已经及时知道或者应当及时知道〖⚡保险事故〗发生的除外；</p>
+<p id="pn-54"><a href="#pn-54" class="pn-link" title="复制此段落链接">[54]</a> （二）立即通知<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>，并书面说明事故发生的原因、经过和损失情况；故意或者因<a href="../entities/definition.html#entity-%E9%87%8D%E5%A4%A7%E8%BF%87%E5%A4%B1" class="entity-definition entity-tagged" title="定义条款" data-entity="重大过失" data-type="定义条款">重大过失</a>未及时通知，致使<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%8B%E6%95%85" class="entity-peril entity-tagged" title="保险责任" data-entity="保险事故" data-type="保险责任">保险事故</a>的性质、原因、损失程度等难以确定的，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>对无法确定的部分，不承担赔偿责任，但<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>通过其他途径已经及时知道或者应当及时知道<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%8B%E6%95%85" class="entity-peril entity-tagged" title="保险责任" data-entity="保险事故" data-type="保险责任">保险事故</a>发生的除外；</p>
 <br>
-<p>（三）保护事故现场，允许并且协助〖◀保险人〗进行事故原因和损失情况的调查，以及对〖◆被保险人〗相关的会计凭证和账表的检查；对于拒绝或者妨碍〖◀保险人〗进行上述调查或检查导致无法确定事故原因或核实损失情况的，〖◀保险人〗对无法核实的部分不承担赔偿责任。</p>
+<p id="pn-55"><a href="#pn-55" class="pn-link" title="复制此段落链接">[55]</a> （三）保护事故现场，允许并且协助<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>进行事故原因和损失情况的调查，以及对<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>相关的会计凭证和账表的检查；对于拒绝或者妨碍<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>进行上述调查或检查导致无法确定事故原因或核实损失情况的，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>对无法核实的部分不承担赔偿责任。</p>
 <br>
-<p>〖¶第二十二条〗 〖◆被保险人〗请求赔偿时，〖▶投保人〗、〖◆被保险人〗应向〖◀保险人〗提供下列证明和资料：</p>
+<p id="pn-56"><a href="#pn-56" class="pn-link" title="复制此段落链接">[56]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%BA%8C%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第二十二条" data-type="具体条目">第二十二条</a> <a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>请求赔偿时，<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>、<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>应向<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>提供下列证明和资料：</p>
 <br>
-<p>（一）〖📋保险单〗正本、索赔申请、财产损失清单、技术鉴定证明、事故报告书、救护费用发票、相关的会计凭证及账表、单据和有关部门的证明；</p>
+<p id="pn-57"><a href="#pn-57" class="pn-link" title="复制此段落链接">[57]</a> （一）<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%8D%95" class="entity-document entity-tagged" title="合同单据" data-entity="保险单" data-type="合同单据">保险单</a>正本、索赔申请、财产损失清单、技术鉴定证明、事故报告书、救护费用发票、相关的会计凭证及账表、单据和有关部门的证明；</p>
 <br>
-<p>（二）〖▶投保人〗、〖◆被保险人〗所能提供的与确认〖⚡保险事故〗的性质、原因、损失程度等有关的其他证明和资料。</p>
+<p id="pn-58"><a href="#pn-58" class="pn-link" title="复制此段落链接">[58]</a> （二）<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>、<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>所能提供的与确认<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%8B%E6%95%85" class="entity-peril entity-tagged" title="保险责任" data-entity="保险事故" data-type="保险责任">保险事故</a>的性质、原因、损失程度等有关的其他证明和资料。</p>
 <br>
-<p>〖▶投保人〗、〖◆被保险人〗未履行前款约定的单证提供义务，导致〖◀保险人〗无法核实损失情况的，〖◀保险人〗对无法核实的部分不承担赔偿责任。</p>
+<p id="pn-59"><a href="#pn-59" class="pn-link" title="复制此段落链接">[59]</a> <a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>、<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>未履行前款约定的单证提供义务，导致<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>无法核实损失情况的，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>对无法核实的部分不承担赔偿责任。</p>
 <br>
-<h2>〖§赔偿处理〗</h2>
+<h2 id="section-60">〖§赔偿处理〗</h2>
 <br>
-<p>〖¶第二十三条〗 发生〖⚡保险事故〗后，〖◆被保险人〗在物质损失〖📋保险合同〗主险条款项下取得赔款或其〖⚡保险责任〗已获〖◀保险人〗认定，是〖◀保险人〗承担本〖📋保险合同〗项下赔偿责任的前提条件。</p>
+<p id="pn-61"><a href="#pn-61" class="pn-link" title="复制此段落链接">[61]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%B8%89%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第二十三条" data-type="具体条目">第二十三条</a> 发生<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%8B%E6%95%85" class="entity-peril entity-tagged" title="保险责任" data-entity="保险事故" data-type="保险责任">保险事故</a>后，<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>在物质损失<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>主险条款项下取得赔款或其<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%A3%E4%BB%BB" class="entity-peril entity-tagged" title="保险责任" data-entity="保险责任" data-type="保险责任">保险责任</a>已获<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>认定，是<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>承担本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>项下赔偿责任的前提条件。</p>
 <br>
-<p>如〖◆被保险人〗因物质损失〖📋保险合同〗主险条款项下的〖%免赔额〗而无法获得该合同项下的赔款，则不受本条前款约定所限。</p>
+<p id="pn-62"><a href="#pn-62" class="pn-link" title="复制此段落链接">[62]</a> 如<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>因物质损失<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>主险条款项下的<a href="../entities/deductible.html#entity-%E5%85%8D%E8%B5%94%E9%A2%9D" class="entity-deductible entity-tagged" title="免赔额/率" data-entity="免赔额" data-type="免赔额/率">免赔额</a>而无法获得该合同项下的赔款，则不受本条前款约定所限。</p>
 <br>
-<p>〖¶第二十四条〗 赔偿期间内的毛利润损失为分别按照营业收入的减少和经营费用的增加计算的损失之和，扣除在赔偿期间内〖◆被保险人〗因〖⚡保险事故〗的发生而从毛利润中减少或停止支付的费用：</p>
+<p id="pn-63"><a href="#pn-63" class="pn-link" title="复制此段落链接">[63]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%BA%8C%E5%8D%81%E5%9B%9B%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第二十四条" data-type="具体条目">第二十四条</a> 赔偿期间内的毛利润损失为分别按照营业收入的减少和经营费用的增加计算的损失之和，扣除在赔偿期间内<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>因<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%8B%E6%95%85" class="entity-peril entity-tagged" title="保险责任" data-entity="保险事故" data-type="保险责任">保险事故</a>的发生而从毛利润中减少或停止支付的费用：</p>
 <br>
-<p>（一）因营业收入减少导致的损失为毛利润率乘以赔偿期间内的实际营业收入与标准营业收入的差额，即：</p>
+<p id="pn-64"><a href="#pn-64" class="pn-link" title="复制此段落链接">[64]</a> （一）因营业收入减少导致的损失为毛利润率乘以赔偿期间内的实际营业收入与标准营业收入的差额，即：</p>
 <br>
-<p>毛利润率×（标准营业收入－赔偿期间内的实际营业收入）</p>
+<p id="pn-65"><a href="#pn-65" class="pn-link" title="复制此段落链接">[65]</a> 毛利润率×（标准营业收入－赔偿期间内的实际营业收入）</p>
 <br>
-<p>本〖📋保险合同〗所称营业收入是指〖◆被保险人〗在营业过程中，因销售商品、提供劳务或者让渡资产使用权等实现的收入金额。</p>
+<p id="pn-66"><a href="#pn-66" class="pn-link" title="复制此段落链接">[66]</a> 本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>所称营业收入是指<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>在营业过程中，因销售商品、提供劳务或者让渡资产使用权等实现的收入金额。</p>
 <br>
-<p>本〖📋保险合同〗所称毛利润率是指发生物质保险损失之日前最近一个完整的会计年度内的毛利润与营业收入的比率。</p>
+<p id="pn-67"><a href="#pn-67" class="pn-link" title="复制此段落链接">[67]</a> 本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>所称毛利润率是指发生物质保险损失之日前最近一个完整的会计年度内的毛利润与营业收入的比率。</p>
 <br>
-<p>本〖📋保险合同〗所称标准营业收入是指发生物质保险损失之日前十二个月中与赔偿期间对应的日历期间的营业收入。</p>
+<p id="pn-68"><a href="#pn-68" class="pn-link" title="复制此段落链接">[68]</a> 本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>所称标准营业收入是指发生物质保险损失之日前十二个月中与赔偿期间对应的日历期间的营业收入。</p>
 <br>
-<p>在赔偿期间内，〖◆被保险人〗或他人代其在〖📋保险合同〗载明的营业处所以外的地点从事〖📋保险合同〗载明的经营业务而取得的营业收入，应计算在赔偿期间内的实际营业收入内。</p>
+<p id="pn-69"><a href="#pn-69" class="pn-link" title="复制此段落链接">[69]</a> 在赔偿期间内，<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>或他人代其在<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>载明的营业处所以外的地点从事<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>载明的经营业务而取得的营业收入，应计算在赔偿期间内的实际营业收入内。</p>
 <br>
-<p>（二）经营费用增加导致的损失是指〖◆被保险人〗专门为避免或降低赔偿期间内营业收入的减少而额外支出的必要的、合理的经营费用或成本；如果不予支出，则赔偿期间内的营业收入就会因〖⚡保险事故〗的发生而降低。但该项损失以不超过毛利润率乘以因花费该经营费用而避免降低的营业收入为限。</p>
+<p id="pn-70"><a href="#pn-70" class="pn-link" title="复制此段落链接">[70]</a> （二）经营费用增加导致的损失是指<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>专门为避免或降低赔偿期间内营业收入的减少而额外支出的必要的、合理的经营费用或成本；如果不予支出，则赔偿期间内的营业收入就会因<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%8B%E6%95%85" class="entity-peril entity-tagged" title="保险责任" data-entity="保险事故" data-type="保险责任">保险事故</a>的发生而降低。但该项损失以不超过毛利润率乘以因花费该经营费用而避免降低的营业收入为限。</p>
 <br>
-<p>若〖▶投保人〗确定的维持费用仅包括营业所需的部分维持费用，则〖◀保险人〗对额外增加的经营费用的赔偿金额按照该经营费用乘以毛利润与毛利润加上未承保的维持费用的比例计算，即：</p>
+<p id="pn-71"><a href="#pn-71" class="pn-link" title="复制此段落链接">[71]</a> 若<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>确定的维持费用仅包括营业所需的部分维持费用，则<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>对额外增加的经营费用的赔偿金额按照该经营费用乘以毛利润与毛利润加上未承保的维持费用的比例计算，即：</p>
 <br>
-<p>增加的经营费用×毛利润/（毛利润+未承保的维持费用）</p>
+<p id="pn-72"><a href="#pn-72" class="pn-link" title="复制此段落链接">[72]</a> 增加的经营费用×毛利润/（毛利润+未承保的维持费用）</p>
 <br>
-<p>〖¶第二十五条〗 若最大赔偿期小于或等于十二个月，且〖$保险金额〗低于毛利润率与年度营业收入的乘积，则〖◀保险人〗对毛利润损失的赔偿金额应按〖$保险金额〗和前述乘积的比例计算确定，即：</p>
+<p id="pn-73"><a href="#pn-73" class="pn-link" title="复制此段落链接">[73]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%BA%94%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第二十五条" data-type="具体条目">第二十五条</a> 若最大赔偿期小于或等于十二个月，且<a href="../entities/sum.html#entity-%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D" class="entity-sum entity-tagged" title="保险金额" data-entity="保险金额" data-type="保险金额">保险金额</a>低于毛利润率与年度营业收入的乘积，则<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>对毛利润损失的赔偿金额应按<a href="../entities/sum.html#entity-%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D" class="entity-sum entity-tagged" title="保险金额" data-entity="保险金额" data-type="保险金额">保险金额</a>和前述乘积的比例计算确定，即：</p>
 <br>
-<p>赔偿金额＝毛利润损失X〖$保险金额〗/（毛利润率×年度营业收入）</p>
+<p id="pn-74"><a href="#pn-74" class="pn-link" title="复制此段落链接">[74]</a> 赔偿金额＝毛利润损失X<a href="../entities/sum.html#entity-%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D" class="entity-sum entity-tagged" title="保险金额" data-entity="保险金额" data-type="保险金额">保险金额</a>/（毛利润率×年度营业收入）</p>
 <br>
-<p>若最大赔偿期大于十二个月，且〖$保险金额〗低于毛利润率与年度营业收入及最大赔偿期与十二个月的比例的乘积，则〖◀保险人〗对毛利润损失的赔偿金额应按〖$保险金额〗和前述乘积的比例计算确定，即：</p>
+<p id="pn-75"><a href="#pn-75" class="pn-link" title="复制此段落链接">[75]</a> 若最大赔偿期大于十二个月，且<a href="../entities/sum.html#entity-%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D" class="entity-sum entity-tagged" title="保险金额" data-entity="保险金额" data-type="保险金额">保险金额</a>低于毛利润率与年度营业收入及最大赔偿期与十二个月的比例的乘积，则<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>对毛利润损失的赔偿金额应按<a href="../entities/sum.html#entity-%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D" class="entity-sum entity-tagged" title="保险金额" data-entity="保险金额" data-type="保险金额">保险金额</a>和前述乘积的比例计算确定，即：</p>
 <br>
-<p>赔偿金额＝毛利润损失X〖$保险金额〗/（毛利润率×年度营业收入×最大赔偿期/12）</p>
+<p id="pn-76"><a href="#pn-76" class="pn-link" title="复制此段落链接">[76]</a> 赔偿金额＝毛利润损失X<a href="../entities/sum.html#entity-%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D" class="entity-sum entity-tagged" title="保险金额" data-entity="保险金额" data-type="保险金额">保险金额</a>/（毛利润率×年度营业收入×最大赔偿期/12）</p>
 <br>
-<p>本〖📋保险合同〗所称年度营业收入是指发生物质保险损失之日前十二个月内的营业收入。</p>
+<p id="pn-77"><a href="#pn-77" class="pn-link" title="复制此段落链接">[77]</a> 本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>所称年度营业收入是指发生物质保险损失之日前十二个月内的营业收入。</p>
 <br>
-<p>〖¶第二十六条〗 〖◆被保险人〗、〖◀保险人〗应根据〖◆被保险人〗营业趋势及情况的变化、物质保险损失发生前后营业受影响的情况或若未发生物质保险损失原本会影响营业的其他情况对毛利润率、标准营业收入以及年度营业收入进行必要的调整，使调整后的数额尽可能合理地接近在赔偿期间内若未发生损失〖◆被保险人〗原本可以取得的经营成果。</p>
+<p id="pn-78"><a href="#pn-78" class="pn-link" title="复制此段落链接">[78]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%BA%8C%E5%8D%81%E5%85%AD%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第二十六条" data-type="具体条目">第二十六条</a> <a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>、<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>应根据<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>营业趋势及情况的变化、物质保险损失发生前后营业受影响的情况或若未发生物质保险损失原本会影响营业的其他情况对毛利润率、标准营业收入以及年度营业收入进行必要的调整，使调整后的数额尽可能合理地接近在赔偿期间内若未发生损失<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>原本可以取得的经营成果。</p>
 <br>
-<p>〖¶第二十七条〗 若〖📋保险合同〗约定了〖%免赔额〗，〖◀保险人〗按照第二十四条、第二十五条计算的毛利润损失金额扣除〖📋保险合同〗约定的〖%免赔额〗计算毛利润损失赔偿金额。</p>
+<p id="pn-79"><a href="#pn-79" class="pn-link" title="复制此段落链接">[79]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%B8%83%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第二十七条" data-type="具体条目">第二十七条</a> 若<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>约定了<a href="../entities/deductible.html#entity-%E5%85%8D%E8%B5%94%E9%A2%9D" class="entity-deductible entity-tagged" title="免赔额/率" data-entity="免赔额" data-type="免赔额/率">免赔额</a>，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>按照第二十四条、第二十五条计算的毛利润损失金额扣除<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>约定的<a href="../entities/deductible.html#entity-%E5%85%8D%E8%B5%94%E9%A2%9D" class="entity-deductible entity-tagged" title="免赔额/率" data-entity="免赔额" data-type="免赔额/率">免赔额</a>计算毛利润损失赔偿金额。</p>
 <br>
-<p>若〖📋保险合同〗约定了〖%免赔期〗，则〖%免赔额〗为〖%免赔期〗和赔偿期间的比例与按照本条款第二十四条、第二十五条计算出的毛利润损失的乘积。</p>
+<p id="pn-80"><a href="#pn-80" class="pn-link" title="复制此段落链接">[80]</a> 若<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>约定了<a href="../entities/deductible.html#entity-%E5%85%8D%E8%B5%94%E6%9C%9F" class="entity-deductible entity-tagged" title="免赔额/率" data-entity="免赔期" data-type="免赔额/率">免赔期</a>，则<a href="../entities/deductible.html#entity-%E5%85%8D%E8%B5%94%E9%A2%9D" class="entity-deductible entity-tagged" title="免赔额/率" data-entity="免赔额" data-type="免赔额/率">免赔额</a>为<a href="../entities/deductible.html#entity-%E5%85%8D%E8%B5%94%E6%9C%9F" class="entity-deductible entity-tagged" title="免赔额/率" data-entity="免赔期" data-type="免赔额/率">免赔期</a>和赔偿期间的比例与按照本条款第二十四条、第二十五条计算出的毛利润损失的乘积。</p>
 <br>
-<p>〖¶第二十八条〗 因〖⚡保险事故〗而发生的〖⚡保险责任〗约定的审计费用，〖◀保险人〗按费用实际发生数予以赔偿，但最高不超过〖📋保险合同〗中载明的相应〖$赔偿限额〗。</p>
+<p id="pn-81"><a href="#pn-81" class="pn-link" title="复制此段落链接">[81]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%BA%8C%E5%8D%81%E5%85%AB%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第二十八条" data-type="具体条目">第二十八条</a> 因<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%8B%E6%95%85" class="entity-peril entity-tagged" title="保险责任" data-entity="保险事故" data-type="保险责任">保险事故</a>而发生的<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%A3%E4%BB%BB" class="entity-peril entity-tagged" title="保险责任" data-entity="保险责任" data-type="保险责任">保险责任</a>约定的审计费用，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>按费用实际发生数予以赔偿，但最高不超过<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>中载明的相应<a href="../entities/sum.html#entity-%E8%B5%94%E5%81%BF%E9%99%90%E9%A2%9D" class="entity-sum entity-tagged" title="保险金额" data-entity="赔偿限额" data-type="保险金额">赔偿限额</a>。</p>
 <br>
-<p>〖¶第二十九条〗 〖⚡保险事故〗发生时，如果存在重复保险，本〖◀保险人〗按照本〖📋保险合同〗的相应〖$保险金额〗与其他〖📋保险合同〗及本〖📋保险合同〗相应〖$保险金额〗总和的比例承担赔偿责任。</p>
+<p id="pn-82"><a href="#pn-82" class="pn-link" title="复制此段落链接">[82]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%BA%8C%E5%8D%81%E4%B9%9D%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第二十九条" data-type="具体条目">第二十九条</a> <a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%8B%E6%95%85" class="entity-peril entity-tagged" title="保险责任" data-entity="保险事故" data-type="保险责任">保险事故</a>发生时，如果存在重复保险，本<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>按照本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>的相应<a href="../entities/sum.html#entity-%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D" class="entity-sum entity-tagged" title="保险金额" data-entity="保险金额" data-type="保险金额">保险金额</a>与其他<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>及本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>相应<a href="../entities/sum.html#entity-%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D" class="entity-sum entity-tagged" title="保险金额" data-entity="保险金额" data-type="保险金额">保险金额</a>总和的比例承担赔偿责任。</p>
 <br>
-<p>其他〖◀保险人〗应承担的赔偿金额，〖◀保险人〗不负责垫付。若〖◆被保险人〗未如实告知导致〖◀保险人〗多支付赔偿金的，〖◀保险人〗有权向〖◆被保险人〗追回多支付的部分。</p>
+<p id="pn-83"><a href="#pn-83" class="pn-link" title="复制此段落链接">[83]</a> 其他<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>应承担的赔偿金额，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>不负责垫付。若<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>未如实告知导致<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>多支付赔偿金的，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>有权向<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>追回多支付的部分。</p>
 <br>
-<p>〖¶第三十条〗 发生〖⚡保险责任〗范围内的损失，应由有关责任方负责赔偿的，〖◀保险人〗自向〖◆被保险人〗赔偿保险金之日起，在赔偿金额范围内代位行使〖◆被保险人〗对有关责任方请求赔偿的权利，〖◆被保险人〗应当向〖◀保险人〗提供必要的文件和所知道的有关情况。</p>
+<p id="pn-84"><a href="#pn-84" class="pn-link" title="复制此段落链接">[84]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%B8%89%E5%8D%81%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第三十条" data-type="具体条目">第三十条</a> 发生<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%A3%E4%BB%BB" class="entity-peril entity-tagged" title="保险责任" data-entity="保险责任" data-type="保险责任">保险责任</a>范围内的损失，应由有关责任方负责赔偿的，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>自向<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>赔偿保险金之日起，在赔偿金额范围内代位行使<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>对有关责任方请求赔偿的权利，<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>应当向<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>提供必要的文件和所知道的有关情况。</p>
 <br>
-<p>〖◆被保险人〗已经从有关责任方取得赔偿的，〖◀保险人〗赔偿保险金时，可以相应扣减〖◆被保险人〗已从有关责任方取得的赔偿金额。</p>
+<p id="pn-85"><a href="#pn-85" class="pn-link" title="复制此段落链接">[85]</a> <a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>已经从有关责任方取得赔偿的，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>赔偿保险金时，可以相应扣减<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>已从有关责任方取得的赔偿金额。</p>
 <br>
-<p>〖⚡保险事故〗发生后，在〖◀保险人〗未赔偿保险金之前，〖◆被保险人〗放弃对有关责任方请求赔偿权利的，〖◀保险人〗不承担赔偿责任；〖◀保险人〗向〖◆被保险人〗赔偿保险金后，〖◆被保险人〗未经〖◀保险人〗同意放弃对有关责任方请求赔偿权利的，该行为无效；由于〖◆被保险人〗故意或者因〖⚖重大过失〗致使〖◀保险人〗不能行使代位请求赔偿的权利的，〖◀保险人〗可以扣减或者要求返还相应的保险金。</p>
+<p id="pn-86"><a href="#pn-86" class="pn-link" title="复制此段落链接">[86]</a> <a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%8B%E6%95%85" class="entity-peril entity-tagged" title="保险责任" data-entity="保险事故" data-type="保险责任">保险事故</a>发生后，在<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>未赔偿保险金之前，<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>放弃对有关责任方请求赔偿权利的，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>不承担赔偿责任；<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>向<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>赔偿保险金后，<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>未经<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>同意放弃对有关责任方请求赔偿权利的，该行为无效；由于<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>故意或者因<a href="../entities/definition.html#entity-%E9%87%8D%E5%A4%A7%E8%BF%87%E5%A4%B1" class="entity-definition entity-tagged" title="定义条款" data-entity="重大过失" data-type="定义条款">重大过失</a>致使<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>不能行使代位请求赔偿的权利的，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>可以扣减或者要求返还相应的保险金。</p>
 <br>
-<p>〖¶第三十一条〗 〖◀保险人〗履行赔偿义务后，本〖📋保险合同〗的〖$保险金额〗自物质保险损失发生之日起按〖◀保险人〗的赔偿金额相应减少，〖◀保险人〗不退还〖$保险金额〗减少部分的〖¥保险费〗。如〖▶投保人〗请求恢复至原〖$保险金额〗，应按原约定的〖¥保险费率〗另行支付恢复部分从物质保险损失发生之日起至〖⏱保险期间〗届满之日止按日比例计算的〖¥保险费〗。</p>
+<p id="pn-87"><a href="#pn-87" class="pn-link" title="复制此段落链接">[87]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%B8%89%E5%8D%81%E4%B8%80%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第三十一条" data-type="具体条目">第三十一条</a> <a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>履行赔偿义务后，本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>的<a href="../entities/sum.html#entity-%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D" class="entity-sum entity-tagged" title="保险金额" data-entity="保险金额" data-type="保险金额">保险金额</a>自物质保险损失发生之日起按<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>的赔偿金额相应减少，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>不退还<a href="../entities/sum.html#entity-%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D" class="entity-sum entity-tagged" title="保险金额" data-entity="保险金额" data-type="保险金额">保险金额</a>减少部分的<a href="../entities/rate.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%B9" class="entity-rate entity-tagged" title="费率" data-entity="保险费" data-type="费率">保险费</a>。如<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>请求恢复至原<a href="../entities/sum.html#entity-%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D" class="entity-sum entity-tagged" title="保险金额" data-entity="保险金额" data-type="保险金额">保险金额</a>，应按原约定的<a href="../entities/rate.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%B9%E7%8E%87" class="entity-rate entity-tagged" title="费率" data-entity="保险费率" data-type="费率">保险费率</a>另行支付恢复部分从物质保险损失发生之日起至<a href="../entities/period.html#entity-%E4%BF%9D%E9%99%A9%E6%9C%9F%E9%97%B4" class="entity-period entity-tagged" title="保险期间" data-entity="保险期间" data-type="保险期间">保险期间</a>届满之日止按日比例计算的<a href="../entities/rate.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%B9" class="entity-rate entity-tagged" title="费率" data-entity="保险费" data-type="费率">保险费</a>。</p>
 <br>
-<p>〖¶第三十二条〗 〖◆被保险人〗向〖◀保险人〗请求赔偿的诉讼时效适用现行有效法律的规定。</p>
+<p id="pn-88"><a href="#pn-88" class="pn-link" title="复制此段落链接">[88]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%B8%89%E5%8D%81%E4%BA%8C%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第三十二条" data-type="具体条目">第三十二条</a> <a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>向<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>请求赔偿的诉讼时效适用现行有效法律的规定。</p>
 <br>
-<h2>〖§争议处理和法律适用〗</h2>
+<h2 id="section-89">〖§争议处理和法律适用〗</h2>
 <br>
-<p>〖¶第三十三条〗 因履行本〖📋保险合同〗发生的争议，由当事人协商解决，也可向相关调解组织申请调解。协商或调解不成的，可提交〖📋保险合同〗载明的仲裁机构仲裁；〖📋保险合同〗未载明仲裁机构且争议发生后未达成仲裁协议的，可依法向有管辖权的人民法院起诉。</p>
+<p id="pn-90"><a href="#pn-90" class="pn-link" title="复制此段落链接">[90]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%B8%89%E5%8D%81%E4%B8%89%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第三十三条" data-type="具体条目">第三十三条</a> 因履行本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>发生的争议，由当事人协商解决，也可向相关调解组织申请调解。协商或调解不成的，可提交<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>载明的仲裁机构仲裁；<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>未载明仲裁机构且争议发生后未达成仲裁协议的，可依法向有管辖权的人民法院起诉。</p>
 <br>
-<p>〖¶第三十四条〗 与本〖📋保险合同〗有关的以及履行本〖📋保险合同〗产生的一切争议，适用中华人民共和国法律（不包括港澳台地区法律）。</p>
+<p id="pn-91"><a href="#pn-91" class="pn-link" title="复制此段落链接">[91]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%B8%89%E5%8D%81%E5%9B%9B%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第三十四条" data-type="具体条目">第三十四条</a> 与本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>有关的以及履行本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>产生的一切争议，适用中华人民共和国法律（不包括港澳台地区法律）。</p>
 <br>
-<h2>〖§其他事项〗</h2>
+<h2 id="section-92">〖§其他事项〗</h2>
 <br>
-<p>〖¶第三十五条〗 若〖◆被保险人〗聘请的〖▣注册会计师〗证明〖◆被保险人〗在与〖⏱保险期间〗重合程度最高的一个会计年度内的毛利润（若最大赔偿期大于12个月，则该毛利润金额应按照最大赔偿期与12个月的比例扩大后计算）少于投保的〖$保险金额〗，则〖◆被保险人〗可以在〖⏱保险期间〗届满后六个月内向〖◀保险人〗提供书面退还多余〖¥保险费〗的申请，〖◀保险人〗按照〖$保险金额〗减去前述毛利润的差额与〖$保险金额〗的比例计算退还差额部分的〖¥保险费〗，但〖◀保险人〗退还〖¥保险费〗的比例最高不得超过〖⏱保险期间〗内对该项〖$保险金额〗所交〖¥保险费〗的百分之五十。</p>
+<p id="pn-93"><a href="#pn-93" class="pn-link" title="复制此段落链接">[93]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%B8%89%E5%8D%81%E4%BA%94%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第三十五条" data-type="具体条目">第三十五条</a> 若<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>聘请的<a href="../entities/thirdparty.html#entity-%E6%B3%A8%E5%86%8C%E4%BC%9A%E8%AE%A1%E5%B8%88" class="entity-thirdparty entity-tagged" title="第三方" data-entity="注册会计师" data-type="第三方">注册会计师</a>证明<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>在与<a href="../entities/period.html#entity-%E4%BF%9D%E9%99%A9%E6%9C%9F%E9%97%B4" class="entity-period entity-tagged" title="保险期间" data-entity="保险期间" data-type="保险期间">保险期间</a>重合程度最高的一个会计年度内的毛利润（若最大赔偿期大于12个月，则该毛利润金额应按照最大赔偿期与12个月的比例扩大后计算）少于投保的<a href="../entities/sum.html#entity-%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D" class="entity-sum entity-tagged" title="保险金额" data-entity="保险金额" data-type="保险金额">保险金额</a>，则<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>可以在<a href="../entities/period.html#entity-%E4%BF%9D%E9%99%A9%E6%9C%9F%E9%97%B4" class="entity-period entity-tagged" title="保险期间" data-entity="保险期间" data-type="保险期间">保险期间</a>届满后六个月内向<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>提供书面退还多余<a href="../entities/rate.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%B9" class="entity-rate entity-tagged" title="费率" data-entity="保险费" data-type="费率">保险费</a>的申请，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>按照<a href="../entities/sum.html#entity-%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D" class="entity-sum entity-tagged" title="保险金额" data-entity="保险金额" data-type="保险金额">保险金额</a>减去前述毛利润的差额与<a href="../entities/sum.html#entity-%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D" class="entity-sum entity-tagged" title="保险金额" data-entity="保险金额" data-type="保险金额">保险金额</a>的比例计算退还差额部分的<a href="../entities/rate.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%B9" class="entity-rate entity-tagged" title="费率" data-entity="保险费" data-type="费率">保险费</a>，但<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>退还<a href="../entities/rate.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%B9" class="entity-rate entity-tagged" title="费率" data-entity="保险费" data-type="费率">保险费</a>的比例最高不得超过<a href="../entities/period.html#entity-%E4%BF%9D%E9%99%A9%E6%9C%9F%E9%97%B4" class="entity-period entity-tagged" title="保险期间" data-entity="保险期间" data-type="保险期间">保险期间</a>内对该项<a href="../entities/sum.html#entity-%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D" class="entity-sum entity-tagged" title="保险金额" data-entity="保险金额" data-type="保险金额">保险金额</a>所交<a href="../entities/rate.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%B9" class="entity-rate entity-tagged" title="费率" data-entity="保险费" data-type="费率">保险费</a>的百分之五十。</p>
 <br>
-<p>若〖◆被保险人〗在〖⏱保险期间〗内因〖⚡保险事故〗发生索赔，则应从〖$保险金额〗中扣除〖◀保险人〗因此而支付的赔款金额后，再按照前款约定计算应退还的〖¥保险费〗。</p>
+<p id="pn-94"><a href="#pn-94" class="pn-link" title="复制此段落链接">[94]</a> 若<a href="../entities/insured.html#entity-%E8%A2%AB%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insured entity-tagged" title="被保险人" data-entity="被保险人" data-type="被保险人">被保险人</a>在<a href="../entities/period.html#entity-%E4%BF%9D%E9%99%A9%E6%9C%9F%E9%97%B4" class="entity-period entity-tagged" title="保险期间" data-entity="保险期间" data-type="保险期间">保险期间</a>内因<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%8B%E6%95%85" class="entity-peril entity-tagged" title="保险责任" data-entity="保险事故" data-type="保险责任">保险事故</a>发生索赔，则应从<a href="../entities/sum.html#entity-%E4%BF%9D%E9%99%A9%E9%87%91%E9%A2%9D" class="entity-sum entity-tagged" title="保险金额" data-entity="保险金额" data-type="保险金额">保险金额</a>中扣除<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>因此而支付的赔款金额后，再按照前款约定计算应退还的<a href="../entities/rate.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%B9" class="entity-rate entity-tagged" title="费率" data-entity="保险费" data-type="费率">保险费</a>。</p>
 <br>
-<p>〖¶第三十六条〗 〖⚡保险责任〗开始前，〖▶投保人〗要求解除〖📋保险合同〗的，应当按本〖📋保险合同〗约定的比例向〖◀保险人〗支付退保手续费，具体比例由〖▶投保人〗和〖◀保险人〗协商确定，并在〖📋保险单〗中载明，〖◀保险人〗应当退还〖¥保险费〗。</p>
+<p id="pn-95"><a href="#pn-95" class="pn-link" title="复制此段落链接">[95]</a> <a href="../entities/article.html#entity-%E7%AC%AC%E4%B8%89%E5%8D%81%E5%85%AD%E6%9D%A1" class="entity-article entity-tagged" title="具体条目" data-entity="第三十六条" data-type="具体条目">第三十六条</a> <a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%A3%E4%BB%BB" class="entity-peril entity-tagged" title="保险责任" data-entity="保险责任" data-type="保险责任">保险责任</a>开始前，<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>要求解除<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>的，应当按本<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>约定的比例向<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>支付退保手续费，具体比例由<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>和<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>协商确定，并在<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%8D%95" class="entity-document entity-tagged" title="合同单据" data-entity="保险单" data-type="合同单据">保险单</a>中载明，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>应当退还<a href="../entities/rate.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%B9" class="entity-rate entity-tagged" title="费率" data-entity="保险费" data-type="费率">保险费</a>。</p>
 <br>
-<p>〖⚡保险责任〗开始后，〖▶投保人〗要求解除〖📋保险合同〗的，自通知〖◀保险人〗之日起，〖📋保险合同〗解除，〖◀保险人〗按短期费率计收〖⚡保险责任〗开始之日起至合同解除之日止期间的〖¥保险费〗，并退还剩余部分〖¥保险费〗。</p>
+<p id="pn-96"><a href="#pn-96" class="pn-link" title="复制此段落链接">[96]</a> <a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%A3%E4%BB%BB" class="entity-peril entity-tagged" title="保险责任" data-entity="保险责任" data-type="保险责任">保险责任</a>开始后，<a href="../entities/policyholder.html#entity-%E6%8A%95%E4%BF%9D%E4%BA%BA" class="entity-policyholder entity-tagged" title="投保人" data-entity="投保人" data-type="投保人">投保人</a>要求解除<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>的，自通知<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>之日起，<a href="../entities/document.html#entity-%E4%BF%9D%E9%99%A9%E5%90%88%E5%90%8C" class="entity-document entity-tagged" title="合同单据" data-entity="保险合同" data-type="合同单据">保险合同</a>解除，<a href="../entities/insurer.html#entity-%E4%BF%9D%E9%99%A9%E4%BA%BA" class="entity-insurer entity-tagged" title="保险人" data-entity="保险人" data-type="保险人">保险人</a>按短期费率计收<a href="../entities/peril.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%A3%E4%BB%BB" class="entity-peril entity-tagged" title="保险责任" data-entity="保险责任" data-type="保险责任">保险责任</a>开始之日起至合同解除之日止期间的<a href="../entities/rate.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%B9" class="entity-rate entity-tagged" title="费率" data-entity="保险费" data-type="费率">保险费</a>，并退还剩余部分<a href="../entities/rate.html#entity-%E4%BF%9D%E9%99%A9%E8%B4%B9" class="entity-rate entity-tagged" title="费率" data-entity="保险费" data-type="费率">保险费</a>。</p>
+  </main>
 </div>
+
+<nav class="chapter-nav chapter-nav-bottom"><a href="chapters/5_%E6%9C%BA%E6%8D%9F%E9%99%A9%E4%B8%BB%E9%99%A9.html" class="nav-prev">← 机损险主险</a><a href="../index.html" class="nav-home">🏠 目录</a><a href="chapters/9_%E7%8E%B0%E9%87%91%E4%BF%9D%E9%99%A9.html" class="nav-next">现金保险 →</a></nav>
+
+<div class="page-footer" style="max-width:780px;margin:0 auto;padding:24px;">
+  <p>PICC企财险知识库 · <a href="../index.html">返回首页</a> · 许可证: CC BY-NC-SA 4.0</p>
+  <p style="margin-top:4px;">条款原文版权归属中国人民财产保险股份有限公司，本项目仅做学术和技术研究用途。</p>
+</div>
+
+<script>
+// 滚动进度条
+window.addEventListener('scroll', () => {
+  const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+  document.getElementById('progress-bar').style.width = progress + '%';
+});
+
+// 语法高亮开关
+function toggleHighlight() {
+  const body = document.body;
+  const btn = document.getElementById('toggle-highlight');
+  body.classList.toggle('highlight-off');
+  if (body.classList.contains('highlight-off')) {
+    btn.innerHTML = '🎨 语法高亮：关';
+    localStorage.setItem('picc-kb-highlight', 'off');
+  } else {
+    btn.innerHTML = '🎨 语法高亮：开';
+    localStorage.setItem('picc-kb-highlight', 'on');
+  }
+}
+
+// 恢复用户偏好
+if (localStorage.getItem('picc-kb-highlight') === 'off') {
+  document.body.classList.add('highlight-off');
+  document.getElementById('toggle-highlight').innerHTML = '🎨 语法高亮：关';
+}
+
+// 点击段落编号复制链接
+document.querySelectorAll('.pn-link').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const url = window.location.origin + window.location.pathname + this.getAttribute('href');
+    navigator.clipboard.writeText(url).then(() => {
+      const orig = this.textContent;
+      this.textContent = '✓已复制';
+      this.style.color = '#237804';
+      setTimeout(() => { this.textContent = orig; this.style.color = ''; }, 1500);
+    });
+  });
+});
+</script>
 </body>
 </html>

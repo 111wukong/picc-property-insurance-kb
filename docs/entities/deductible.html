@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>免赔额/率 — 实体索引 — PICC企财险知识库</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: #FAFBFC;
+    color: #1A1A2E;
+    line-height: 1.6;
+    padding: 40px 24px;
+  }
+  .container { max-width: 900px; margin: 0 auto; }
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #F759AB;
+    margin-bottom: 8px;
+  }
+  .subtitle { color: #5A6178; font-size: 14px; margin-bottom: 24px; }
+  .back-link { display: inline-block; margin-bottom: 20px; color: #1D39C4; font-size: 13px; text-decoration: none; }
+  .back-link:hover { text-decoration: underline; }
+
+  .search-box {
+    width: 100%;
+    padding: 10px 16px;
+    border: 1px solid #E8ECF1;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-box:focus { border-color: #F759AB; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+  th {
+    background: #F0F2F5;
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    color: #5A6178;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  td {
+    padding: 10px 16px;
+    border-top: 1px solid #F0F2F5;
+    font-size: 13px;
+  }
+  .entity-name { font-weight: 600; }
+  .entity-count { color: #5A6178; text-align: center; white-space: nowrap; }
+  .entity-chapters { font-size: 12px; color: #8C8C8C; }
+  .entity-chapters a { color: #1D39C4; text-decoration: none; }
+  .entity-chapters a:hover { text-decoration: underline; }
+  tr:hover { background: #FAFBFC; }
+
+  .stats { font-size: 12px; color: #8C8C8C; margin-bottom: 16px; }
+
+  @media (max-width: 768px) {
+    body { padding: 20px 12px; }
+    td { padding: 8px 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <a href="../index.html" class="back-link">← 返回知识库首页</a>
+  <h1>免赔额/率 <span style="font-size:16px;font-weight:400">(%)</span></h1>
+  <p class="subtitle">共 8 个实体，183 次出现</p>
+
+  <input type="text" class="search-box" placeholder="🔍 搜索实体..." oninput="filterEntities(this.value)">
+
+  <table id="entity-table">
+    <thead>
+      <tr>
+        <th>实体名称</th>
+        <th style="text-align:center">出现次数</th>
+        <th>出现险种</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr id="entity-%E5%85%8D%E8%B5%94%E9%A2%9D">
+          <td class="entity-name" style="color:#F759AB">免赔额</td>
+          <td class="entity-count">95</td>
+          <td class="entity-chapters"><a href="../chapters/104_%E5%95%86%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F.tagged.html">104_商业燃气火灾爆炸泄漏.tagged</a>, <a href="../chapters/104_%E5%95%86%E4%B8%9A%E7%87%83%E6%B0%94%E7%94%A8%E6%88%B7%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">104_商业燃气用户财产损失保险.tagged</a>, <a href="../chapters/104_%E5%B7%A5%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F.tagged.html">104_工业燃气火灾爆炸泄漏.tagged</a>, <a href="../chapters/104_%E5%B7%A5%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F%EF%BC%88%E9%87%8D%EF%BC%89.tagged.html">104_工业燃气火灾爆炸泄漏（重）.tagged</a>, <a href="../chapters/11_%E9%AB%98%E6%96%B0%E6%8A%80%E6%9C%AF%E4%BC%81%E4%B8%9A%E8%B4%A2%E4%BA%A7%E4%B8%80%E5%88%87%E9%99%A9.tagged.html">11_高新技术企业财产一切险.tagged</a> ... 等32个险种</td>
+        </tr>
+        <tr id="entity-%E5%85%8D%E8%B5%94%E7%8E%87">
+          <td class="entity-name" style="color:#F759AB">免赔率</td>
+          <td class="entity-count">55</td>
+          <td class="entity-chapters"><a href="../chapters/104_%E5%95%86%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F.tagged.html">104_商业燃气火灾爆炸泄漏.tagged</a>, <a href="../chapters/104_%E5%95%86%E4%B8%9A%E7%87%83%E6%B0%94%E7%94%A8%E6%88%B7%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">104_商业燃气用户财产损失保险.tagged</a>, <a href="../chapters/104_%E5%B7%A5%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F.tagged.html">104_工业燃气火灾爆炸泄漏.tagged</a>, <a href="../chapters/104_%E5%B7%A5%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F%EF%BC%88%E9%87%8D%EF%BC%89.tagged.html">104_工业燃气火灾爆炸泄漏（重）.tagged</a>, <a href="../chapters/11_%E9%AB%98%E6%96%B0%E6%8A%80%E6%9C%AF%E4%BC%81%E4%B8%9A%E8%B4%A2%E4%BA%A7%E4%B8%80%E5%88%87%E9%99%A9.tagged.html">11_高新技术企业财产一切险.tagged</a> ... 等31个险种</td>
+        </tr>
+        <tr id="entity-%E5%85%8D%E8%B5%94%E9%A2%9D%EF%BC%88%E7%8E%87%EF%BC%89">
+          <td class="entity-name" style="color:#F759AB">免赔额（率）</td>
+          <td class="entity-count">22</td>
+          <td class="entity-chapters"><a href="../chapters/104_%E5%95%86%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F.tagged.html">104_商业燃气火灾爆炸泄漏.tagged</a>, <a href="../chapters/104_%E5%95%86%E4%B8%9A%E7%87%83%E6%B0%94%E7%94%A8%E6%88%B7%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">104_商业燃气用户财产损失保险.tagged</a>, <a href="../chapters/104_%E5%B7%A5%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F.tagged.html">104_工业燃气火灾爆炸泄漏.tagged</a>, <a href="../chapters/104_%E5%B7%A5%E4%B8%9A%E7%87%83%E6%B0%94%E7%81%AB%E7%81%BE%E7%88%86%E7%82%B8%E6%B3%84%E6%BC%8F%EF%BC%88%E9%87%8D%EF%BC%89.tagged.html">104_工业燃气火灾爆炸泄漏（重）.tagged</a>, <a href="../chapters/11_%E9%AB%98%E6%96%B0%E6%8A%80%E6%9C%AF%E4%BC%81%E4%B8%9A%E8%B4%A2%E4%BA%A7%E4%B8%80%E5%88%87%E9%99%A9.tagged.html">11_高新技术企业财产一切险.tagged</a> ... 等19个险种</td>
+        </tr>
+        <tr id="entity-%E7%BB%9D%E5%AF%B9%E5%85%8D%E8%B5%94%E7%8E%87">
+          <td class="entity-name" style="color:#F759AB">绝对免赔率</td>
+          <td class="entity-count">4</td>
+          <td class="entity-chapters"><a href="../chapters/31_%E8%A7%82%E8%B5%8F%E5%8A%A8%E7%89%A9%E9%A5%B2%E5%85%BB%E9%A6%86%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">31_观赏动物饲养馆财产损失保险.tagged</a></td>
+        </tr>
+        <tr id="entity-%E5%85%8D%E8%B5%94%E6%9C%9F">
+          <td class="entity-name" style="color:#F759AB">免赔期</td>
+          <td class="entity-count">4</td>
+          <td class="entity-chapters"><a href="../chapters/7_%E8%90%A5%E4%B8%9A%E4%B8%AD%E6%96%AD%E4%BF%9D%E9%99%A9.tagged.html">7_营业中断保险.tagged</a></td>
+        </tr>
+        <tr id="entity-%E5%85%8D%E8%B5%94%E9%87%91%E9%A2%9D">
+          <td class="entity-name" style="color:#F759AB">免赔金额</td>
+          <td class="entity-count">1</td>
+          <td class="entity-chapters"><a href="../chapters/25_%E9%94%85%E7%82%89%E5%8E%8B%E5%8A%9B%E5%AE%B9%E5%99%A8%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">25_锅炉压力容器财产损失保险.tagged</a></td>
+        </tr>
+        <tr id="entity-%E4%B8%8D%E4%BD%8E%E4%BA%8E20%25%EF%BC%88%E5%90%AB%EF%BC%89">
+          <td class="entity-name" style="color:#F759AB">不低于20%（含）</td>
+          <td class="entity-count">1</td>
+          <td class="entity-chapters"><a href="../chapters/31_%E8%A7%82%E8%B5%8F%E5%8A%A8%E7%89%A9%E9%A5%B2%E5%85%BB%E9%A6%86%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">31_观赏动物饲养馆财产损失保险.tagged</a></td>
+        </tr>
+        <tr id="entity-%E5%85%8D%E8%B5%94%E9%A2%9D%28%E7%8E%87%29">
+          <td class="entity-name" style="color:#F759AB">免赔额(率)</td>
+          <td class="entity-count">1</td>
+          <td class="entity-chapters"><a href="../chapters/97_%E8%B5%B7%E9%87%8D%E6%9C%BA%E6%A2%B0%E8%B4%A2%E4%BA%A7%E6%8D%9F%E5%A4%B1%E4%BF%9D%E9%99%A9.tagged.html">97_起重机械财产损失保险.tagged</a></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+function filterEntities(query) {
+  const rows = document.querySelectorAll('#entity-table tbody tr');
+  const q = query.toLowerCase();
+  rows.forEach(row => {
+    const name = row.querySelector('.entity-name').textContent.toLowerCase();
+    row.style.display = name.includes(q) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
