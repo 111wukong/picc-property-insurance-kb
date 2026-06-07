@@ -65,7 +65,7 @@ def main():
             'id': p['product_id'],
             'name': p['product_name'][:40],
             'filename': filename,
-            'path': f"chapters/{urllib.parse.quote(filename)}",
+            'path': f"{urllib.parse.quote(filename)}",
             'sort_key': num_id,
         })
     products.sort(key=lambda x: x['sort_key'])
