@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>全文搜索 — PICC企财险知识库</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: #FAFBFC;
+    color: #1A1A2E;
+    padding: 40px 24px;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .breadcrumb { font-size: 13px; color: #5A6178; margin-bottom: 20px; }
+  .breadcrumb a { color: #1D39C4; text-decoration: none; }
+  h1 { font-size: 28px; font-weight: 900; color: #D4380D; margin-bottom: 20px; }
+
+  .search-box {
+    display: flex; gap: 8px; margin-bottom: 24px;
+  }
+  .search-box input {
+    flex: 1; padding: 12px 18px;
+    border: 2px solid #E8ECF1; border-radius: 10px;
+    font-size: 15px; outline: none; transition: border-color .2s;
+    font-family: inherit;
+  }
+  .search-box input:focus { border-color: #D4380D; }
+  .search-box button {
+    padding: 12px 24px; background: #D4380D; color: white;
+    border: none; border-radius: 10px; font-size: 15px; cursor: pointer;
+    font-weight: 600; transition: opacity .2s;
+  }
+  .search-box button:hover { opacity: .85; }
+
+  .stats { font-size: 12px; color: #8C8C8C; margin-bottom: 16px; }
+
+  .result {
+    display: block; text-decoration: none; color: inherit;
+    background: white; border: 1px solid #E8ECF1;
+    border-radius: 8px; padding: 14px 18px; margin-bottom: 8px;
+    transition: all .2s;
+  }
+  .result:hover { border-color: #D4380D; box-shadow: 0 2px 8px rgba(0,0,0,.05); }
+  .result .title { font-size: 15px; font-weight: 600; color: #1D39C4; margin-bottom: 4px; }
+  .result .cat { font-size: 11px; color: #8C8C8C; background: #F0F2F5; padding: 1px 8px; border-radius: 8px; }
+  .result .snippet { font-size: 13px; color: #5A6178; margin-top: 6px; line-height: 1.6; }
+  .result .snippet mark { background: #FFF3CD; padding: 0 2px; border-radius: 2px; }
+
+  .empty { text-align: center; color: #8C8C8C; padding: 60px 0; font-size: 14px; }
+
+  .footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #E8ECF1; font-size: 12px; color: #8C8C8C; }
+  .footer a { color: #1D39C4; }
+
+  @media (max-width: 768px) { body { padding: 20px 14px; } h1 { font-size: 22px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="breadcrumb"><a href="index.html">PICC企财险知识库</a> › 搜索</div>
+  <h1>🔍 全文搜索</h1>
+
+  <div class="search-box">
+    <input type="text" id="query" placeholder="搜索保险条款、实体、概念词条…" autofocus>
+    <button onclick="doSearch()">搜索</button>
+  </div>
+
+  <div class="stats" id="stats"></div>
+  <div id="results"></div>
+
+  <div class="footer">
+    <p>PICC企财险知识库 · <a href="index.html">返回首页</a></p>
+  </div>
+</div>
+
+<script>
+let searchIndex = [];
+
+fetch('search-index.json')
+  .then(r => r.json())
+  .then(data => { searchIndex = data; doSearch(); })
+  .catch(() => document.getElementById('results').innerHTML = '<div class="empty">搜索索引加载失败</div>');
+
+function doSearch() {
+  const q = document.getElementById('query').value.trim().toLowerCase();
+  const resultsDiv = document.getElementById('results');
+  const statsDiv = document.getElementById('stats');
+
+  if (!searchIndex.length) { statsDiv.textContent = '加载索引中…'; return; }
+  if (!q) { statsDiv.textContent = `共 ${searchIndex.length} 个页面已索引，输入关键词开始搜索`; resultsDiv.innerHTML = ''; return; }
+
+  const words = q.split(/\s+/);
+  let results = searchIndex.map(doc => {
+    let score = 0;
+    const titleLow = doc.title.toLowerCase();
+    const contentLow = doc.content.toLowerCase();
+
+    for (const w of words) {
+      if (titleLow.includes(w)) score += 10;
+      const matches = (contentLow.match(new RegExp(w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g')) || []).length;
+      score += matches;
+      if (doc.category.toLowerCase().includes(w)) score += 3;
+    }
+    return { ...doc, score };
+  }).filter(r => r.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 30);
+
+  statsDiv.textContent = `找到 ${results.length} 个结果`;
+
+  if (!results.length) {
+    resultsDiv.innerHTML = '<div class="empty">😕 未找到匹配结果，试试其他关键词</div>';
+    return;
+  }
+
+  resultsDiv.innerHTML = results.map(r => {
+    let snippet = r.content;
+    if (snippet.length > 200) {
+      const idx = snippet.toLowerCase().indexOf(q);
+      const start = Math.max(0, (idx > -1 ? idx : 0) - 60);
+      snippet = (start > 0 ? '…' : '') + snippet.substring(start, start + 200) + '…';
+    }
+    // Highlight
+    words.forEach(w => {
+      const escaped = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      snippet = snippet.replace(new RegExp(escaped, 'gi'), m => `<mark>${m}</mark>`);
+    });
+
+    return `<a href="${r.url}" class="result">
+      <div class="title">${r.title} <span class="cat">${r.category}</span></div>
+      <div class="snippet">${snippet}</div>
+    </a>`;
+  }).join('');
+}
+
+// Enter key trigger
+document.getElementById('query').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doSearch();
+});
+</script>
+</body>
+</html>
